@@ -1,0 +1,8 @@
+admin,sub-admin,manager,chef,waiter
+name-dob-phone
+role schema table-
+
+
+userschema-firstname,last,email,passrqord,phone,dob,role----salary-(logic),tds,ptf
+role management-single role
+login signup

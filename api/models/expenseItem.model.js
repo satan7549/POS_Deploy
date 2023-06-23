@@ -1,0 +1,32 @@
+const mongoose = require("mongoose");
+
+const Schema = mongoose.Schema;
+
+const expenseItemSchema = Schema({
+    // id: {
+    //     type: Number,
+    //     required: true
+    //   },
+      name: {
+        type: String,
+        default: null
+      },
+      description: {
+        type: String,
+        default: null
+      },
+      user_id: {
+        type: Number,
+        default: null
+      },
+      company_id: {
+        type: Number,
+        default: null
+      },
+      del_status: {
+        type: String,
+        default: 'Live'
+      }
+})
+
+module.exports = mongoose.model("ExpenseItem", expenseItemSchema);

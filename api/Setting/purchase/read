@@ -1,0 +1,84 @@
+
+
+reference_no: Joi.string().max(50).allow(null),
+supplier_id: Joi.number().integer().allow(null),
+date: Joi.string().required(),
+subtotal: Joi.number().allow(null),
+other: Joi.number().allow(null),
+grand_total: Joi.number().allow(null),
+paid: Joi.number().allow(null),
+due: Joi.number().allow(null),
+note: Joi.string().max(200).allow(null),
+user_id: Joi.number().integer().allow(null),
+outlet_id: Joi.number().integer().allow(null),
+added_date_time: Joi.date().required().default(Date.now),
+payment_id: Joi.number().integer().required().default(0),
+del_status: Joi.string().max(50).default('Live')
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ reference_no: {
+        type: String,
+        default: null
+      },
+      supplier_id: {
+        type: Number,
+        default: null
+      },
+      date: {
+        type: String,
+        required: true
+      },
+      subtotal: {
+        type: Number,
+        default: null
+      },
+      other: {
+        type: Number,
+        default: null
+      },
+      grand_total: {
+        type: Number,
+        default: null
+      },
+      paid: {
+        type: Number,
+        default: null
+      },
+      due: {
+        type: Number,
+        default: null
+      },
+      note: {
+        type: String,
+        default: null
+      },
+      user_id: {
+        type: Number,
+        default: null
+      },
+      outlet_id: {
+        type: Number,
+        default: null
+      },
+      added_date_time: {
+        type: Date,
+        required: true,
+        default: Date.now
+      },
+      payment_id: {
+        type: Number,
+        required: true,
+        default: 0
+      },
+      del_status: {
+        type: String,
+        default: 'Live'
+      }
+
+

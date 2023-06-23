@@ -1,0 +1,10 @@
+CREATE TABLE  tbl_payment_methods  (
+   id   int NOT NULL,
+   name  varchar(50) NOT NULL,
+   description  varchar(50) NOT NULL,
+   user_id   int NOT NULL,
+   company_id   int NOT NULL,
+   order_by   int DEFAULT NULL,
+   personalinformation  text CHARACTER SET latin1,
+   del_status  varchar(10) NOT NULL DEFAULT 'Live'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

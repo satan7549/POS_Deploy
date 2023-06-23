@@ -1,0 +1,7 @@
+CREATE TABLE  tbl_multiple_currencies  (
+   id   int NOT NULL,
+   currency  varchar(10) DEFAULT NULL,
+   conversion_rate  float DEFAULT NULL,
+   company_id   int DEFAULT NULL,
+   del_status  varchar(10) DEFAULT 'Live'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

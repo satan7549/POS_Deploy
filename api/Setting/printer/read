@@ -1,0 +1,36 @@
+const Joi = require('joi');
+
+const printerschema = Joi.object({
+ 
+  path: Joi.string().max(300).allow(null),
+  title: Joi.string().max(250).allow(null),
+  type: Joi.string().max(100).allow(null),
+  profile_: Joi.string().max(100).allow(null),
+  characters_per_line: Joi.number().integer().allow(null),
+  printer_ip_address: Joi.string().max(20).allow(null),
+  printer_port: Joi.string().max(20).allow(null),
+  company_id: Joi.number().integer().allow(null),
+  del_status: Joi.string().max(10).required().default('Live')
+});
+
+module.exports = printerSchema;
+
+
+const mongoose = require('mongoose');
+
+const printerSchema = new mongoose.Schema({
+  id: { type: Number, required: true },
+  path: { type: String, default: null },
+  title: { type: String, default: null },
+  type: { type: String, default: null },
+  profile_: { type: String, default: null },
+  characters_per_line: { type: Number, default: null },
+  printer_ip_address: { type: String, default: null },
+  printer_port: { type: String, default: null },
+  company_id: { type: Number, default: null },
+  del_status: { type: String, required: true, default: 'Live' }
+});
+
+const Printer = mongoose.model('Printer', printerSchema);
+
+module.exports = Printer;
