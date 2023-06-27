@@ -7,11 +7,19 @@ exports.userInsert = async (req, res, next) => {
   try {
     // Validation
     let { error, value } = validateUser(req.body);
-    console.log("user credentials", value);
 
     // Check Error in Validation
     if (error) {
       return res.status(400).send(error.details[0].message);
+    }
+
+    const userExists = await UserModel.findOne({
+      email_address: value.email_address,
+    });
+
+    if (userExists) {
+      // Send Error Response
+      return res.status(409).json("User already Exists!");
     }
 
     // Insert table
@@ -19,11 +27,8 @@ exports.userInsert = async (req, res, next) => {
     let savedData = await userModel.save();
 
     // Send Response
-
     cookieToken(savedData, res);
-    // res.status(200).json('Data inserted');
   } catch (error) {
-    console.log(error);
     // Send Error Response
     res.status(500).json("Error inserting data into database");
   }
