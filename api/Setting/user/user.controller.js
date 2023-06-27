@@ -1,16 +1,25 @@
 let { validateUser, validateUpdate } = require("./user.validator");
 let UserModel = require("./index");
+const companyModel = require("../Company/Company");
 const cookieToken = require("../../../utils/cookieToken");
+const CustomError = require("../../../utils/customError");
 
 //insert new User
 exports.userInsert = async (req, res, next) => {
   try {
     // Validation
     let { error, value } = validateUser(req.body);
-
+    console.log("insertnew user", req.body);
     // Check Error in Validation
     if (error) {
       return res.status(400).send(error.details[0].message);
+    }
+
+    const companyExists = await companyModel.findOne({ _id: value.company_id });
+
+    if (!companyExists) {
+      // Send Error Response
+      return res.status(409).json("Company not Exists!");
     }
 
     const userExists = await UserModel.findOne({
@@ -112,4 +121,32 @@ exports.deleteUser = async (req, res, next) => {
     // Send Error Response
     res.status(500).json({ error });
   }
+};
+
+//user Login
+exports.login = async (req, res, next) => {
+  const { email_address, password } = req.body;
+
+  //check for presence of email and password
+  if (!email_address || !password) {
+    return next(new CustomError("Please provide email and password", 400));
+  }
+
+  const user = await UserModel.findOne({ email_address }).select("+password");
+
+  if (!user) {
+    return next(
+      new CustomError("Email or Password does not match or exist", 400)
+    );
+  }
+
+  const isPasswordCorrect = await user.isValidatedPassword(password);
+
+  if (!isPasswordCorrect) {
+    return next(
+      new CustomError("Email or Password does not match or exist", 400)
+    );
+  }
+
+  cookieToken(user, res);
 };

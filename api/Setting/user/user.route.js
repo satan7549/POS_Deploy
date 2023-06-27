@@ -9,7 +9,10 @@ let userController = require('./user.controller');
 
 router.post('/new', userController.userInsert);
 
+// user Login
+router.post('/login', userController.login);
 
+// all users
 router.get('/list', userController.showUsers );
 
 /* show */
@@ -20,5 +23,7 @@ router.post('/update/:id', userController.updateUser );
 
 // /* update */
 router.delete('/delete/:id', userController.deleteUser);
+
+
 
 module.exports = router;

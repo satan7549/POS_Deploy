@@ -23,6 +23,15 @@ const userSchema = Schema({
     type: String,
     required: true,
   },
+  company_id: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    enum: ["Super_Admin", "Admin", "Employee","Customer"],
+    required: true,
+  },
   designation: {
     type: String,
     default: null,
@@ -30,10 +39,6 @@ const userSchema = Schema({
   will_login: {
     type: String,
     default: "No",
-  },
-  role: {
-    type: String,
-    default: null,
   },
   outlet_id: {
     type: Number,
@@ -45,10 +50,6 @@ const userSchema = Schema({
   },
   kitchens: {
     type: String,
-    default: null,
-  },
-  company_id: {
-    type: Number,
     default: null,
   },
   account_creation_date: {
