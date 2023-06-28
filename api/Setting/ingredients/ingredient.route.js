@@ -10,10 +10,10 @@ let ingredientController = require("./ingredient.controller");
 router.post("/new", ingredientController.ingredientInsert);
 
 /* show */
-router.get("/show", ingredientController.showingredients);
+router.get("/list", ingredientController.showingredients);
 
 /* edit */
-router.get("/edit/:id", ingredientController.showIngredient);
+router.get("/:id", ingredientController.showIngredient);
 
 /* update */
 router.put("/update/:id", ingredientController.updateIngredient);
