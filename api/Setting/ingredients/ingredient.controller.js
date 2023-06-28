@@ -16,14 +16,14 @@ exports.ingredientInsert = async (req, res, next) => {
       return res.status(400).send(error.details[0].message);
     }
 
-    const existingIngredient = await IngredientModel.findOne({
-      name: value.name,
-    });
+    // const existingIngredient = await IngredientModel.findOne({
+    //   name: value.name,
+    // });
 
-    if (existingIngredient) {
-      // Send Response
-      return res.status(200).json("Ingredient already exists!");
-    }
+    // if (existingIngredient) {
+    //   // Send Response
+    //   return res.status(200).json("Ingredient already exists!");
+    // }
 
     // Insert ingredient
     const ingredientModel = new IngredientModel(value);
@@ -47,7 +47,7 @@ exports.showIngredient = async (req, res, next) => {
       return res.status(404).json({ message: "Ingredient not found" });
     }
 
-    res.status(200).json({ ingredient });
+    res.status(200).json({ message: "success", ingredient });
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -62,7 +62,7 @@ exports.showingredients = async (req, res, next) => {
       return res.status(404).json({ message: "ingredient not found" });
     }
 
-    res.status(200).json({ ingredient });
+    res.status(200).json({ message: "success", ingredient });
   } catch (error) {
     res.status(500).json({ error });
   }
