@@ -9,7 +9,7 @@ exports.userInsert = async (req, res, next) => {
   try {
     // Validation
     let { error, value } = validateUser(req.body);
-    console.log("insertnew user", req.body);
+    
     // Check Error in Validation
     if (error) {
       return res.status(400).send(error.details[0].message);
