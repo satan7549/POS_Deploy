@@ -17,6 +17,7 @@ const settingOutletRouter = require("./api/Setting/outlet/outlet.route");
 const settingCompaniestRouter = require("./api/Setting/companies/companies.route");
 const settingKitchenSalesRouter = require("./api/Setting/kitchenSales/kitchenSales.route");
 const settingExpensesRouter = require("./api/Setting/expenses/expenses.route");
+const settingIngredientRouter=require("./api/Setting/ingredients/ingredient.route")
 const settingPrinterRouter = require("./api/Setting/printer/printer.route");
 const settingPaymentRouter = require("./api/Setting/payment/payment.route");
 const settingCurrencyRouter = require("./api/Setting/currency/currency.route");
@@ -52,6 +53,7 @@ app.use("/setting/outlet", settingOutletRouter);
 app.use("/setting/companies", settingCompaniestRouter);
 app.use("/setting/kitchenSales", settingKitchenSalesRouter);
 app.use("/setting/expenses", settingExpensesRouter);
+app.use('/setting/ingredient', settingIngredientRouter);
 app.use("/setting/printer", settingPrinterRouter);
 app.use("/setting/payment", settingPaymentRouter);
 app.use("/setting/currency", settingCurrencyRouter);
