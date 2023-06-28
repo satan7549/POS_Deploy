@@ -16,14 +16,12 @@ exports.ingredientInsert = async (req, res, next) => {
       return res.status(400).send(error.details[0].message);
     }
 
-    // const existingIngredient = await IngredientModel.findOne({
-    //   name: value.name,
-    // });
+    const ingredientExists = await ingredientModel.exists({ name: value.name });
 
-    // if (existingIngredient) {
-    //   // Send Response
-    //   return res.status(200).json("Ingredient already exists!");
-    // }
+    if (ingredientExists) {
+      // Send Response
+      return res.status(200).json("Ingredient already exists!");
+    }
 
     // Insert ingredient
     const ingredientModel = new IngredientModel(value);
