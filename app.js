@@ -1,30 +1,30 @@
-var createError = require("http-errors");
-var express = require("express");
+const createError = require("http-errors");
+const express = require("express");
 const cors = require("cors");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 const dotenv = require("dotenv");
 dotenv.config();
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-var settingAreaRouter = require("./api/Setting/area/area.route");
-var settingTableRouter = require("./api/Setting/table/table.route"); // call and include the route
-var settingUserRouter = require("./api/Setting/user/user.route");
-var settingRoleRouter = require("./api/Setting/role/role.route");
-var settingOutletRouter = require("./api/Setting/outlet/outlet.route");
-var settingCompaniestRouter = require("./api/Setting/companies/companies.route");
-var settingKitchenSalesRouter = require("./api/Setting/kitchenSales/kitchenSales.route");
-var settingExpensesRouter = require("./api/Setting/expenses/expenses.route");
-var settingPrinterRouter = require("./api/Setting/printer/printer.route");
-var settingPaymentRouter = require("./api/Setting/payment/payment.route");
-var settingCurrencyRouter = require("./api/Setting/currency/currency.route");
-var settingAccessRouter = require("./api/Setting/access/access.route");
-var settingAttendanceRouter = require("./api/Setting/attendance/attendance.route");
-var Companyrouter = require("./api/Setting/Company/CompanyRoutes");
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
+const settingAreaRouter = require("./api/Setting/area/area.route");
+const settingTableRouter = require("./api/Setting/table/table.route"); // call and include the route
+const settingUserRouter = require("./api/Setting/user/user.route");
+const settingRoleRouter = require("./api/Setting/role/role.route");
+const settingOutletRouter = require("./api/Setting/outlet/outlet.route");
+const settingCompaniestRouter = require("./api/Setting/companies/companies.route");
+const settingKitchenSalesRouter = require("./api/Setting/kitchenSales/kitchenSales.route");
+const settingExpensesRouter = require("./api/Setting/expenses/expenses.route");
+const settingPrinterRouter = require("./api/Setting/printer/printer.route");
+const settingPaymentRouter = require("./api/Setting/payment/payment.route");
+const settingCurrencyRouter = require("./api/Setting/currency/currency.route");
+const settingAccessRouter = require("./api/Setting/access/access.route");
+const settingAttendanceRouter = require("./api/Setting/attendance/attendance.route");
+const Companyrouter = require("./api/Setting/Company/CompanyRoutes");
 
-var app = express();
+const app = express();
 
 app.use(
   cors({
