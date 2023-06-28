@@ -108,12 +108,11 @@ exports.deleteIngredient = async (req, res, next) => {
     let ingredient = await IngredientModel.deleteOne({ _id: id });
 
     if (!ingredient) {
-      console.log("Ingredient not found");
       return res.status(404).json({ message: "Ingredient not found" });
     }
 
     // res.status(200).json({ id });
-    res.status(200).json("Id Deleted");
+    res.status(200).json({ message: "Ingredient Deleted sucessfully" });
   } catch (error) {
     // Send Error Response
     res.status(500).json({ error });
