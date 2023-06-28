@@ -20,7 +20,7 @@ exports.ingredientInsert = async (req, res, next) => {
 
     if (ingredientExists) {
       // Send Response
-      return res.status(200).json("Ingredient already exists!");
+      return res.status(200).json({ message: "Ingredient already exists!" });
     }
 
     // Insert ingredient
