@@ -22,12 +22,6 @@ const ingredientSchema = Schema({
     required: true,
     default: null,
   },
-  quantity: {
-    type: Number,
-    required: true,
-    default: null,
-  },
-
   //   recipe: {
   //     type: mongoose.Schema.Types.ObjectId,
   //     ref: "Recipe",
