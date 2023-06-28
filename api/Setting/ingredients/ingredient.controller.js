@@ -16,7 +16,7 @@ exports.ingredientInsert = async (req, res, next) => {
       return res.status(400).send(error.details[0].message);
     }
 
-    const ingredientExists = await ingredientModel.exists({ name: value.name });
+    const ingredientExists = await ingredientModel.find({ name: value.name });
 
     if (ingredientExists) {
       // Send Response
