@@ -36,7 +36,10 @@ exports.recipeInsert = async (req, res) => {
 // Display all recipe List
 exports.showAllRecipes = async (req, res, next) => {
   try {
-    const recipe = await RecipeModel.find();
+    const recipe = await RecipeModel.find().populate({
+      path: "ingredients.ingredient",
+      model: "Ingredient",
+    });
 
     if (!recipe || recipe.length === 0) {
       return res.status(404).json({ message: "Recipe not found" });
@@ -91,7 +94,7 @@ exports.updateRecipe = async (req, res, next) => {
     res.status(200).json({ message: "success", recipe });
   } catch (error) {
     // Send Error Response
-    res.status(500).json("Error updating table");
+    res.status(500).json({ message: "Error updating table" });
   }
 };
 
