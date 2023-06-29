@@ -20,7 +20,7 @@ exports.userInsert = async (req, res, next) => {
 
     if (!companyExists) {
       // Send Error Response
-      return res.status(409).json({ message: "Company not Exists!" });
+      return res.status(404).json({ message: "Company not found!" });
     }
 
     const userExists = await UserModel.findOne({
