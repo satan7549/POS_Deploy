@@ -52,7 +52,10 @@ exports.showAllRecipes = async (req, res, next) => {
 exports.showRecipe = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const recipe = await RecipeModel.findById(id);
+    const recipe = await RecipeModel.findById(id).populate({
+      path: "ingredients.ingredient",
+      model: "Ingredient",
+    });
 
     if (!recipe) {
       return res.status(404).json({ message: "Recipe not found" });
@@ -103,7 +106,6 @@ exports.deleteRecipe = async (req, res, next) => {
       return res.status(404).json({ message: "Recipe not found" });
     }
 
-    // res.status(200).json({ id });
     res.status(200).json({ message: "Recipe Deleted sucessfully" });
   } catch (error) {
     // Send Error Response
