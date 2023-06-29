@@ -6,6 +6,7 @@ const ingredientSchema = Schema({
   name: {
     type: String,
     required: true,
+    unique: true,
     default: null,
   },
   category: {
