@@ -1,5 +1,5 @@
-let { validateUser, validateUpdate } = require("./user.validator");
-let UserModel = require("./index");
+const { validateUser, validateUpdate } = require("./user.validator");
+const UserModel = require("./index");
 const companyModel = require("../Company/Company");
 const cookieToken = require("../../../utils/cookieToken");
 const CustomError = require("../../../utils/customError");
@@ -9,13 +9,14 @@ exports.userInsert = async (req, res, next) => {
   try {
     // Validation
     let { error, value } = validateUser(req.body);
-    
+
     // Check Error in Validation
     if (error) {
       return res.status(400).send(error.details[0].message);
     }
 
     const companyExists = await companyModel.findOne({ _id: value.company_id });
+    console.log("companyExists", companyExists);
 
     if (!companyExists) {
       // Send Error Response
@@ -26,6 +27,7 @@ exports.userInsert = async (req, res, next) => {
       email_address: value.email_address,
     });
 
+    console.log("userExists", userExists);
     if (userExists) {
       // Send Error Response
       return res.status(409).json("User already Exists!");

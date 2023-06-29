@@ -29,7 +29,10 @@ const userSchema = Schema({
   },
   role: {
     type: String,
-    enum: ["Super_Admin", "Admin", "Employee","Customer"],
+    enum: {
+      values: ["Super_Admin", "Admin", "Employee", "Customer"],
+      message: `Value is not supported`,
+    },
     required: true,
   },
   designation: {
