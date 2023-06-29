@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const {
   validateIngredient,
   validateUpdate,
@@ -22,7 +21,7 @@ exports.ingredientInsert = async (req, res, next) => {
 
     if (ingredientExists) {
       // Send Response
-      return res.status(200).json({ message: "Ingredient already exists!" });
+      return res.status(409).json({ message: "Ingredient already exists!" });
     }
 
     // Insert ingredient
