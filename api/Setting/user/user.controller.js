@@ -16,21 +16,21 @@ exports.userInsert = async (req, res, next) => {
     }
 
     const companyExists = await companyModel.findOne({ _id: value.company_id });
-    console.log("companyExists", companyExists);
+    // console.log("companyExists", companyExists);
 
     if (!companyExists) {
       // Send Error Response
-      return res.status(409).json("Company not Exists!");
+      return res.status(409).json({ message: "Company not Exists!" });
     }
 
     const userExists = await UserModel.findOne({
       email_address: value.email_address,
     });
 
-    console.log("userExists", userExists);
+    // console.log("userExists", userExists);
     if (userExists) {
       // Send Error Response
-      return res.status(409).json("User already Exists!");
+      return res.status(409).json({ message: "User already Exists!" });
     }
 
     // Insert table
@@ -41,7 +41,7 @@ exports.userInsert = async (req, res, next) => {
     cookieToken(savedData, res);
   } catch (error) {
     // Send Error Response
-    res.status(500).json("Error inserting data into database");
+    res.status(500).json({ message: "Error inserting data into database" });
   }
 };
 
