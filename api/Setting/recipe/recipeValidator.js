@@ -6,14 +6,20 @@ const recipeSchema = Joi.object({
   ingredients: Joi.array().items(
     Joi.object({
       ingredient: Joi.string().required(),
-      quantity: Joi.string().required(),
+      quantity: Joi.number().required(),
     })
   ),
 });
 
 const updateSchema = Joi.object({
-  name: Joi.string().allow(null).default(null),
-  price: Joi.number().allow(null).default(null),
+  name: Joi.string().allow(null),
+  price: Joi.number().allow(null),
+  ingredients: Joi.array().items(
+    Joi.object({
+      ingredient: Joi.string().allow(null),
+      quantity: Joi.number().allow(null),
+    })
+  ),
 });
 
 // Validate the area data
