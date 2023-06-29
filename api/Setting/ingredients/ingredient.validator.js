@@ -5,7 +5,6 @@ const ingredientSchema = Joi.object({
   category: Joi.string().allow(null).default(null),
   unit: Joi.string().required(),
   costUnit: Joi.number().allow(null).default(null),
-  quantity: Joi.number().allow(null).default(null),
 });
 
 const updateSchema = Joi.object({
@@ -13,7 +12,6 @@ const updateSchema = Joi.object({
   category: Joi.string().allow(null).default(null),
   unit: Joi.string().required(),
   costUnit: Joi.number().allow(null).default(null),
-  quantity: Joi.number().allow(null).default(null),
 });
 
 // Validate the area data
