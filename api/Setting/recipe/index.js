@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // id, name, ingredient_id, price
+// cp id ,outlet id ,recipe,title
 
 const recipeSchema = Schema({
   name: {
@@ -23,7 +24,7 @@ const recipeSchema = Schema({
         required: true,
       },
       quantity: {
-        type: String,
+        type: Number,
         required: true,
       },
     },
