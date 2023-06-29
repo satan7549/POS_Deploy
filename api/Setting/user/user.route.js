@@ -19,7 +19,7 @@ router.get('/list', userController.showUsers );
 router.get('/show/:id', userController.showUser );
 
 /* update */
-router.post('/update/:id', userController.updateUser );
+router.put('/update/:id', userController.updateUser );
 
 // /* update */
 router.delete('/delete/:id', userController.deleteUser);
