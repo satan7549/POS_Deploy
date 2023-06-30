@@ -8,11 +8,11 @@ const areasSchema = Schema({
     ref: "Outlet",
     required: true,
   },
-  company_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Company",
-    required: true,
-  },
+  // company_id: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Company",
+  //   required: true,
+  // },
   area_name: {
     type: String,
     maxlength: 250,
@@ -22,11 +22,6 @@ const areasSchema = Schema({
     type: String,
     maxlength: 100,
     default: null,
-  },
-  del_status: {
-    type: String,
-    maxlength: 50,
-    default: "Live",
   },
 });
 
