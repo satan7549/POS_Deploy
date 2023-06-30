@@ -15,7 +15,7 @@ router.get('/list/', tableController.showTables );
 router.get('/show/:id', tableController.showTable );
 
 /* update */
-router.post('/update/:id', tableController.updateTable );
+router.put('/update/:id', tableController.updateTable );
 
 /* update */
 router.delete('/delete/:id', tableController.deleteTable);
