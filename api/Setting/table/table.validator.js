@@ -7,8 +7,8 @@ let tableSchema = Joi.object({
   sit_capacity: Joi.string().required(),
   position: Joi.string().optional(),
   description: Joi.string().required(),
-  user_id: Joi.number().required(),
-  outlet_id: Joi.number().required(),
+  user_id: Joi.string().required(),
+  outlet_id: Joi.string().required(),
   // company_id: Joi.number().required(),
   del_status: Joi.string().required(),
 });
@@ -20,8 +20,8 @@ let updateSchema = Joi.object({
   sit_capacity: Joi.string().required(),
   position: Joi.string().optional(),
   description: Joi.string().required(),
-  user_id: Joi.number().required(),
-  outlet_id: Joi.number().required(),
+  user_id: Joi.string().required(),
+  outlet_id: Joi.string().required(),
   // company_id: Joi.number().required(),
   del_status: Joi.string().required(),
 });
