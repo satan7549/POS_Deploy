@@ -22,7 +22,7 @@ exports.outletInsert = async (req, res, next) => {
 
     // Check if the outlet ID is already present in the company's outlet array
     const company = await CompanyModel.findOne({ _id: value.company_id });
-    
+
     // Insert table
     const Outlet = new OutletModel(value);
     const savedData = await Outlet.save();
@@ -96,18 +96,31 @@ exports.updateOutlet = async (req, res, next) => {
   }
 };
 
-// Deconste outlet
 exports.deleteOutlet = async (req, res, next) => {
   try {
     const id = req.params.id;
 
-    const outlet = await OutletModel.deleteOne({ _id: id });
+    const outlet = await OutletModel.findById(id);
 
     if (!outlet) {
       return res.status(404).json({ message: "Outlet not found" });
     }
 
-    res.status(200).json({ message: "Outlet deleted successfully" });
+    // Find the company that contains the outlet ID
+    const company = await CompanyModel.findOne({ _id: outlet.company_id });
+
+    if (company) {
+      // Remove the outlet ID from the company's outlets array
+      company.outlets = company.outlets.filter(
+        (outletId) => !outletId.equals(id)
+      );
+      await company.save();
+    }
+
+    // Delete the outlet from the Outlet collection
+    await OutletModel.findByIdAndDelete(id);
+
+    res.status(200).json({ message: "Outlet deleted successfully", company });
   } catch (error) {
     // Send Error Response
     res.status(500).json({ error });
