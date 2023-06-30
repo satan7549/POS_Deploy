@@ -1,14 +1,14 @@
-let mongoose = require('mongoose');
-let { validateTable, validateUpdate } = require('./table.validator');
-let TableModel = require('./index');
-let table = require('./index');
+const mongoose = require("mongoose");
+const { validateTable, validateUpdate } = require("./table.validator");
+const TableModel = require("./index");
+const table = require("./index");
 
 //insert new table
 
-exports.insertTable = async (req,res,next) => {
-    try {
-        // Validation
-    let { error, value } = validateTable(req.body);
+exports.insertTable = async (req, res, next) => {
+  try {
+    // Validation
+    const { error, value } = validateTable(req.body);
 
     // Check Error in Validation
     if (error) {
@@ -16,31 +16,28 @@ exports.insertTable = async (req,res,next) => {
     }
 
     // Insert table
-    let tableModel = new TableModel(value);
-    let savedData = await tableModel.save();
+    const tableModel = new TableModel(value);
+    const savedData = await tableModel.save();
 
     // Send Response
-    res.status(200).json('Data inserted');
-    } catch (error) {
-
-      console.log(error);
-       // Send Error Response
-    res.status(500).json('Error inserting data into database'); 
-    }
+    res.status(200).json({ message: "Table inserted", table: savedData });
+  } catch (error) {
+    // Send Error Response
+    res.status(500).json({ message: "Error inserting data into database" });
+  }
 };
 
 // Display Single Table
 exports.showTable = async (req, res, next) => {
   try {
-    let id = req.params.id;
-    let table = await TableModel.findOne({ _id: id });
+    const id = req.params.id;
+    const table = await TableModel.findOne({ _id: id });
 
     if (!table) {
-      console.log('Table not found');
-      return res.status(404).json({ message: 'Table not found' });
+      return res.status(404).json({ message: "Table not found" });
     }
 
-    res.status(200).json({ area });
+    res.status(200).json({ message: "success", table });
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -49,12 +46,11 @@ exports.showTable = async (req, res, next) => {
 // Display List
 exports.showTables = async (req, res, next) => {
   try {
-    let table = await TableModel.find();
+    const table = await TableModel.find();
     if (!table || table.length === 0) {
-      console.log('Table not found');
-      return res.status(404).json({ message: 'Table not found' });
+      return res.status(404).json({ message: "Table not found" });
     }
-    res.status(200).json({ table });
+    res.status(200).json({ message: "success", table });
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -74,20 +70,17 @@ exports.updateTable = async (req, res, next) => {
     }
 
     let table = await TableModel.findOneAndUpdate({ _id: id }, value, {
-      new: true
+      new: true,
     });
 
     if (!table) {
-      console.log('Table not found');
-      return res.status(404).json({ message: 'Table not found' });
+      return res.status(404).json({ message: "Table not found" });
     }
 
-    res.status(200).json({ table });
+    res.status(200).json({ message: "update success", table });
   } catch (error) {
-
-    console.log(error);
     // Send Error Response
-    res.status(500).json('Error updating table');
+    res.status(500).json({ error });
   }
 };
 
@@ -96,11 +89,11 @@ exports.deleteTable = async (req, res, next) => {
   try {
     let id = req.params.id;
 
-   let table = await TableModel.deleteOne({ _id: id });
+    let table = await TableModel.deleteOne({ _id: id });
 
     if (!table) {
-      console.log('Table not found');
-      return res.status(404).json({ message: 'Table not found' });
+      console.log("Table not found");
+      return res.status(404).json({ message: "Table not found" });
     }
 
     res.status(200).json({ id });
