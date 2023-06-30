@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 // Define the validation schema
 const areaSchema = Joi.object({
-  outlet_id: Joi.number().required(),
+  outlet_id: Joi.string().required(),
   area_name: Joi.string().required(),
   description: Joi.string().allow("").optional(),
   companyId: Joi.number().optional(),
@@ -10,7 +10,7 @@ const areaSchema = Joi.object({
 });
 
 const updateSchema = Joi.object({
-  outlet_id: Joi.number().required(),
+  outlet_id: Joi.string().required(),
   area_name: Joi.string().required(),
   description: Joi.string().allow("").optional(),
   companyId: Joi.number().optional(),
