@@ -1,12 +1,11 @@
-const { validateoutlet, validateUpdate } = require("./outlet.validator");
-const CompanyModel = require("../Company/Company");
+const { validateOutlet, validateUpdate } = require("./outlet.validator");
 const OutletModel = require("./index");
 
 //insert new table
 exports.outletInsert = async (req, res, next) => {
   try {
     // Validation
-    const { error, value } = validateoutlet(req.body);
+    const { error, value } = validateOutlet(req.body);
 
     // Check Error in Validation
     if (error) {
@@ -14,11 +13,11 @@ exports.outletInsert = async (req, res, next) => {
     }
 
     // Insert table
-    const OutletModel = new OutletModel(value);
-    const savedData = await OutletModel.save();
+    const Outlet = new OutletModel(value);
+    const savedData = await Outlet.save();
 
     // Send Response
-    res.status(200).json({ message: "success", savedData });
+    res.status(200).json({ message: "success", outlet: savedData });
   } catch (error) {
     // Send Error Response
     res.status(500).json({ message: "Error inserting data into database" });
