@@ -11,10 +11,10 @@ let outletController = require('./outlet.controller');
 router.post('/new', outletController.outletInsert);
 
 //Show List
-router.get('/list', outletController.showOutlets);
+router.get('/list', outletController.showAllOutlets);
 
 //Display one single Detail
-router.get('/show/:id', outletController.showOutlet);
+router.get('/show/:id', outletController.showSingleOutlet);
 
 //Update single Details
 router.post('/update/:id', outletController.updateOutlet);
