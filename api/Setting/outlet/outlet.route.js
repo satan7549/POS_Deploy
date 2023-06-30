@@ -17,7 +17,7 @@ router.get('/list', outletController.showAllOutlets);
 router.get('/show/:id', outletController.showSingleOutlet);
 
 //Update single Details
-router.post('/update/:id', outletController.updateOutlet);
+router.put('/update/:id', outletController.updateOutlet);
 
 //Delete single Details
 router.delete('/delete/:id', outletController.deleteOutlet);
