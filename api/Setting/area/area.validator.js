@@ -5,7 +5,7 @@ const areaSchema = Joi.object({
   outlet_id: Joi.string().required(),
   area_name: Joi.string().required(),
   description: Joi.string().allow("").optional(),
-  companyId: Joi.number().optional(),
+  // companyId: Joi.number().optional(),
   delStatus: Joi.string().allow("").default("Live"),
 });
 
@@ -13,7 +13,7 @@ const updateSchema = Joi.object({
   outlet_id: Joi.string().required(),
   area_name: Joi.string().required(),
   description: Joi.string().allow("").optional(),
-  companyId: Joi.number().optional(),
+  // companyId: Joi.number().optional(),
   delStatus: Joi.string().allow("").default("Live"),
 });
 
