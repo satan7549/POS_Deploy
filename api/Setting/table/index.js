@@ -29,7 +29,8 @@ const tableSchema = Schema({
     default: null,
   },
   user_id: {
-    type: Number,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     default: null,
   },
   outlet_id: {
