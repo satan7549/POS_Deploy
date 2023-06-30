@@ -1,15 +1,13 @@
-let mongoose = require('mongoose');
-let { validateOutlet, validateUpdate } = require('./outlet.validator');
-// let { validateOutlet } = require('./outlet.validator');
-let CompanyModel = require("../Company/Company")
-let OutletModel = require('./index');
-let outlet = require('./index');
+const { validateOutconst, validateUpdate } = require('./outconst.validator');
+// const { validateOutconst } = require('./outconst.validator');
+const CompanyModel = require("../Company/Company")
+const OutconstModel = require('./index');
 
 //insert new table
-exports.outletInsert = async (req, res, next) => {
+exports.outconstInsert = async (req, res, next) => {
   try {
     // Validation
-    let { error, value } = validateOutlet(req.body);
+    const { error, value } = validateOutconst(req.body);
 
     // Check Error in Validation
     if (error) {
@@ -17,73 +15,71 @@ exports.outletInsert = async (req, res, next) => {
     }
 
     // Insert table
-    let outletModel = new OutletModel(value);
-    let savedData = await outletModel.save();
+    const outconstModel = new OutconstModel(value);
+    const savedData = await outconstModel.save();
 
     // Send Response
     res.status(200).json('Data inserted');
   } catch (error) {
-
-    console.log(error);
     // Send Error Response
     res.status(500).json('Error inserting data into database');
   }
 };
 
 // Display List
-exports.showOutlets = async (req, res, next) => {
+exports.showOutconsts = async (req, res, next) => {
   try {
-    let outlet = await OutletModel.find();
-    if (!outlet || outlet.length === 0) {
-      console.log('Outlet not found');
-      return res.status(404).json({ message: 'Outlet not found' });
+    const outconst = await OutconstModel.find();
+    if (!outconst || outconst.length === 0) {
+      console.log('Outconst not found');
+      return res.status(404).json({ message: 'Outconst not found' });
     }
-    res.status(200).json({ outlet });
+    res.status(200).json({ outconst });
   } catch (error) {
     res.status(500).json({ error });
   }
 };
 
 //Display one single Detail
-exports.showOutlet = async (req, res, next) => {
+exports.showOutconst = async (req, res, next) => {
   try {
-    let id = req.params.id;
-    let outlet = await OutletModel.findOne({ _id: id });
+    const id = req.params.id;
+    const outconst = await OutconstModel.findOne({ _id: id });
 
-    if (!outlet) {
-      console.log('Outlet not found');
-      return res.status(404).json({ message: 'Outlet not found' });
+    if (!outconst) {
+      console.log('Outconst not found');
+      return res.status(404).json({ message: 'Outconst not found' });
     }
 
-    res.status(200).json({ outlet });
+    res.status(200).json({ outconst });
   } catch (error) {
     res.status(500).json({ error });
   }
 };
 
 // Update Role
-exports.updateOutlet = async (req, res, next) => {
+exports.updateOutconst = async (req, res, next) => {
   try {
-    let id = req.params.id;
+    const id = req.params.id;
 
     // Validation
-    let { error, value } = validateUpdate(req.body);
+    const { error, value } = validateUpdate(req.body);
 
     // Check Error in Validation
     if (error) {
       return res.status(400).send(error.details[0].message);
     }
 
-    let outlet = await OutletModel.findOneAndUpdate({ _id: id }, value, {
+    const outconst = await OutconstModel.findOneAndUpdate({ _id: id }, value, {
       new: true
     });
 
-    if (!outlet) {
-      console.log('Outlet not found');
-      return res.status(404).json({ message: 'Outlet not found' });
+    if (!outconst) {
+      console.log('Outconst not found');
+      return res.status(404).json({ message: 'Outconst not found' });
     }
 
-    res.status(200).json({ outlet });
+    res.status(200).json({ outconst });
   } catch (error) {
 
     console.log(error);
@@ -92,16 +88,16 @@ exports.updateOutlet = async (req, res, next) => {
   }
 };
 
-// Delete Outlet
-exports.deleteOutlet = async (req, res, next) => {
+// Deconste Outconst
+exports.deconsteOutconst = async (req, res, next) => {
   try {
-    let id = req.params.id;
+    const id = req.params.id;
 
-    let outlet = await OutletModel.deleteOne({ _id: id });
+    const outconst = await OutconstModel.deconsteOne({ _id: id });
 
-    if (!outlet) {
-      console.log('Outlet not found');
-      return res.status(404).json({ message: 'Outlet not found' });
+    if (!outconst) {
+      console.log('Outconst not found');
+      return res.status(404).json({ message: 'Outconst not found' });
     }
 
     res.status(200).json({ id });
@@ -113,16 +109,16 @@ exports.deleteOutlet = async (req, res, next) => {
 
 // For Testing Populate
 // Find Company 
-exports.findCompanyByOutletId = async (req, res, next) => {
+exports.findCompanyByOutconstId = async (req, res, next) => {
   try {
     // console.log(req.body._id)
-    const outlet = await OutletModel.findById(req.body._id).populate('Company');
-    if (!outlet) {
-      console.log('Outlet not found');
-      return res.status(404).json({ message: 'Outlet not found' });
+    const outconst = await OutconstModel.findById(req.body._id).populate('Company');
+    if (!outconst) {
+      console.log('Outconst not found');
+      return res.status(404).json({ message: 'Outconst not found' });
     }
-    const company = outlet.Company;
-    // console.log(outlet._id);
+    const company = outconst.Company;
+    // console.log(outconst._id);
     res.status(200).json(company);
   } catch (error) {
     res.status(500).json({ error });
