@@ -1,5 +1,6 @@
 const { validateOutlet, validateUpdate } = require("./outlet.validator");
 const OutletModel = require("./index");
+const CompanyModel = require("../Company/Company");
 
 //insert new table
 exports.outletInsert = async (req, res, next) => {
@@ -11,13 +12,27 @@ exports.outletInsert = async (req, res, next) => {
     if (error) {
       return res.status(400).send(error.details[0].message);
     }
+    const outletExists = await OutletModel.findOne({
+      outlet_name: value.outlet_name,
+    });
 
+    if (outletExists) {
+      return res.status(409).json({ message: "Outlet already exists!" });
+    }
+
+    // Check if the outlet ID is already present in the company's outlet array
+    const company = await CompanyModel.findOne({ _id: value.company_id });
+    
     // Insert table
     const Outlet = new OutletModel(value);
     const savedData = await Outlet.save();
 
+    // Update company's outlet array with the new outlet ID
+    company.outlets.push(savedData._id);
+    await company.save();
+
     // Send Response
-    res.status(200).json({ message: "success", outlet: savedData });
+    res.status(200).json({ message: "success", outlet: savedData, company });
   } catch (error) {
     // Send Error Response
     res.status(500).json({ message: "Error inserting data into database" });

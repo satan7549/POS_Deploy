@@ -3,63 +3,61 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const outletSchema = Schema({
+  company_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Company",
+    require: true,
+  },
   outlet_name: {
     type: String,
-    default: null
+    default: null,
   },
   outlet_code: {
     type: String,
-    default: null
+    default: null,
+    unique: true,
   },
   address: {
     type: String,
-    default: null
+    default: null,
   },
   phone: {
     type: String,
-    default: null
+    default: null,
   },
   email: {
     type: String,
-    default: null
+    default: null,
   },
   default_waiter: {
     type: Number,
-    default: null
-  },
-  company_id: {
-    type: Number,
-    default: null
+    default: null,
   },
   food_menus: {
-    type: String
+    type: String,
   },
   food_menu_prices: {
-    type: String
+    type: String,
   },
   delivery_price: {
-    type: String
+    type: String,
   },
   has_kitchen: {
     type: String,
-    default: 'No'
+    default: "No",
   },
   active_status: {
     type: String,
-    default: 'active'
+    default: "active",
   },
   del_status: {
     type: String,
-    default: 'Live'
+    default: "Live",
   },
   online_self_order_receiving_id: {
     type: Number,
-    default: 0
+    default: 0,
   },
-  Company: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Company"
-  }
-})
+});
 
 module.exports = mongoose.model("Outlet", outletSchema);
