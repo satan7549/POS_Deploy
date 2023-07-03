@@ -18,10 +18,10 @@ const kitchenSchema = new mongoose.Schema({
     required: true,
     default: "Live",
   },
-  company_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Company",
-  },
+  // company_id: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Company",
+  // },
   outlet_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Outlet",
