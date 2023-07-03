@@ -90,7 +90,6 @@ exports.deleteArea = async (req, res, next) => {
     let area = await AreaModel.deleteOne({ _id: id });
 
     if (!area) {
-      console.log("Area not found");
       return res.status(404).json({ message: "Area not found" });
     }
 
