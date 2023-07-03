@@ -6,8 +6,6 @@ let kitchenController = require('./kitchen.controller');
 //  insert Kitchen
 router.post('/new', kitchenController.insertKitchen);
 
-
-
 /* show */
 router.get('/list/', kitchenController.showKitchen );
 
