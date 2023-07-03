@@ -160,7 +160,7 @@ exports.deleteFoodMenu = async (req, res, next) => {
   try {
     let id = req.params.id;
 
-    let foodMenu = await FoodMenuModel.findByIdDelete({ _id: id });
+    let foodMenu = await FoodMenuModel.deleteOne({ _id: id });
 
     if (!foodMenu) {
       return res.status(404).json({ message: "FoodMenu not found" });
