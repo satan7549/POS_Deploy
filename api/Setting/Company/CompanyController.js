@@ -87,8 +87,7 @@ exports.deleteCompany = (req, res) => {
 exports.getOutletsForCompany = async (req, res) => {
   try {
     const companyId = req.params.companyId;
-    console.log("companyId:-", companyId);
-
+  
     const company = await Company.findById(companyId).populate("outlets");
 
     if (!company) {
