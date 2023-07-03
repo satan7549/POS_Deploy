@@ -10,13 +10,13 @@ let areaController = require('./area.controller');
 router.post('/new', areaController.insertArea);
   
 /* show */
-router.get('/show', areaController.showAreas );
+router.get('/list', areaController.showAreas );
 
 // // /* edit */
-router.get('/edit/:id', areaController.editArea );
+router.get('/show/:id', areaController.editArea );
 
 // /* update */
-router.post('/update/:id', areaController.updateArea );
+router.put('/update/:id', areaController.updateArea );
 
 // /* update */
 router.delete('/delete/:id', areaController.deleteArea);

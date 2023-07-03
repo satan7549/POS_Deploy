@@ -23,7 +23,7 @@ const foodMenuSchema = Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Outlet",
     },
-    required: true,
+    //required: true,
   },
   company: {
     type: mongoose.Schema.Types.ObjectId,
