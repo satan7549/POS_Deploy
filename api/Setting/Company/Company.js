@@ -10,5 +10,4 @@ const CompanySchema = new mongoose.Schema({
     }]
 });
 
-// const Restaurant = mongoose.model('Company', CompanySchema);
 module.exports = mongoose.model("Company", CompanySchema);
