@@ -1,35 +1,34 @@
-
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const kitchenSchema = new mongoose.Schema({
-  
   name: {
     type: String,
-    default: null
+    default: null,
   },
   printer_id: {
     type: Number,
-    default: null
+    default: null,
   },
   print_server_url: {
     type: String,
-    default: null
-  },
-  company_id: {
-    type: Number,
-    default: null
+    default: null,
   },
   del_status: {
     type: String,
     required: true,
-    default: 'Live'
+    default: "Live",
+  },
+  company_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Company",
   },
   outlet_id: {
-    type: Number,
-    default: 0
-  }
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Outlet",
+    required: true,
+  },
 });
 
-const Kitchen = mongoose.model('Kitchen', kitchenSchema);
+const Kitchen = mongoose.model("Kitchen", kitchenSchema);
 
 module.exports = Kitchen;
