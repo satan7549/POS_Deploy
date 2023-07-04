@@ -26,6 +26,8 @@ const settingAccessRouter = require("./api/Setting/access/access.route");
 const settingAttendanceRouter = require("./api/Setting/attendance/attendance.route");
 const FoodMenurouter = require("./api/Setting/foodMenu/foodMenuRoute");
 const Companyrouter = require("./api/Setting/Company/CompanyRoutes");
+const Orderrouter = require("./api/Setting/order/orderRoute");
+
 
 
 const app = express();
@@ -64,6 +66,8 @@ app.use("/setting/currency", settingCurrencyRouter);
 app.use("/setting/access", settingAccessRouter);
 app.use("/setting/attendance", settingAttendanceRouter);
 app.use("/setting/foodMenu", FoodMenurouter);
+app.use("/setting/order", Orderrouter);
+
 app.use("/company", Companyrouter);
 
 
