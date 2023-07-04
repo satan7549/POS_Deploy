@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { validateOrder, validateUpdate } = require("./ordervalidator");
+const {validateOrder, validateUpdate} = require("./orderValidator")
 const OrderModel = require("./index");
 
 //nsert new Order
