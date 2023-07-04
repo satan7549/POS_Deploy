@@ -1,12 +1,11 @@
 const mongoose = require("mongoose");
-const {validateOrder, validateUpdate} = require("./orderValidator")
+const { validateOrder, validateUpdate } = require("./orderValidator");
 const OrderModel = require("./index");
 
 //nsert new Order
 exports.orderInsert = async (req, res, next) => {
   try {
     // Validation
-    console.log(validateOrder);
     let { error, value } = validateOrder(req.body);
 
     // Check Error in Validation
@@ -19,9 +18,8 @@ exports.orderInsert = async (req, res, next) => {
     let savedData = await orderModel.save();
 
     // Send Response
-    res.status(200).json("Data inserted");
+    res.status(200).json({ message: "success", order: savedData });
   } catch (error) {
-    console.log(error);
     // Send Error Response
     res.status(500).json("Error inserting data into database");
   }
@@ -98,11 +96,9 @@ exports.deleteOrder = async (req, res, next) => {
 
     // Update del_status to "Deactivate"
     order.del_status = "deactivate";
-    const updatedOrder = await order.save();
+    await order.save();
 
-    res
-      .status(200)
-      .json({ message: "Order deleted successfully", order: updatedOrder });
+    res.status(200).json({ message: "Order deleted successfully" });
   } catch (error) {
     res.status(500).json({ error });
   }
