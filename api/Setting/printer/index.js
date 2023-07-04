@@ -1,47 +1,45 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const printerSchema = new mongoose.Schema({
-
-
-  path: { 
+  path: {
     type: String,
-     default: null
-     },
-  title: { 
+    default: null,
+  },
+  title: {
     type: String,
-     default: null
-     },
-  type: { 
+    default: null,
+  },
+  type: {
     type: String,
-     default: null 
-    },
-  profile_: { 
+    default: null,
+  },
+  profile_: {
     type: String,
-     default: null
-     },
+    default: null,
+  },
   characters_per_line: {
-     type: Number, 
-     default: null
-     },
-  printer_ip_address: { 
+    type: Number,
+    default: null,
+  },
+  printer_ip_address: {
     type: String,
-     default: null
-     },
+    default: null,
+  },
   printer_port: {
-     type: String,
-      default: null 
-    },
+    type: String,
+    default: null,
+  },
   company_id: {
-     type: Number,
-      default: null
-     },
+    type: Number,
+    default: null,
+  },
   del_status: {
-     type: String,
-     required: true, 
-     default: 'Live'
-     }
+    type: String,
+    required: true,
+    default: "Live",
+  },
 });
 
-const Printer = mongoose.model('Printer', printerSchema);
+const Printer = mongoose.model("Printer", printerSchema);
 
 module.exports = Printer;
