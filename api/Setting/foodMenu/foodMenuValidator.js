@@ -17,7 +17,7 @@ const foodMenuJoiSchema = Joi.object({
   isVeg: Joi.string().valid("yes", "no").required(),
   isBeverage: Joi.string().valid("yes", "no").required(),
   outlet: Joi.object().pattern(/^[a-zA-Z0-9]+$/, Joi.string().required()),
-  company: Joi.string().required(),
+  // company: Joi.string().required(),
 });
 
 const updateJoiSchema = Joi.object({
@@ -37,7 +37,7 @@ const updateJoiSchema = Joi.object({
   isVeg: Joi.string().valid("yes", "no").required(),
   isBeverage: Joi.string().valid("yes", "no").required(),
   outlet: Joi.object().pattern(/^[a-zA-Z0-9]+$/, Joi.string().required()),
-  company: Joi.string().required(),
+  // company: Joi.string().required(),
 });
 
 function validateFoodMenu(foodMenuData) {
