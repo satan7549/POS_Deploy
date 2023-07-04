@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const orderSchema = Schema({
-
   persons: {
     type: String,
     required: true,

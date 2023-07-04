@@ -61,11 +61,11 @@ const foodMenuSchema = Schema({
       ref: "Outlet",
     },
   },
-  company: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Company",
-    required: true,
-  },
+  // company: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Company",
+  //   required: true,
+  // },
 });
 
 module.exports = mongoose.model("FoodMenu", foodMenuSchema);
