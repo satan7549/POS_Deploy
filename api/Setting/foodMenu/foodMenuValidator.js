@@ -3,7 +3,7 @@ const Joi = require("joi");
 const foodMenuJoiSchema = Joi.object({
   name: Joi.string().allow(null).max(50).required(),
   code: Joi.string().allow(null).max(50).required(),
-  category: Joi.string().valid("chinese", "mexicon", "indian").required(),
+  category: Joi.string().valid("chinese", "mexican", "indian").required(),
   ingredients: Joi.array()
     .items(
       Joi.object({
@@ -23,7 +23,7 @@ const foodMenuJoiSchema = Joi.object({
 const updateJoiSchema = Joi.object({
   name: Joi.string().allow(null).max(50).required(),
   code: Joi.string().allow(null).max(50).required(),
-  category: Joi.string().valid("chinese", "mexicon", "indian").required(),
+  category: Joi.string().valid("chinese", "mexican", "indian").required(),
   ingredients: Joi.array()
     .items(
       Joi.object({
