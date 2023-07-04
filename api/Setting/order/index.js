@@ -24,6 +24,8 @@ const orderSchema = Schema({
     required: true,
   },
   table_id: [{ type: mongoose.Schema.Types.ObjectId, ref: "Table" }],
+  
+  foodMenu: [{ type: mongoose.Schema.Types.ObjectId, ref: "FoodMenu" }],
 
   del_status: {
     type: String,
