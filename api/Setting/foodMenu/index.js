@@ -48,7 +48,7 @@ const foodMenuSchema = Schema({
     type: Number,
     required: [true, "Please enter price"],
     default: null,
-},
+  },
 
   description: {
     type: String,
@@ -66,7 +66,7 @@ const foodMenuSchema = Schema({
       message: "Value is not matched",
     },
     required: [true, "please enter isVeg"],
-    default: no,
+    default: "no",
     trim: true,
   },
 
@@ -77,7 +77,7 @@ const foodMenuSchema = Schema({
       message: "Value is not matched",
     },
     required: [true, "please enter isBeverage"],
-    default: no,
+    default: "no",
     trim: true,
   },
 
