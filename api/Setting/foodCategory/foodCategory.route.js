@@ -10,7 +10,7 @@ router.post("/new", foodCategoryController.createFoodCategory);
 router.get("/show", foodCategoryController.getAllFoodCategories);
 
 // // /* edit */
-router.get("/edit/:id", foodCategoryController.getFoodCategoryById);
+router.get("/show/:id", foodCategoryController.getFoodCategoryById);
 
 // /* update */
 router.post("/update/:id", foodCategoryController.updateFoodCategory);
