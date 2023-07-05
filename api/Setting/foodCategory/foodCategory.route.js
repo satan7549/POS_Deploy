@@ -7,7 +7,7 @@ const foodCategoryController = require("./foodCategory.controller");
 router.post("/new", foodCategoryController.createFoodCategory);
 
 /* show */
-router.get("/lsit", foodCategoryController.getAllFoodCategories);
+router.get("/list", foodCategoryController.getAllFoodCategories);
 
 // // /* edit */
 router.get("/show/:id", foodCategoryController.getFoodCategoryById);
