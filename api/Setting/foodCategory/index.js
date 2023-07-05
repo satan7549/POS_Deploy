@@ -15,9 +15,7 @@ const foodCategorySchema = Schema({
     required: [true, "Please enter the description."],
     trim: true,
     maxlength: [500, "Food category description can't exceed 500 characters."],
-    minlength: [
-      10,
-      "Food category description should have at least 10 characters.",
+    minlength: [10,"Food category description should have at least 10 characters.",
     ],
   },
   del_status: {
