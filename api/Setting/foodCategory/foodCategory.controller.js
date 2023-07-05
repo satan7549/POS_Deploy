@@ -1,10 +1,10 @@
-const FoodCategory = require("./index");
+const FoodCategoryModel = require("./index");
 
 // CREATE - Create a new food category
 const createFoodCategory = async (req, res) => {
   try {
     const { name, description } = req.body;
-    const newFoodCategory = new FoodCategory({ name, description });
+    const newFoodCategory = new FoodCategoryModel({ name, description });
     const savedCategory = await newFoodCategory.save();
     res.status(201).json({ message: "success", foodCategory: savedCategory });
   } catch (error) {
@@ -15,7 +15,7 @@ const createFoodCategory = async (req, res) => {
 // READ - Get all food categories
 const getAllFoodCategories = async (req, res) => {
   try {
-    const foodCategory = await FoodCategory.find();
+    const foodCategory = await FoodCategoryModel.find();
 
     if (!foodCategory || foodCategory.length === 0) {
       return res.status(404).json({ message: "Food category not found" });
@@ -31,7 +31,7 @@ const getAllFoodCategories = async (req, res) => {
 const getFoodCategoryById = async (req, res) => {
   try {
     const { id } = req.params;
-    const category = await FoodCategory.findById(id);
+    const category = await FoodCategoryModel.findById(id);
     if (!category) {
       return res.status(404).json({ message: "Food category not found." });
     }
@@ -46,7 +46,7 @@ const updateFoodCategory = async (req, res) => {
   try {
     const { id } = req.params;
     const { name, description } = req.body;
-    const updatedCategory = await FoodCategory.findByIdAndUpdate(
+    const updatedCategory = await FoodCategoryModel.findByIdAndUpdate(
       id,
       { name, description },
       { new: true }
@@ -64,7 +64,7 @@ const updateFoodCategory = async (req, res) => {
 const softDeleteFoodCategory = async (req, res) => {
   try {
     const { id } = req.params;
-    const updatedCategory = await FoodCategory.findByIdAndUpdate(
+    const updatedCategory = await FoodCategoryModel.findByIdAndUpdate(
       id,
       { del_status: "deactivate" },
       { new: true }
