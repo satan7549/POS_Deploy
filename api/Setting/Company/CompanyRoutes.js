@@ -12,10 +12,10 @@ const CompanyController = require('./CompanyController.js');
 router.post('/new', CompanyController.createCompany);
 
 // Get all companies
-router.get('/', CompanyController.getCompanys);
+router.get('/list', CompanyController.getCompanys);
 
 // Get a specific company by ID
-router.get('/:id', CompanyController.getCompanyById);
+router.get('/show/:id', CompanyController.getCompanyById);
 
 // Update a company
 router.put('/update/:id', CompanyController.updateCompany);
