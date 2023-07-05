@@ -19,7 +19,7 @@ const createFoodCategory = async (req, res) => {
 // READ - Get all food categories
 const getAllFoodCategories = async (req, res) => {
   try {
-    const foodCategory = await FoodCategoryModel.find();
+    const foodCategory = await FoodCategoryModel.find({ del_status: "Live" });
 
     if (!foodCategory || foodCategory.length === 0) {
       return res.status(404).json({ message: "Food category not found" });
@@ -36,7 +36,7 @@ const getFoodCategoryById = async (req, res) => {
   try {
     const { id } = req.params;
     const category = await FoodCategoryModel.findById(id);
-    
+
     if (!category) {
       return res.status(404).json({ message: "Food category not found." });
     }
