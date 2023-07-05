@@ -12,6 +12,13 @@ exports.insertArea = async (req, res, next) => {
       return res.status(400).send(error.details[0].message);
     }
 
+    //check area exists or not
+    const areaExists = await AreaModel.findOne({ area_name: value.area_name });
+
+    if (areaExists) {
+      return res.status(409).json({ message: "Area Already Exists!" });
+    }
+
     // Insert table
     const areaModel = new AreaModel(value);
     const savedData = await areaModel.save();
@@ -27,7 +34,8 @@ exports.insertArea = async (req, res, next) => {
 // Display List
 exports.showAreas = async (req, res, next) => {
   try {
-    const area = await AreaModel.find();
+    const area = await AreaModel.find({ del_status: "Live" });
+
     if (!area || area.length === 0) {
       return res.status(404).json({ message: "Area not found" });
     }
@@ -37,8 +45,8 @@ exports.showAreas = async (req, res, next) => {
   }
 };
 
-// //Display one single Detail
-exports.editArea = async (req, res, next) => {
+//Display one single Detail
+exports.findAreaByID = async (req, res, next) => {
   try {
     const id = req.params.id;
     const area = await AreaModel.findOne({ _id: id });
@@ -53,7 +61,7 @@ exports.editArea = async (req, res, next) => {
   }
 };
 
-// // Update Role
+// Update Role
 exports.updateArea = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -82,16 +90,20 @@ exports.updateArea = async (req, res, next) => {
   }
 };
 
-//   // Delete Area
+// Delete Area
 exports.deleteArea = async (req, res, next) => {
   try {
-    let id = req.params.id;
+    const id = req.params.id;
 
-    let area = await AreaModel.deleteOne({ _id: id });
+    const area = await AreaModel.deleteOne({ _id: id });
 
     if (!area) {
       return res.status(404).json({ message: "Area not found" });
     }
+
+    // Update del_status to "Deactivate"
+    area.del_status = "deactivate";
+    await area.save();
 
     res.status(200).json({ message: "Area Deleted successfully" });
   } catch (error) {
