@@ -3,27 +3,27 @@ const express = require('express');
 const router = express.Router();
 const CompanyController = require('./CompanyController.js');
 
-// Test
-router.get("/", function (req, res, next) {
-    res.render('index', { title: 'Express' });
-});
+// // Test
+// router.get("/", function (req, res, next) {
+//     res.render('index', { title: 'Express' });
+// });
 
-// Create a new restaurantc
-router.post('/createcompany', CompanyController.createCompany);
+// Create a new company
+router.post('/new', CompanyController.createCompany);
 
-// Get all restaurants
-router.get('/company', CompanyController.getCompanys);
+// Get all companies
+router.get('/', CompanyController.getCompanys);
 
-// Get a specific restaurant by ID
-router.get('/company/:id', CompanyController.getCompanyById);
+// Get a specific company by ID
+router.get('/:id', CompanyController.getCompanyById);
 
-// Update a restaurant
-router.put('/company/:id', CompanyController.updateCompany);
+// Update a company
+router.put('/update/:id', CompanyController.updateCompany);
 
-// Delete a restaurant
-router.delete('/company/:id', CompanyController.deleteCompany);
+// Delete a company by id
+router.delete('/delete/:id', CompanyController.deleteCompany);
 
 // Get all outlets for a company
-router.get('/:companyId/outlets', CompanyController.getOutletsForCompany);
+router.get('/:id/outlets', CompanyController.getOutletsForCompany);
 
 module.exports = router;
