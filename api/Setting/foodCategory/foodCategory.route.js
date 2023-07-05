@@ -13,7 +13,7 @@ router.get("/list", foodCategoryController.getAllFoodCategories);
 router.get("/show/:id", foodCategoryController.getFoodCategoryById);
 
 // /* update */
-router.post("/update/:id", foodCategoryController.updateFoodCategory);
+router.put("/update/:id", foodCategoryController.updateFoodCategory);
 
 // /*soft delete */
 router.delete("/delete/:id",foodCategoryController.softDeleteFoodCategory);
