@@ -25,8 +25,8 @@ const getAllFoodCategories = async (req, res) => {
 // READ - Get a single food category by ID
 const getFoodCategoryById = async (req, res) => {
   try {
-    const { categoryId } = req.params;
-    const category = await FoodCategory.findById(categoryId);
+    const { id } = req.params;
+    const category = await FoodCategory.findById(id);
     if (!category) {
       return res.status(404).json({ message: "Food category not found." });
     }
@@ -39,10 +39,10 @@ const getFoodCategoryById = async (req, res) => {
 // UPDATE - Update a food category by ID
 const updateFoodCategory = async (req, res) => {
   try {
-    const { categoryId } = req.params;
+    const { id } = req.params;
     const { name, description } = req.body;
     const updatedCategory = await FoodCategory.findByIdAndUpdate(
-      categoryId,
+      id,
       { name, description },
       { new: true }
     );
@@ -55,14 +55,12 @@ const updateFoodCategory = async (req, res) => {
   }
 };
 
-const FoodCategory = require("../models/foodCategory");
-
 // DELETE - Soft delete a food category by ID
 const softDeleteFoodCategory = async (req, res) => {
   try {
-    const { categoryId } = req.params;
+    const { id } = req.params;
     const updatedCategory = await FoodCategory.findByIdAndUpdate(
-      categoryId,
+      id,
       { del_status: "deactivate" },
       { new: true }
     );
