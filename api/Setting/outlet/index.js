@@ -6,23 +6,39 @@ const outletSchema = Schema({
   company_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Company",
-    require: true,
+    require: [true, "please enter company_id"],
   },
+
   outlet_name: {
     type: String,
+    maxlength: [50, "Maximum 50 charcters are permitted"],
+    minLength: [5, "outlet_name should have more than 5 character"],
+    required: [true, "please enter outlet_name"],
+    trim: true,
     default: null,
   },
+
   outlet_code: {
     type: String,
+    maxlength: [50, "Maximum 50 charcters are permitted"],
+    minLength: [5, "outlet_name should have more than 5 character"],
+    required: [true, "please enter outlet_name"],
+    trim: true,
     default: null,
     unique: true,
   },
+
   address: {
     type: String,
+    maxlength: [200, "Maximum 200 charcters are permitted"],
+    minLength: [10, "address should have more than 10 character"],
+    required: [true, "please enter address"],
+    trim: true,
     default: null,
+
   },
   phone: {
-    type: String,
+    type: Number,
     default: null,
   },
   email: {
