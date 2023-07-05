@@ -15,8 +15,13 @@ const createFoodCategory = async (req, res) => {
 // READ - Get all food categories
 const getAllFoodCategories = async (req, res) => {
   try {
-    const categories = await FoodCategory.find();
-    res.status(200).json({ message: "success", foodCategory: categories });
+    const foodCategory = await FoodCategory.find();
+
+    if (!foodCategory || foodCategory.length === 0) {
+      return res.status(404).json({ message: "Food category not found" });
+    }
+
+    res.status(200).json({ message: "success", foodCategory });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
