@@ -54,7 +54,7 @@ exports.showFoodMenu = async (req, res, next) => {
 // Display List
 exports.showFoodMenus = async (req, res, next) => {
   try {
-    const foodMenu = await FoodMenuModel.find();
+    const foodMenu = await FoodMenuModel.find({ del_status: "Live" });
 
     if (!foodMenu || foodMenu.length === 0) {
       return res.status(404).json({ message: "foodMenu not found" });
@@ -103,18 +103,17 @@ exports.updateFoodMenu = async (req, res, next) => {
 //   // Delete FoodMenu
 exports.deleteFoodMenu = async (req, res, next) => {
   try {
-    let id = req.params.id;
-
-    let foodMenu = await FoodMenuModel.deleteOne({ _id: id });
-
-    if (!foodMenu) {
-      return res.status(404).json({ message: "FoodMenu not found" });
+    const { id } = req.params;
+    const updatedFoodMenu = await FoodMenuModel.findByIdAndUpdate(
+      id,
+      { del_status: "deactivate" },
+      { new: true }
+    );
+    if (!updatedFoodMenu) {
+      return res.status(404).json({ message: "FoodMenu not found." });
     }
-
-    // res.status(200).json({ id });
-    res.status(200).json({ message: "FoodMenu Deleted sucessfully" });
+    res.status(200).json({ message: "FoodMenu deleted successfully" });
   } catch (error) {
-    // Send Error Response
-    res.status(500).json({ error });
+    res.status(500).json({ error: error.message });
   }
 };
