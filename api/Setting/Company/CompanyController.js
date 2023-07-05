@@ -67,27 +67,29 @@ exports.updateCompany = (req, res) => {
 };
 
 // Delete a company
-exports.deleteCompany = (req, res) => {
+exports.deleteCompany = async (req, res) => {
   const companyId = req.params.id;
+  try {
+    const companyExists = await Company.findById(companyId);
+    if (!companyExists) {
+      return res.status(404).json({ error: "Company not found" });
+    }
 
-  Company.findByIdAndDelete(companyId)
-    .then((company) => {
-      if (!company) {
-        return res.status(404).json({ error: "Company not found" });
-      }
+    //Update del_status to "Deactivate"
+    companyExists.del_status = "deactivate";
+    await Company.save();
 
-      res.json({ message: "Company deleted successfully" });
-    })
-    .catch((error) => {
-      res.status(500).json({ error: "Failed to delete company" });
-    });
+    res.json({ message: "Company deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete company" });
+  }
 };
 
 // Retrieve all outlets for a company
 exports.getOutletsForCompany = async (req, res) => {
   try {
     const companyId = req.params.companyId;
-  
+
     const company = await Company.findById(companyId).populate("outlets");
 
     if (!company) {
