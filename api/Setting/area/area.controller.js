@@ -74,7 +74,7 @@ exports.updateArea = async (req, res, next) => {
       return res.status(400).send(error.details[0].message);
     }
 
-    let area = await AreaModel.findOneAndUpdate({ _id: id }, value, {
+    const area = await AreaModel.findOneAndUpdate({ _id: id }, value, {
       new: true,
     });
 
