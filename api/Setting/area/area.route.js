@@ -1,25 +1,21 @@
-let express = require('express');
-let router = express.Router();
+const express = require("express");
+const router = express.Router();
 
-let areaController = require('./area.controller');
-
-// /* add */
-// router.get('/new', areaController.addArea);
+const areaController = require("./area.controller");
 
 /* Insert */
-router.post('/new', areaController.insertArea);
-  
+router.post("/new", areaController.insertArea);
+
 /* show */
-router.get('/list', areaController.showAreas );
+router.get("/list", areaController.showAreas);
 
-// // /* edit */
-router.get('/show/:id', areaController.editArea );
+/* find unique area */
+router.get("/show/:id", areaController.findAreaByID);
 
-// /* update */
-router.put('/update/:id', areaController.updateArea );
+/* update */
+router.put("/update/:id", areaController.updateArea);
 
-// /* update */
-router.delete('/delete/:id', areaController.deleteArea);
-
+/* delete */
+router.delete("/delete/:id", areaController.deleteArea);
 
 module.exports = router;
