@@ -4,6 +4,10 @@ const FoodCategoryModel = require("./index");
 const createFoodCategory = async (req, res) => {
   try {
     const { name, description } = req.body;
+    const ExistFoodCategory = await FoodCategoryModel.findOne({ name: name });
+    if (ExistFoodCategory) {
+      return res.status(409).json("Food Category Already Exists!");
+    }
     const newFoodCategory = new FoodCategoryModel({ name, description });
     const savedCategory = await newFoodCategory.save();
     res.status(201).json({ message: "success", foodCategory: savedCategory });
@@ -32,6 +36,7 @@ const getFoodCategoryById = async (req, res) => {
   try {
     const { id } = req.params;
     const category = await FoodCategoryModel.findById(id);
+    
     if (!category) {
       return res.status(404).json({ message: "Food category not found." });
     }
