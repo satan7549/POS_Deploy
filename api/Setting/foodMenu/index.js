@@ -5,61 +5,96 @@ const Schema = mongoose.Schema;
 const foodMenuSchema = Schema({
   name: {
     type: String,
+    maxlength: [50, "Maximum 50 charcters are permitted"],
+    minLength: [5, "name should have more than 5 character"],
+    required: [true, "please enter name"],
+    trim: true,
     default: null,
-    maxlength: 50,
-    required: true,
   },
   code: {
     type: String,
+    maxlength: [50, "Maximum 50 charcters are permitted"],
+    minLength: [5, "code should have more than 5 character"],
+    required: [true, "please enter code"],
+    trim: true,
     default: null,
-    maxlength: 50,
-    required: true,
     unique: true,
   },
-  category: {
-    type: String,
-    enum: ["chinese", "mexicon", "indian"],
-    required: true,
+
+  food_category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "FoodCategory",
+    required: [true, "please enter food_category"],
   },
+
   ingredients: [
     {
       ingredient: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Ingredient",
-        required: true,
+        required: [true, "please enter ingredient"],
       },
+
       quantity: {
         type: Number,
-        required: true,
+        maxlength: [10, "Maximum 10 charcters are permitted"],
+        minLength: [1, "quantity should have more than 1 character"],
+        required: [true, "please enter quantity"],
       },
     },
   ],
+
   price: {
     type: Number,
-    required: true,
+    required: [true, "Please enter price"],
     default: null,
-  },
+},
+
   description: {
     type: String,
+    maxlength: [200, "Maximum 200 charcters are permitted"],
+    minLength: [10, "description should have more than 10 character"],
+    required: [true, "please enter description"],
+    trim: true,
     default: null,
-    maxlength: 200,
   },
+
   isVeg: {
     type: String,
-    enum: ["yes", "no"],
-    required: true,
+    enum: {
+      values: ["yes", "no"],
+      message: "Value is not matched",
+    },
+    required: [true, "please enter isVeg"],
+    default: no,
+    trim: true,
   },
+
   isBeverage: {
     type: String,
-    enum: ["yes", "no"],
-    required: true,
-  },
-  outlet: {
-    type: Map,
-    of: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Outlet",
+    enum: {
+      value: ["yes", "no"],
+      message: "Value is not matched",
     },
+    required: [true, "please enter isBeverage"],
+    default: no,
+    trim: true,
+  },
+
+  outlet: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Outlet",
+    required: [true, "please enter outlet"],
+    trim: true,
+  },
+
+  del_status: {
+    type: String,
+    enum: {
+      values: ["Live", "deactivate"],
+      message: "Value is not matched",
+    },
+    default: "Live",
   },
   // company: {
   //   type: mongoose.Schema.Types.ObjectId,
