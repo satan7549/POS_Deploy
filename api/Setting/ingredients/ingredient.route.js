@@ -21,4 +21,7 @@ router.put("/update/:id", ingredientController.updateIngredient);
 /* delete */
 router.delete("/delete/:id", ingredientController.deleteIngredient);
 
+// delete all for testing perpous 
+router.delete("/delete/all", ingredientController.deleteIngredient);
+
 module.exports = router;
