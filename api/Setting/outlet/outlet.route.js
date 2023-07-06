@@ -3,10 +3,6 @@ let router = express.Router(); // access the method of route
 
 let outletController = require('./outlet.controller');
 
-// router.post('/new', ( req, res, next)  => {
-//     res.send("hello world");
-// });
-
 // Insert
 router.post('/new', outletController.outletInsert);
 
