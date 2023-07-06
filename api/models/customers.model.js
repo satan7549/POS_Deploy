@@ -13,7 +13,7 @@ const  customerSchema = new mongoose.Schema({
   area_id: { type: Number, default: null },
   user_id: { type: Number, default: null },
   company_id: { type: Number, default: null },
-  del_status: { type: String, default: 'Live' },
+  del_status: { type: String, default: 'Active' },
   date_of_birth: { type: Date, default: null },
   date_of_anniversary: { type: Date, default: null },
   default_discount: { type: String, required: true, default: '0' },
