@@ -44,7 +44,6 @@ const tableSchema = Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: [true, "please enter user_id"],
-    default: null,
   },
   outlet_id: {
     type: mongoose.Schema.Types.ObjectId,
