@@ -5,11 +5,11 @@ exports.createCompany = async (req, res) => {
   const { name } = req.body;
 
   try {
-    const companyExists = await CompanyModel.findOne({ name: name });
+    // const companyExists = await CompanyModel.findOne({ name: name });
 
-    if (companyExists) {
-      return req.status(409).json({ message: "Company Already Exists!" });
-    }
+    // if (companyExists) {
+    //   return req.status(409).json({ message: "Company Already Exists!" });
+    // }
 
     const newCompany = new CompanyModel(req.body);
     const company = await newCompany.save();
