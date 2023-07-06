@@ -43,7 +43,7 @@ exports.showOrder = async (req, res, next) => {
 //Dispaly List
 exports.showOrders = async (req, res, next) => {
   try {
-    const order = await OrderModel.find();
+    const order = await OrderModel.find({ del_status: "Live" });
 
     if (!order || order.length === 0) {
       return res.status(404).json({ message: "order not found" });
@@ -86,20 +86,17 @@ exports.updateOrder = async (req, res, next) => {
 // Delete order
 exports.deleteOrder = async (req, res, next) => {
   try {
-    const id = req.params.id;
-
-    const order = await OrderModel.findOne({ _id: id });
-
-    if (!order) {
-      return res.status(404).json({ message: "Order not found" });
+    const { id } = req.params;
+    const updatedFoodMenu = await FoodMenuModel.findByIdAndUpdate(
+      id,
+      { del_status: "deactivate" },
+      { new: true }
+    );
+    if (!updatedFoodMenu) {
+      return res.status(404).json({ message: "FoodMenu not found." });
     }
-
-    // Update del_status to "Deactivate"
-    order.del_status = "deactivate";
-    await order.save();
-
-    res.status(200).json({ message: "Order deleted successfully" });
+    res.status(200).json({ message: "FoodMenu deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(500).json({ error: error.message });
   }
 };
