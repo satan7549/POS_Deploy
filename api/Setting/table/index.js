@@ -8,7 +8,6 @@ const tableSchema = Schema({
     ref: "Areas",
     required: [true, "please enter area_id"],
   },
-
   name: {
     type: String,
     maxlength: [50, "Maximum 50 charcters are permitted"],
@@ -52,14 +51,15 @@ const tableSchema = Schema({
     ref: "Outlet",
     required: [true, "please enter outlet_id"],
   },
-  
-  del_stype: String,
-  enum: {
-    values: ["Live", "Deactivate"],
-    message: "Values is not matched",
+
+  del_status: {
+    type: String,
+    enum: {
+      values: ["Live", "Deactivate"],
+      message: "Values is not matched",
+    },
+    default: "Live",
   },
-  default: "Live",
-  
 });
 
 module.exports = mongoose.model("Table", tableSchema);
