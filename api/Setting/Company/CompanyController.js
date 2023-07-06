@@ -5,17 +5,17 @@ exports.createCompany = async (req, res) => {
   const { name } = req.body;
 
   try {
-    // const companyExists = await CompanyModel.findOne({ name: name });
+    const companyExists = await CompanyModel.findOne({ name: name });
 
-    // if (companyExists) {
-    //   return req.status(409).json({ message: "Company Already Exists!" });
-    // }
+    if (companyExists) {
+      return res.status(409).json({ message: "Company Already Exists!" });
+    }
 
     const newCompany = new CompanyModel(req.body);
     const company = await newCompany.save();
     res.status(201).json({ message: "Company created successfully", company });
   } catch (error) {
-    req.status(500).json({ error: "Failed to create company" });
+    res.status(500).json({ error: "Failed to create company" });
   }
 };
 
