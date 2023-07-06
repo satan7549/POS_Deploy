@@ -11,7 +11,7 @@ const expensesSchema = Joi.object({
     outlet_id: Joi.number().integer().allow(null),
     payment_id: Joi.number().integer().default(0),
     added_date_time: Joi.date().timestamp().required(),
-    del_status: Joi.string().valid('Live').default('Live')
+    del_status: Joi.string().valid('Active').default('Active')
 });
 
 const updateSchema = Joi.object({
@@ -24,7 +24,7 @@ const updateSchema = Joi.object({
   outlet_id: Joi.number().integer().allow(null),
   payment_id: Joi.number().integer().default(0),
   added_date_time: Joi.date().timestamp().required(),
-  del_status: Joi.string().valid('Live').default('Live')
+  del_status: Joi.string().valid('Active').default('Active')
   });
 
 // Validate the area data

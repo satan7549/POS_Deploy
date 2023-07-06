@@ -67,8 +67,8 @@ const foodComboSchema = new Schema({
   },
   del_status: {
     type: String,
-    enum: ["Live", "Deactivate"],
-    default: "Live",
+    enum: ["Active", "Deactive"],
+    default: "Active",
   },
 });
 

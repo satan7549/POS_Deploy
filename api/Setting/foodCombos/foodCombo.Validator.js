@@ -17,7 +17,7 @@ const foodComboJoiSchema = Joi.object({
   isVeg: Joi.string().valid("yes", "no").required().trim(),
   isBeverage: Joi.string().valid("yes", "no").required().trim(),
   outlet: Joi.string().hex().length(24).required().trim(),
-  del_status: Joi.string().valid("Live", "Deactivate").default("Live"),
+  del_status: Joi.string().valid("Active", "Deactive").default("Active"),
 });
 
 const updateJoiSchema = Joi.object({

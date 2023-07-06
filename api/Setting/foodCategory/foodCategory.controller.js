@@ -19,7 +19,7 @@ const createFoodCategory = async (req, res) => {
 // READ - Get all food categories
 const getAllFoodCategories = async (req, res) => {
   try {
-    const foodCategory = await FoodCategoryModel.find({ del_status: "Live" });
+    const foodCategory = await FoodCategoryModel.find({ del_status: "Active" });
 
     if (!foodCategory || foodCategory.length === 0) {
       return res.status(404).json({ message: "Food category not found" });
@@ -71,7 +71,7 @@ const softDeleteFoodCategory = async (req, res) => {
     const { id } = req.params;
     const updatedCategory = await FoodCategoryModel.findByIdAndUpdate(
       id,
-      { del_status: "Deactivate" },
+      { del_status: "Deactive" },
       { new: true }
     );
     if (!updatedCategory) {
