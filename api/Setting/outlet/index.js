@@ -68,9 +68,10 @@ const outletSchema = Schema({
   ],
 
   active_status: {
-    maxlength: [50, "Maximum 50 charcters are permitted"],
-    minLength: [5, "active_status should have more than 5 character"],
-    required: [true, "please enter active_status"],
+    type: String, 
+    maxlength: [50, "Maximum 50 characters are permitted"],
+    minlength: [5, "active_status should have more than 5 characters"],
+    required: [true, "Please enter active_status"],
     trim: true,
     default: "active",
   },
