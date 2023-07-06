@@ -17,7 +17,7 @@ const currencySchema = mongoose.Schema({
   del_status: {
     type: String,
     maxlength: 10,
-    default: 'Live'
+    default: 'Active'
   }
 });
 
