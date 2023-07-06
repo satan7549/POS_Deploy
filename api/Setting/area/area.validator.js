@@ -18,8 +18,8 @@ const areaSchema = Joi.object({
   }),
   delStatus: Joi.string()
     .allow("")
-    .valid("Live", "Deactivate")
-    .default("Live")
+    .valid("Active", "Deactive")
+    .default("Active")
     .messages({
       "any.only": "Value is not matched",
     }),
