@@ -22,7 +22,7 @@ exports.createCompany = async (req, res) => {
 // Get all companys
 exports.getCompanys = async (req, res) => {
   try {
-    const Company = await CompanyModel.find({ del_status: "Live" });
+    const Company = await CompanyModel.find({ del_status: "Active" });
 
     if (!Company || Company.length === 0) {
       return res.status(404).json({ message: "Company not found" });
@@ -83,8 +83,8 @@ exports.deleteCompany = async (req, res) => {
       return res.status(404).json({ error: "Company not found" });
     }
 
-    //Update del_status to "Deactivate"
-    companyExists.del_status = "Deactivate";
+    //Update del_status to "Deactive"
+    companyExists.del_status = "Deactive";
     await CompanyModel.save();
 
     res.json({ message: "Company deleted successfully" });
