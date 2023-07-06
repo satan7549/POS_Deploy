@@ -8,7 +8,7 @@ const  auditLogSchema = new mongoose.Schema({
   date_time: { type: String, default: null },
   details: { type: String },
   date: { type: String, default: null },
-  del_status: { type: String, default: 'Live' },
+  del_status: { type: String, default: 'Active' },
   outlet_id: { type: Number, default: null }
 });
 
