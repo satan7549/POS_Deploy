@@ -119,7 +119,7 @@ exports.deleteIngredient = async (req, res, next) => {
 
 exports.deleteManyIngredients = async (req, res, next) => {
   try {
-    // Delete ingredients based on category
+    // Delete ingredients 
     const result = await IngredientModel.deleteMany();
 
     if (result.deletedCount === 0) {
