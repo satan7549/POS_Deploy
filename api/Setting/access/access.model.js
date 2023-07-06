@@ -25,7 +25,7 @@ const accessSchema = Schema({
   },
   del_status: {
     type: String,
-    default: "Live",
+    default: "Active",
   },
 });
 
