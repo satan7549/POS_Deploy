@@ -8,7 +8,7 @@ const accessSchema = Joi.object({
   label_name: Joi.string().default(null),
   parent_id: Joi.number().default(0),
   main_module_id: Joi.number().default(null),
-  del_status: Joi.string().default('Live')
+  del_status: Joi.string().default('Active')
 });
 
 // const updateSchema = Joi.object({
@@ -16,7 +16,7 @@ const accessSchema = Joi.object({
 //   areaName: Joi.string().required(),
 //   description: Joi.string().allow('').optional(),
 //   companyId: Joi.number().optional(),
-//   delStatus: Joi.string().allow('').default('Live')
+//   delStatus: Joi.string().allow('').default('Active')
 // });  
 
 // Validate the area data
