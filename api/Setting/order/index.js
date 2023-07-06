@@ -14,7 +14,7 @@ const orderSchema = Schema({
   waiter: {
     type: String,
     maxlength: [50, "Maximum 50 charcters are permitted"],
-    minLength: [5, "waiter should have more than 5 character"],
+    minLength: [3, "waiter name should have more than 3 character"],
     required: [true, "please enter waiter"],
     trim: true,
   },
