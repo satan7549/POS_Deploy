@@ -119,18 +119,10 @@ exports.deleteIngredient = async (req, res, next) => {
 
 exports.deleteManyIngredients = async (req, res, next) => {
   try {
-    // Delete ingredients 
-    const result = await IngredientModel.deleteMany();
+    // Delete all ingredients
+    await IngredientModel.deleteMany();
 
-    if (result.deletedCount === 0) {
-      return res
-        .status(404)
-        .json({ message: "No ingredients found for the specified category." });
-    }
-
-    res.status(200).json({
-      message: `Deleted ${result.deletedCount} ingredients successfully.`,
-    });
+    res.status(200).json({ message: "All ingredients deleted successfully." });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
