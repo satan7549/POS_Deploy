@@ -28,10 +28,10 @@ const CompanySchema = new mongoose.Schema({
   del_status: {
     type: String,
     enum: {
-      values: ["Active", "Deactive"],
+      values: ["Live", "Deleted"],
       message: "Values is not matched",
     },
-    default: "Active",
+    default: "Live",
   },
 });
 
