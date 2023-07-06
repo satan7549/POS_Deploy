@@ -106,7 +106,7 @@ exports.deleteFoodMenu = async (req, res, next) => {
     const { id } = req.params;
     const updatedFoodMenu = await FoodMenuModel.findByIdAndUpdate(
       id,
-      { del_status: "deactivate" },
+      { del_status: "Deactivate" },
       { new: true }
     );
     if (!updatedFoodMenu) {
