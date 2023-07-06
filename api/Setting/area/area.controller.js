@@ -34,7 +34,7 @@ exports.insertArea = async (req, res, next) => {
 // Display List Area
 exports.showAreas = async (req, res, next) => {
   try {
-    const area = await AreaModel.find({ del_status: "Live" });
+    const area = await AreaModel.find({ del_status: "Active" });
 
     if (!area || area.length === 0) {
       return res.status(404).json({ message: "Area not found" });
@@ -101,8 +101,8 @@ exports.deleteArea = async (req, res, next) => {
       return res.status(404).json({ message: "Area not found" });
     }
 
-    // Update del_status to "Deactivate"
-    area.del_status = "Deactivate";
+    // Update del_status to "Deactive"
+    area.del_status = "Deactive";
     await area.save();
 
     res.status(200).json({ message: "Area Deleted successfully" });
