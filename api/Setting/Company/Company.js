@@ -29,7 +29,7 @@ const CompanySchema = new mongoose.Schema({
     type: String,
     enum: {
       values: ["Live", "Deactivate"],
-      message: "Value is not matched",
+      message: "Values is not matched",
     },
     default: "Live",
   },

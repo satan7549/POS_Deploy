@@ -84,7 +84,7 @@ exports.deleteCompany = async (req, res) => {
     }
 
     //Update del_status to "Deactivate"
-    companyExists.del_status = "deactivate";
+    companyExists.del_status = "Deactivate";
     await CompanyModel.save();
 
     res.json({ message: "Company deleted successfully" });
