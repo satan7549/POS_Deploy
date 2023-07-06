@@ -8,7 +8,7 @@ const outletSchema = Joi.object({
   phone: Joi.number().min(1000000000).max(9999999999).required(),
   email: Joi.string().min(5).max(30).required(),
   default_waiter: Joi.number().required(),
-  food_menus: Joi.array().items(Joi.string().required()).required(),
+  food_menus: Joi.array().items(Joi.string()),
   active_status: Joi.string().min(5).max(50).required(),
   del_status: Joi.string().valid("Live", "Deleted").default("Live"),
 });
@@ -21,7 +21,7 @@ const updateSchema = Joi.object({
   phone: Joi.number().min(1000000000).max(9999999999).required(),
   email: Joi.string().min(5).max(30).required(),
   default_waiter: Joi.number().required(),
-  food_menus: Joi.array().items(Joi.string().required()).required(),
+  food_menus: Joi.array().items(Joi.string()),
   active_status: Joi.string().min(5).max(50).required(),
   del_status: Joi.string().valid("Live", "Deleted").default("Live"),
 });
