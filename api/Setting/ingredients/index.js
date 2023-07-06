@@ -37,7 +37,7 @@ const ingredientSchema = Schema({
     type: String,
     enum: {
       values: ["Live", "deactivate"],
-      message: "Value is not matched",
+      message: "Values is not matched",
     },
     default: "Live",
   },
