@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const { validateFoodMenu, validateUpdate } = require("./foodMenuValidator");
 const FoodMenuModel = require("./index");
 // const OutletModel = require("../outlet/index");
@@ -54,7 +53,7 @@ exports.showFoodMenu = async (req, res, next) => {
 // Display List
 exports.showFoodMenus = async (req, res, next) => {
   try {
-    const foodMenu = await FoodMenuModel.find({ del_status: "Active" });
+    const foodMenu = await FoodMenuModel.find({ del_status: "Live" });
 
     if (!foodMenu || foodMenu.length === 0) {
       return res.status(404).json({ message: "foodMenu not found" });
@@ -106,7 +105,7 @@ exports.deleteFoodMenu = async (req, res, next) => {
     const { id } = req.params;
     const updatedFoodMenu = await FoodMenuModel.findByIdAndUpdate(
       id,
-      { del_status: "Deactive" },
+      { del_status: "Deleted" },
       { new: true }
     );
     if (!updatedFoodMenu) {
