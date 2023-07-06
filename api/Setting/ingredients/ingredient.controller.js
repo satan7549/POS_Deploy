@@ -55,7 +55,7 @@ exports.showIngredient = async (req, res, next) => {
 // Display List
 exports.showingredients = async (req, res, next) => {
   try {
-    const ingredient = await IngredientModel.find({ del_status: "Active" });
+    const ingredient = await IngredientModel.find({ del_status: "Live" });
 
     if (!ingredient || ingredient.length === 0) {
       return res.status(404).json({ message: "ingredient not found" });
@@ -105,7 +105,7 @@ exports.deleteIngredient = async (req, res, next) => {
     const { id } = req.params;
     const updateIngredient = await IngredientModel.findByIdAndUpdate(
       id,
-      { del_status: "Deactive" },
+      { del_status: "Deleted" },
       { new: true }
     );
     if (!updateIngredient) {
