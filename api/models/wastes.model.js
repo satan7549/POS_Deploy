@@ -37,7 +37,7 @@ const wastesSchema = Schema({
       },
       del_status: {
         type: String,
-        default: 'Live'
+        default: 'Active'
       },
       food_menu_id: {
         type: Number,

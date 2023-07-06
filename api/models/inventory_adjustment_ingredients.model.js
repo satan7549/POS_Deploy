@@ -8,7 +8,7 @@ const inventoryAdjustmentIngredientSchema = new Schema({
   inventory_adjustment_id: { type: Number, default: null },
   consumption_status: { type: String, enum: ['Plus', 'Minus', ''], default: null },
   outlet_id: { type: Number, default: null },
-  del_status: { type: String, default: 'Live' }
+  del_status: { type: String, default: 'Active' }
 });
 
 const InventoryAdjustmentIngredient = mongoose.model('InventoryAdjustmentIngredient', inventoryAdjustmentIngredientSchema);

@@ -10,7 +10,7 @@ const inventoryAdjustmentSchema = new mongoose.Schema({
   employee_id: { type: Number, default: null },
   user_id: { type: Number, default: null },
   outlet_id: { type: Number, default: null },
-  del_status: { type: String, default: 'Live' }
+  del_status: { type: String, default: 'Active' }
 });
 
 

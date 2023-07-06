@@ -5,7 +5,7 @@ const kitchenCategorySchema = new Schema({
   kitchen_id: { type: Number, default: null },
   cat_id: { type: Number, default: null },
   via_printer: { type: Number, default: null },
-  del_status: { type: String, required: true, default: "Live" },
+  del_status: { type: String, required: true, default: "Active" },
   outlet_id: { type: Number, required: true, default: 0 },
 });
 

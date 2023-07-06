@@ -8,7 +8,7 @@ const foodMenuModifierSchema = new Schema({
     user_id: { type: Number, default: null },
     outlet_id: { type: Number, default: null },
     company_id: { type: Number, default: null },
-    del_status: { type: String, default: 'Live' }
+    del_status: { type: String, default: 'Active' }
 });
 
 const FoodMenuModifier = mongoose.model('FoodMenuModifier', foodMenuModifierSchema);

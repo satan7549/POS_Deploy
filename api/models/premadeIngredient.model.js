@@ -29,7 +29,7 @@ const premadeIngredientSchema = Schema({
       },
       del_status: {
         type: String,
-        default: 'Live'
+        default: 'Active'
       },
       cost: {
         type: Number,

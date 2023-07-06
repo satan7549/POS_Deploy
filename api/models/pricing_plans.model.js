@@ -16,7 +16,7 @@ const pricingPlanSchema = new Schema({
   is_recommended: { type: String, default: 'No' },
   description: { type: String, default: null },
   price_interval: { type: String, default: 'monthly' },
-  del_status: { type: String, default: 'Live' }
+  del_status: { type: String, default: 'Active' }
 });
 
 const PricingPlan = mongoose.model('PricingPlan', pricingPlanSchema);

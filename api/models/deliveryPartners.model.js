@@ -34,8 +34,8 @@ const deliveryPartnersSchema = Schema({
       },
       del_status: {
         type: String,
-        default: 'Live'
+        default: 'Active'
       }
 })
 
-module.exports = mongoose.model("DeliveryPartners", deliveryPartnersSchema);
+module.exports = mongoose.model("DeActiveryPartners", deActiveryPartnersSchema);

@@ -6,7 +6,7 @@ const   denominationSchema = new mongoose.Schema({
   amount: { type: Number, default: null },
   description: { type: String, default: null },
   company_id: { type: Number, default: null },
-  del_status: { type: String, default: 'Live' }
+  del_status: { type: String, default: 'Active' }
 });
 
 const Denomination = mongoose.model('Denomination', denominationSchema);

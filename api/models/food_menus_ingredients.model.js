@@ -8,7 +8,7 @@ const foodMenuIngredientSchema = new Schema({
   food_menu_id: { type: Number, default: null },
   user_id: { type: Number, default: null },
   company_id: { type: Number, default: null },
-  del_status: { type: String, default: 'Live' },
+  del_status: { type: String, default: 'Active' },
   cost: { type: Number, default: null },
   total: { type: Number, default: null }
 });

@@ -25,7 +25,7 @@ const productionSchema = Schema({
       },
       del_status: {
         type: String,
-        default: 'Live'
+        default: 'Active'
       },
       status: {
         type: Number,

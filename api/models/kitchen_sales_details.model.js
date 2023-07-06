@@ -32,7 +32,7 @@ const kitchenSalesDetailSchema = new Schema({
   outlet_id: { type: Number, default: null },
   is_free_item: { type: Number, required: true, default: 0 },
   is_print: { type: Number, required: true, default: 1 },
-  del_status: { type: String, default: "Live" },
+  del_status: { type: String, default: "Active" },
 });
 
 const KitchenSalesDetail = mongoose.model(

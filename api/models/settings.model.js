@@ -26,7 +26,7 @@ const settingsSchema = Schema({
       del_status: {
         type: String,
         required: true,
-        default: 'Live'
+        default: 'Active'
       }
 })
 

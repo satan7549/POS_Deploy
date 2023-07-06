@@ -33,7 +33,7 @@ const supplierPaymentsSchema = Schema({
       },
       del_status: {
         type: String,
-        default: 'Live'
+        default: 'Active'
       },
       payment_id: {
         type: Number,

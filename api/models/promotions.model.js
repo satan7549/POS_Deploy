@@ -17,7 +17,7 @@ const promotionSchema = new Schema({
   user_id: { type: Number, default: null },
   company_id: { type: Number, default: null },
   promotion_code: { type: String, default: null },
-  del_status: { type: String, default: 'Live' }
+  del_status: { type: String, default: 'Active' }
 });
 
 const Promotion = mongoose.model('Promotion', promotionSchema);

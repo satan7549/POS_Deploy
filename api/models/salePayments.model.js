@@ -45,7 +45,7 @@ const salePaymentsSchema = Schema({
       },
       del_status: {
         type: String,
-        default: 'Live'
+        default: 'Active'
       },
       user_id: {
         type: Number,
