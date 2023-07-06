@@ -91,16 +91,12 @@ const foodMenuSchema = Schema({
   del_status: {
     type: String,
     enum: {
-      values: ["Live", "deactivate"],
-      message: "Value is not matched",
+      values: ["Live", "Deactivate"],
+      message: "Values is not matched",
     },
     default: "Live",
   },
-  // company: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "Company",
-  //   required: true,
-  // },
+ 
 });
 
 module.exports = mongoose.model("FoodMenu", foodMenuSchema);
