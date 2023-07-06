@@ -6,6 +6,6 @@
 --     area_name varchar(250) DEFAULT NULL,
 --     description varchar(100) DEFAULT NULL,
 --     company_id int DEFAULT NULL,
---     del_status varchar(50) DEFAULT 'Live'
+--     del_status varchar(50) DEFAULT 'Active'
 -- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
