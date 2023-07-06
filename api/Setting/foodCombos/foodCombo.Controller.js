@@ -53,7 +53,7 @@ exports.showFoodCombo = async (req, res, next) => {
 // Display foodCombo List
 exports.showAllFoodCombo = async (req, res, next) => {
   try {
-    const foodCombo = await FoodComboModel.find({ del_status: "Active" });
+    const foodCombo = await FoodComboModel.find({ del_status: "Live" });
 
     if (!foodCombo || foodCombo.length === 0) {
       return res.status(404).json({ message: "foodCombo not found" });
@@ -103,7 +103,7 @@ exports.deleteFoodCombo = async (req, res, next) => {
     const { id } = req.params;
     const updatedFoodCombo = await FoodComboModel.findByIdAndUpdate(
       id,
-      { del_status: "Deactive" },
+      { del_status: "Deleted" },
       { new: true }
     );
     if (!updatedFoodCombo) {
