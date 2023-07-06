@@ -21,7 +21,7 @@ const foodCategorySchema = Schema({
   del_status: {
     type: String,
     enum: {
-      values: ["Live", "deactivate"],
+      values: ["Live", "Deactivate"],
       message: "Value is not matched",
     },
     default: "Live",

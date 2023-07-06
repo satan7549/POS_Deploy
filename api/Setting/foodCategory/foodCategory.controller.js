@@ -71,7 +71,7 @@ const softDeleteFoodCategory = async (req, res) => {
     const { id } = req.params;
     const updatedCategory = await FoodCategoryModel.findByIdAndUpdate(
       id,
-      { del_status: "deactivate" },
+      { del_status: "Deactivate" },
       { new: true }
     );
     if (!updatedCategory) {
