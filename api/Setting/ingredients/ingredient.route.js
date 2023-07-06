@@ -3,8 +3,7 @@ let router = express.Router();
 
 let ingredientController = require("./ingredient.controller");
 
-// /* add */
-// router.get('/new', areaController.addArea);
+
 
 /* Insert */
 router.post("/new", ingredientController.ingredientInsert);
@@ -21,7 +20,6 @@ router.put("/update/:id", ingredientController.updateIngredient);
 /* delete */
 router.delete("/delete/:id", ingredientController.deleteIngredient);
 
-// delete all for testing perpous 
-router.delete("/delete/all", ingredientController.deleteManyIngredients);
+
 
 module.exports = router;
