@@ -120,7 +120,7 @@ exports.deleteIngredient = async (req, res, next) => {
 exports.deleteManyIngredients = async (req, res, next) => {
   try {
     // Delete all ingredients
-    await IngredientModel.deleteMany();
+    await IngredientModel.deleteMany({});
 
     res.status(200).json({ message: "All ingredients deleted successfully." });
   } catch (error) {
