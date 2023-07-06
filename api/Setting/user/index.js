@@ -8,15 +8,27 @@ const Schema = mongoose.Schema;
 const userSchema = Schema({
   full_name: {
     type: String,
-    required: true,
+    maxlength: [50, "Maximum 50 charcters are permitted"],
+    minLength: [5, "name should have more than 5 character"],
+    required: [true, "please enter name"],
+    trim: true,
+    default: null,
   },
+
   phone: {
-    type: String,
-    required: true,
+    type: Number,
+    min: [1000000000, "phone number should be equal 10 digit"],
+    max: [9999999999, "phone number should be equal 10 digit"],
+    required: [true, "Please enter phone"],
+    default: null,
   },
+
   email_address: {
     type: String,
-    required: true,
+    required: [true, "please enter email"],
+    trim: true,
+    default: null,
+    unique: true,
     validate: [validator.isEmail, "please enter valid email"],
   },
   password: {
