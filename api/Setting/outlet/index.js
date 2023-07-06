@@ -68,7 +68,7 @@ const outletSchema = Schema({
   ],
 
   active_status: {
-    type: String, 
+    type: String,
     maxlength: [50, "Maximum 50 characters are permitted"],
     minlength: [5, "active_status should have more than 5 characters"],
     required: [true, "Please enter active_status"],
@@ -79,24 +79,10 @@ const outletSchema = Schema({
   del_status: {
     type: String,
     enum: {
-      values: ["Active", "Deactive"],
+      values: ["Live", "Deleted"],
       message: "Values is not matched",
     },
-    default: "Active",
-  },
-
-  online_self_order_receiving_id: {
-    type: Number,
-    min: [
-      1,
-      "online_self_order_receiving_id should be greater than or equal to 1",
-    ],
-    max: [
-      9999999999,
-      "online_self_order_receiving_id should be less than or equal to 9999999999",
-    ],
-    required: [true, "Please enter online_self_order_receiving_id"],
-    default: 0,
+    default: "Live",
   },
 });
 
