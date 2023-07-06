@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const { validateTable, validateUpdate } = require("./table.validator");
 const TableModel = require("./index");
 
@@ -45,7 +44,7 @@ exports.showTable = async (req, res, next) => {
 // Display List
 exports.showTables = async (req, res, next) => {
   try {
-    const table = await TableModel.find({ del_status: "Active" });
+    const table = await TableModel.find({ del_status: "Live" });
     if (!table || table.length === 0) {
       return res.status(404).json({ message: "Table not found" });
     }
@@ -89,7 +88,7 @@ exports.deleteTable = async (req, res, next) => {
     const { id } = req.params;
     const updatedTable = await TableModel.findByIdAndUpdate(
       id,
-      { del_status: "Deactive" },
+      { del_status: "Deleted" },
       { new: true }
     );
     if (!updatedTable) {

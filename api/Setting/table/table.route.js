@@ -6,8 +6,6 @@ let tableController = require('./table.controller');
 //  insert table
 router.post('/new', tableController.insertTable);
 
-
-
 /* show */
 router.get('/list/', tableController.showTables );
 
