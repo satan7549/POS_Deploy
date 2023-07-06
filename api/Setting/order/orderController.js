@@ -87,15 +87,15 @@ exports.updateOrder = async (req, res, next) => {
 exports.deleteOrder = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const updatedFoodMenu = await FoodMenuModel.findByIdAndUpdate(
+    const updatedOrder = await OrderModel.findByIdAndUpdate(
       id,
-      { del_status: "deactivate" },
+      { del_status: "Deactivate" },
       { new: true }
     );
-    if (!updatedFoodMenu) {
-      return res.status(404).json({ message: "FoodMenu not found." });
+    if (!updatedOrder) {
+      return res.status(404).json({ message: "Order not found." });
     }
-    res.status(200).json({ message: "FoodMenu deleted successfully" });
+    res.status(200).json({ message: "Order deleted successfully" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
