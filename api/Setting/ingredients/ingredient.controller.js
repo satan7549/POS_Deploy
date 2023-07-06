@@ -1,4 +1,7 @@
-const {validateIngredient,validateUpdate,} = require("./ingredient.validator");
+const {
+  validateIngredient,
+  validateUpdate,
+} = require("./ingredient.validator");
 const IngredientModel = require("./index");
 
 //insert new Ingredient
@@ -86,31 +89,48 @@ exports.updateIngredient = async (req, res, next) => {
     );
 
     if (!ingredient) {
-      console.log("Ingredient not found");
       return res.status(404).json({ message: "Ingredient not found" });
     }
 
-    res.status(200).json({ ingredient });
+    res.status(200).json({ message: "success", ingredient });
   } catch (error) {
-    console.log(error);
     // Send Error Response
     res.status(500).json("Error updating table");
   }
 };
 
-//   // Delete Ingredient
+// Delete Ingredient
 exports.deleteIngredient = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const updatedFoodMenu = await FoodMenuModel.findByIdAndUpdate(
+    const updateIngredient = await IngredientModel.findByIdAndUpdate(
       id,
       { del_status: "deactivate" },
       { new: true }
     );
-    if (!updatedFoodMenu) {
-      return res.status(404).json({ message: "FoodMenu not found." });
+    if (!updateIngredient) {
+      return res.status(404).json({ message: "Ingredient not found." });
     }
-    res.status(200).json({ message: "FoodMenu deleted successfully" });
+    res.status(200).json({ message: "Ingredient deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.deleteManyIngredients = async (req, res, next) => {
+  try {
+    // Delete ingredients based on category
+    const result = await IngredientModel.deleteMany();
+
+    if (result.deletedCount === 0) {
+      return res
+        .status(404)
+        .json({ message: "No ingredients found for the specified category." });
+    }
+
+    res.status(200).json({
+      message: `Deleted ${result.deletedCount} ingredients successfully.`,
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
