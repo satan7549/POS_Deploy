@@ -5,7 +5,7 @@ const customerAddressSchema = new mongoose.Schema({
   customer_id: { type: Number, default: null },
   address: { type: String, default: null },
   is_active: { type: Number, default: 0 },
-  del_status: { type: String, required: true, default: 'Live' }
+  del_status: { type: String, required: true, default: 'Active' }
 });
 
 const CustomerAddress = mongoose.model('CustomerAddress', customerAddressSchema);
