@@ -73,7 +73,7 @@ const foodMenuSchema = Schema({
   isBeverage: {
     type: String,
     enum: {
-      value: ["yes", "no"],
+      values: ["yes", "no"], // Use "values" instead of "value"
       message: "Value is not matched",
     },
     required: [true, "please enter isBeverage"],
