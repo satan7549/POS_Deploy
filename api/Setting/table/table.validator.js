@@ -10,7 +10,7 @@ let tableSchema = Joi.object({
     description: Joi.string().min(10).max(100).required(),
     user_id: Joi.string().required(),
     outlet_id: Joi.string().required(),
-    del_stype: Joi.string().valid("Live", "Deactivate").default("Live"),
+    del_stype: Joi.string().valid("Active", "Deactive").default("Active"),
 });
 
 // Define the validation schema for update data
@@ -23,7 +23,7 @@ let updateSchema = Joi.object({
     description: Joi.string().min(10).max(100).required(),
     user_id: Joi.string().required(),
     outlet_id: Joi.string().required(),
-    del_stype: Joi.string().valid("Live", "Deactivate").default("Live"),
+    del_stype: Joi.string().valid("Active", "Deactive").default("Active"),
 });
 
 // Validate the table data

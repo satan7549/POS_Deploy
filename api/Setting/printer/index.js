@@ -36,7 +36,7 @@ const printerSchema = new mongoose.Schema({
   del_status: {
     type: String,
     required: true,
-    default: "Live",
+    default: "Active",
   },
 });
 

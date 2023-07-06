@@ -10,7 +10,7 @@ const roleSchema = Schema({
       del_status: {
         type: String,
         required: true,
-        default: 'Live'
+        default: 'Active'
       },
       company_id: {
         type: Number,

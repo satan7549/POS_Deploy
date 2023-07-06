@@ -8,7 +8,7 @@ const orderSchema = Joi.object({
   order_type: Joi.string().valid("Dine_In", "Take_Away", "Delivery").required(),
   table_id: Joi.array().items(Joi.string().required()).required(),
   foodMenu: Joi.array().items(Joi.string().required()).required(),
-  del_status: Joi.string().default("Live"),
+  del_status: Joi.string().default("Active"),
 });
 
 const updateSchema = Joi.object({
@@ -19,7 +19,7 @@ const updateSchema = Joi.object({
   order_type: Joi.string().valid("Dine_In", "Take_Away", "Delivery").required(),
   table_id: Joi.array().items(Joi.string().required()).required(),
   foodMenu: Joi.array().items(Joi.string().required()).required(),
-  del_status: Joi.string().default("Live"),
+  del_status: Joi.string().default("Active"),
 });
 
 function validateOrder(orderData) {

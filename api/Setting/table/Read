@@ -7,7 +7,7 @@
 // //     "user_id": 2,
 // //     "outlet_id": 1,
 // //     "company_id": 1,
-// //     "del_status": "live"
+// //     "del_status": "Active"
 // // }
 
 
@@ -51,7 +51,7 @@
 //     del_status: {
 //         type: String,
 //         maxlength: 50,
-//         default: 'Live'
+//         default: 'Active'
 //     }
 // });
 

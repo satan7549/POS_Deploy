@@ -15,14 +15,14 @@ const outletSchema = Schema({
     minLength: [5, "outlet_name should have more than 5 character"],
     required: [true, "please enter outlet_name"],
     trim: true,
-    default: null,
+    unique: true,
   },
 
   outlet_code: {
     type: String,
     maxlength: [50, "Maximum 50 charcters are permitted"],
-    minLength: [5, "outlet_name should have more than 5 character"],
-    required: [true, "please enter outlet_name"],
+    minLength: [5, "outlet_code should have more than 5 character"],
+    required: [true, "please enter outlet_code"],
     trim: true,
     default: null,
     unique: true,
@@ -35,43 +35,66 @@ const outletSchema = Schema({
     required: [true, "please enter address"],
     trim: true,
     default: null,
-
   },
+
   phone: {
     type: Number,
+    min: [1000000000, "phone number should be equal 10 digit"],
+    max: [9999999999, "phone number should be equal 10 digit"],
+    required: [true, "Please enter phone"],
     default: null,
+    unique: true,
   },
+
   email: {
     type: String,
+    required: [true, "please enter email"],
+    trim: true,
     default: null,
+    unique: true,
   },
+
   default_waiter: {
     type: Number,
+    required: [true, "Please enter waiters"],
     default: null,
   },
-  food_menus: {
-    type: String,
-  },
-  food_menu_prices: {
-    type: String,
-  },
-  delivery_price: {
-    type: String,
-  },
-  has_kitchen: {
-    type: String,
-    default: "No",
-  },
+
+  food_menus: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "FoodMenu",
+    },
+  ],
+
   active_status: {
-    type: String,
+    maxlength: [50, "Maximum 50 charcters are permitted"],
+    minLength: [5, "active_status should have more than 5 character"],
+    required: [true, "please enter active_status"],
+    trim: true,
     default: "active",
   },
+
   del_status: {
     type: String,
-    default: "Live",
+    enum: {
+      values: ["Active", "Deactive"],
+      message: "Values is not matched",
+    },
+    default: "Active",
   },
+
   online_self_order_receiving_id: {
     type: Number,
+    min: [
+      1,
+      "online_self_order_receiving_id should be greater than or equal to 1",
+    ],
+    max: [
+      9999999999,
+      "online_self_order_receiving_id should be less than or equal to 9999999999",
+    ],
+    required: [true, "Please enter online_self_order_receiving_id"],
     default: 0,
   },
 });

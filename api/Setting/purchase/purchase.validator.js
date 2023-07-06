@@ -18,7 +18,7 @@ const purchaseSchema = Joi.object({
     outlet_id: Joi.number().integer().allow(null),
     added_date_time: Joi.date().required().default(Date.now),
     payment_id: Joi.number().integer().required().default(0),
-    del_status: Joi.string().max(50).default('Live')
+    del_status: Joi.string().max(50).default('Active')
   });
   
 
@@ -40,7 +40,7 @@ const purchaseSchema = Joi.object({
     outlet_id: Joi.number().integer().allow(null),
     added_date_time: Joi.date().required().default(Date.now),
     payment_id: Joi.number().integer().required().default(0),
-    del_status: Joi.string().max(50).default('Live')
+    del_status: Joi.string().max(50).default('Active')
   });
   
    

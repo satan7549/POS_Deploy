@@ -42,7 +42,7 @@ exports.outletInsert = async (req, res, next) => {
 // Display List
 exports.showAllOutlets = async (req, res, next) => {
   try {
-    const outlets = await OutletModel.find();
+    const outlets = await OutletModel.find({ del_status: "Active" });
     if (!outlets || outlets.length === 0) {
       return res.status(404).json({ message: "Outlets not found" });
     }

@@ -6,5 +6,5 @@ CREATE TABLE  tbl_payment_methods  (
    company_id   int NOT NULL,
    order_by   int DEFAULT NULL,
    personalinformation  text CHARACTER SET latin1,
-   del_status  varchar(10) NOT NULL DEFAULT 'Live'
+   del_status  varchar(10) NOT NULL DEFAULT 'Active'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

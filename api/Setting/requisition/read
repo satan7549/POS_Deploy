@@ -9,7 +9,7 @@ transfer_type: Joi.number().integer().required().default(1),
   from_outlet_id: Joi.number().integer().allow(null).default(null),
   to_outlet_id: Joi.number().integer().allow(null).default(null),
   status: Joi.number().integer().allow(null).default(null),
-  del_status: Joi.string().max(50).default('Live')
+  del_status: Joi.string().max(50).default('Active')
 
  transfer_type: {
     type: Number,
@@ -58,5 +58,5 @@ transfer_type: Joi.number().integer().required().default(1),
   },
   del_status: {
     type: String,
-    default: 'Live'
+    default: 'Active'
   }

@@ -28,7 +28,7 @@ const purchaseIngredientsSchema = new mongoose.Schema({
   },
   del_status: {
     type: String,
-    default: 'Live'
+    default: 'Active'
   },
   cost_per_unit: {
     type: Number,

@@ -2,13 +2,13 @@ const Joi = require('joi');
 
 const roleSchema = Joi.object({
   role_name: Joi.string().allow(null).default(null),
-  del_status: Joi.string().required().default('Live'),
+  del_status: Joi.string().required().default('Active'),
   company_id: Joi.number().allow(null).default(null)
 });
 
 let updateSchema = Joi.object({
     role_name: Joi.string().allow(null).default(null),
-    del_status: Joi.string().required().default('Live'),
+    del_status: Joi.string().required().default('Active'),
     company_id: Joi.number().allow(null).default(null)
   });
   

@@ -40,10 +40,10 @@ const orderSchema = Schema({
   del_status: {
     type: String,
     enum: {
-      values: ["Live", "Deactivate"],
+      values: ["Active", "Deactive"],
       message: "Value is not matched",
     },
-    default: "Live",
+    default: "Active",
   },
 });
 

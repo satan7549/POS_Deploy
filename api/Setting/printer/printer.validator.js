@@ -10,7 +10,7 @@ const printerSchema = Joi.object({
   printer_ip_address: Joi.string().max(20).allow(null),
   printer_port: Joi.string().max(20).allow(null),
   company_id: Joi.number().integer().allow(null),
-  del_status: Joi.string().max(10).required().default('Live')
+  del_status: Joi.string().max(10).required().default('Active')
 });
 
 
@@ -24,7 +24,7 @@ let updateSchema = Joi.object({
   printer_ip_address: Joi.string().max(20).allow(null),
   printer_port: Joi.string().max(20).allow(null),
   company_id: Joi.number().integer().allow(null),
-  del_status: Joi.string().max(10).required().default('Live')
+  del_status: Joi.string().max(10).required().default('Active')
 
 });
 

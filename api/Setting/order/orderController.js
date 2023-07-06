@@ -43,7 +43,7 @@ exports.showOrder = async (req, res, next) => {
 //Dispaly List
 exports.showOrders = async (req, res, next) => {
   try {
-    const order = await OrderModel.find({ del_status: "Live" });
+    const order = await OrderModel.find({ del_status: "Active" });
 
     if (!order || order.length === 0) {
       return res.status(404).json({ message: "order not found" });
@@ -89,7 +89,7 @@ exports.deleteOrder = async (req, res, next) => {
     const { id } = req.params;
     const updatedOrder = await OrderModel.findByIdAndUpdate(
       id,
-      { del_status: "Deactivate" },
+      { del_status: "Deactive" },
       { new: true }
     );
     if (!updatedOrder) {

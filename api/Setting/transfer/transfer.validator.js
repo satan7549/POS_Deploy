@@ -13,7 +13,7 @@ const transferSchema = Joi.object({
   from_outlet_id: Joi.number().integer().allow(null),
   to_outlet_id: Joi.number().integer().allow(null),
   status: Joi.number().integer().allow(null),
-  del_status: Joi.string().max(50).default('Live')
+  del_status: Joi.string().max(50).default('Active')
 });
 
 const updateSchema = Joi.object({
@@ -29,7 +29,7 @@ const updateSchema = Joi.object({
     from_outlet_id: Joi.number().integer().allow(null),
     to_outlet_id: Joi.number().integer().allow(null),
     status: Joi.number().integer().allow(null),
-    del_status: Joi.string().max(50).default('Live')
+    del_status: Joi.string().max(50).default('Active')
   });
   
 

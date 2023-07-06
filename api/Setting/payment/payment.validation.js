@@ -7,7 +7,7 @@ const paymentMethodSchema = Joi.object({
   company_id: Joi.number().required(),
   order_by: Joi.number().allow(null),
   personalinformation: Joi.string().allow(null),
-  del_status: Joi.string().max(10).default('Live')
+  del_status: Joi.string().max(10).default('Active')
 });
 
 const updatePaymentMethodSchema = Joi.object({

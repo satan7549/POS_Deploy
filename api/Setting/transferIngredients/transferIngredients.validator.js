@@ -16,7 +16,7 @@ const transferIngredientsSchema = Joi.object({
   single_total_sale_amount: Joi.number().allow(null),
   total_tax: Joi.number().allow(null),
   total_sale_amount: Joi.number().allow(null),
-  del_status: Joi.string().max(10).default('Live')
+  del_status: Joi.string().max(10).default('Active')
 });
 
 
@@ -36,7 +36,7 @@ const updateSchema = Joi.object({
     single_total_sale_amount: Joi.number().allow(null),
     total_tax: Joi.number().allow(null),
     total_sale_amount: Joi.number().allow(null),
-    del_status: Joi.string().max(10).default('Live')
+    del_status: Joi.string().max(10).default('Active')
   });
 
   // Validate the area data

@@ -8,7 +8,7 @@ const purchaseIngredientsSchema = Joi.object({
   total: Joi.number().allow(null),
   purchase_id: Joi.number().integer().allow(null),
   outlet_id: Joi.number().integer().allow(null),
-  del_status: Joi.string().max(10).default('Live'),
+  del_status: Joi.string().max(10).default('Active'),
   cost_per_unit: Joi.number().required().default(0)
 });
 
@@ -41,7 +41,7 @@ ingredient_id: {
   },
   del_status: {
     type: String,
-    default: 'Live'
+    default: 'Active'
   },
   cost_per_unit: {
     type: Number,
