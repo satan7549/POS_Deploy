@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const { validateTable, validateUpdate } = require("./table.validator");
 const TableModel = require("./index");
-const table = require("./index");
 
 //insert new table
 
