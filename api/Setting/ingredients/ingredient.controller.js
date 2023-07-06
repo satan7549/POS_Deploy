@@ -105,7 +105,7 @@ exports.deleteIngredient = async (req, res, next) => {
     const { id } = req.params;
     const updateIngredient = await IngredientModel.findByIdAndUpdate(
       id,
-      { del_status: "deactivate" },
+      { del_status: "Deactivate" },
       { new: true }
     );
     if (!updateIngredient) {
@@ -116,5 +116,3 @@ exports.deleteIngredient = async (req, res, next) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-

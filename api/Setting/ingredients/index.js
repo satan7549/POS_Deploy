@@ -36,15 +36,12 @@ const ingredientSchema = Schema({
   del_status: {
     type: String,
     enum: {
-      values: ["Live", "deactivate"],
+      values: ["Live", "Deactivate"],
       message: "Values is not matched",
     },
     default: "Live",
   },
-  //   recipe: {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: "Recipe",
-  //   },
+  
 });
 
 module.exports = mongoose.model("Ingredient", ingredientSchema);
