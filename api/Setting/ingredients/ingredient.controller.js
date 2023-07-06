@@ -1,7 +1,7 @@
 const {validateIngredient,validateUpdate,} = require("./ingredient.validator");
 const IngredientModel = require("./index");
 
-//insert new Expenses
+//insert new Ingredient
 exports.ingredientInsert = async (req, res, next) => {
   try {
     // Validation
@@ -52,7 +52,7 @@ exports.showIngredient = async (req, res, next) => {
 // Display List
 exports.showingredients = async (req, res, next) => {
   try {
-    const ingredient = await IngredientModel.find();
+    const ingredient = await IngredientModel.find({ del_status: "Live" });
 
     if (!ingredient || ingredient.length === 0) {
       return res.status(404).json({ message: "ingredient not found" });
@@ -64,7 +64,7 @@ exports.showingredients = async (req, res, next) => {
   }
 };
 
-// Update Expenses
+// Update Ingredient
 exports.updateIngredient = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -98,21 +98,20 @@ exports.updateIngredient = async (req, res, next) => {
   }
 };
 
-//   // Delete Expenses
+//   // Delete Ingredient
 exports.deleteIngredient = async (req, res, next) => {
   try {
-    let id = req.params.id;
-
-    let ingredient = await IngredientModel.deleteOne({ _id: id });
-
-    if (!ingredient) {
-      return res.status(404).json({ message: "Ingredient not found" });
+    const { id } = req.params;
+    const updatedFoodMenu = await FoodMenuModel.findByIdAndUpdate(
+      id,
+      { del_status: "deactivate" },
+      { new: true }
+    );
+    if (!updatedFoodMenu) {
+      return res.status(404).json({ message: "FoodMenu not found." });
     }
-
-    // res.status(200).json({ id });
-    res.status(200).json({ message: "Ingredient Deleted sucessfully" });
+    res.status(200).json({ message: "FoodMenu deleted successfully" });
   } catch (error) {
-    // Send Error Response
-    res.status(500).json({ error });
+    res.status(500).json({ error: error.message });
   }
 };
