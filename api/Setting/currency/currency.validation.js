@@ -5,14 +5,14 @@ const currencySchema = Joi.object({
   currency: Joi.string().max(10).allow(null),
   conversion_rate: Joi.number().allow(null),
   company_id: Joi.number().allow(null),
-  del_status: Joi.string().max(10).default('Live')
+  del_status: Joi.string().max(10).default('Active')
 });
 
 const updateSchema = Joi.object({
   currency: Joi.string().max(10).allow(null),
   conversion_rate: Joi.number().allow(null),
   company_id: Joi.number().allow(null),
-  del_status: Joi.string().max(10).default('Live')
+  del_status: Joi.string().max(10).default('Active')
 });
 
 
