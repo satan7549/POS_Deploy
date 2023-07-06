@@ -13,7 +13,7 @@ const  customerDueReceiveSchema = new mongoose.Schema({
   user_id: { type: Number, default: null },
   outlet_id: { type: Number, default: null },
   company_id: { type: Number, default: null },
-  del_status: { type: String, default: 'Live' }
+  del_status: { type: String, default: 'Active' }
 });
 
 const CustomerDueReceive = mongoose.model('CustomerDueReceive', customerDueReceiveSchema);
