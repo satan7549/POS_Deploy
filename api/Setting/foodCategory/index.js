@@ -21,10 +21,10 @@ const foodCategorySchema = Schema({
   del_status: {
     type: String,
     enum: {
-      values: ["Active", "Deactive"],
+      values: ["Live", "Deleted"],
       message: "Value is not matched",
     },
-    default: "Active",
+    default: "Live",
   },
   createdAt: {
     type: Date,

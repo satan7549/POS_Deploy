@@ -19,7 +19,7 @@ const createFoodCategory = async (req, res) => {
 // READ - Get all food categories
 const getAllFoodCategories = async (req, res) => {
   try {
-    const foodCategory = await FoodCategoryModel.find({ del_status: "Active" });
+    const foodCategory = await FoodCategoryModel.find({ del_status: "Live" });
 
     if (!foodCategory || foodCategory.length === 0) {
       return res.status(404).json({ message: "Food category not found" });
@@ -71,7 +71,7 @@ const softDeleteFoodCategory = async (req, res) => {
     const { id } = req.params;
     const updatedCategory = await FoodCategoryModel.findByIdAndUpdate(
       id,
-      { del_status: "Deactive" },
+      { del_status: "Deleted" },
       { new: true }
     );
     if (!updatedCategory) {
@@ -83,19 +83,6 @@ const softDeleteFoodCategory = async (req, res) => {
   }
 };
 
-// // DELETE - Delete from DATA_BASE a food category by ID
-// const deleteFoodCategory = async (req, res) => {
-//   try {
-//     const { categoryId } = req.params;
-//     const deletedCategory = await FoodCategory.findByIdAndDelete(categoryId);
-//     if (!deletedCategory) {
-//       return res.status(404).json({ message: "Food category not found." });
-//     }
-//     res.status(200).json({ message: "Food category deleted successfully." });
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
 
 module.exports = {
   createFoodCategory,
