@@ -16,10 +16,10 @@ const areaSchema = Joi.object({
     "string.min": "Description should have at least {100} characters",
     "string.max": "Description should have at most {5} characters",
   }),
-  delStatus: Joi.string()
+  del_status: Joi.string()
     .allow("")
-    .valid("Active", "Deactive")
-    .default("Active")
+    .valid("Live", "Deleted")
+    .default("Live")
     .messages({
       "any.only": "Value is not matched",
     }),
