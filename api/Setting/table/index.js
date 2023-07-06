@@ -6,47 +6,60 @@ const tableSchema = Schema({
   area_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Areas",
-    required: true,
+    required: [true, "please enter area_id"],
   },
+
   name: {
     type: String,
-    maxlength: 50,
+    maxlength: [50, "Maximum 50 charcters are permitted"],
+    minLength: [5, "name should have more than 5 character"],
+    required: [true, "please enter name"],
+    trim: true,
     default: null,
   },
   sit_capacity: {
     type: String,
-    maxlength: 50,
+    maxlength: [50, "Maximum 50 charcters are permitted"],
+    minLength: [5, "sit_capacity should have more than 5 character"],
+    required: [true, "please enter sit_capacity"],
+    trim: true,
     default: null,
   },
   position: {
     type: String,
-    maxlength: 50,
+    maxlength: [50, "Maximum 50 charcters are permitted"],
+    minLength: [5, "position should have more than 5 character"],
+    required: [true, "please enter position"],
+    trim: true,
     default: null,
   },
   description: {
     type: String,
-    maxlength: 100,
+    maxlength: [100, "Maximum 100 charcters are permitted"],
+    minLength: [10, "description should have more than 10 character"],
+    required: [true, "please enter description"],
+    trim: true,
     default: null,
   },
   user_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+    required: [true, "please enter user_id"],
     default: null,
   },
   outlet_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Outlet",
-    required: true,
+    required: [true, "please enter outlet_id"],
   },
-  // company_id: {
-  //     type: Number,
-  //     default: null
-  // },
-  del_status: {
-    type: String,
-    maxlength: 50,
-    default: "Live",
+  
+  del_stype: String,
+  enum: {
+    values: ["Live", "Deactivate"],
+    message: "Values is not matched",
   },
+  default: "Live",
+  
 });
 
 module.exports = mongoose.model("Table", tableSchema);

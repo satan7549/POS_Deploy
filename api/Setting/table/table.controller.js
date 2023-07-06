@@ -46,7 +46,7 @@ exports.showTable = async (req, res, next) => {
 // Display List
 exports.showTables = async (req, res, next) => {
   try {
-    const table = await TableModel.find();
+    const table = await TableModel.find({ del_status: "Live" });
     if (!table || table.length === 0) {
       return res.status(404).json({ message: "Table not found" });
     }
@@ -87,18 +87,17 @@ exports.updateTable = async (req, res, next) => {
 // Delete Table
 exports.deleteTable = async (req, res, next) => {
   try {
-    let id = req.params.id;
-
-    let table = await TableModel.deleteOne({ _id: id });
-
-    if (!table) {
-      console.log("Table not found");
-      return res.status(404).json({ message: "Table not found" });
+    const { id } = req.params;
+    const updatedTable = await TableModel.findByIdAndUpdate(
+      id,
+      { del_status: "Deactivate" },
+      { new: true }
+    );
+    if (!updatedTable) {
+      return res.status(404).json({ message: "Table not found." });
     }
-
-    res.status(200).json({ id });
+    res.status(200).json({ message: "Table deleted successfully" });
   } catch (error) {
-    // Send Error Response
-    res.status(500).json({ error });
+    res.status(500).json({ error: error.message });
   }
 };
