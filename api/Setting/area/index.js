@@ -26,8 +26,8 @@ const areasSchema = Schema({
   del_status: {
     type: String,
     enum: {
-      values: ["Live", "deactivate"],
-      message: "Value is not matched",
+      values: ["Live", "Deactivate"],
+      message: "Values is not matched",
     },
     default: "Live",
   },

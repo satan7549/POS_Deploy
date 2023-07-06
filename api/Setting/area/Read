@@ -1,11 +1,11 @@
 -- Database Design
 
-CREATE TABLE  tbl_areas  (
-    id   int NOT NULL,
-    outlet_id int NOT NULL DEFAULT '0',
-    area_name varchar(250) DEFAULT NULL,
-    description varchar(100) DEFAULT NULL,
-    company_id int DEFAULT NULL,
-    del_status varchar(50) DEFAULT 'Live'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- CREATE TABLE  tbl_areas  (
+--     id   int NOT NULL,
+--     outlet_id int NOT NULL DEFAULT '0',
+--     area_name varchar(250) DEFAULT NULL,
+--     description varchar(100) DEFAULT NULL,
+--     company_id int DEFAULT NULL,
+--     del_status varchar(50) DEFAULT 'Live'
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

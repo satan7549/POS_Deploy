@@ -1,7 +1,7 @@
 const { validateArea, validateUpdate } = require("./area.validator");
 const AreaModel = require("./index");
 
-//insert new table
+//insert new Area
 exports.insertArea = async (req, res, next) => {
   try {
     // Validation
@@ -19,7 +19,7 @@ exports.insertArea = async (req, res, next) => {
       return res.status(409).json({ message: "Area Already Exists!" });
     }
 
-    // Insert table
+    // Insert Area
     const areaModel = new AreaModel(value);
     const savedData = await areaModel.save();
 
@@ -31,7 +31,7 @@ exports.insertArea = async (req, res, next) => {
   }
 };
 
-// Display List
+// Display List Area
 exports.showAreas = async (req, res, next) => {
   try {
     const area = await AreaModel.find({ del_status: "Live" });
@@ -61,7 +61,7 @@ exports.findAreaByID = async (req, res, next) => {
   }
 };
 
-// Update Role
+// Update Area
 exports.updateArea = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -102,7 +102,7 @@ exports.deleteArea = async (req, res, next) => {
     }
 
     // Update del_status to "Deactivate"
-    area.del_status = "deactivate";
+    area.del_status = "Deactivate";
     await area.save();
 
     res.status(200).json({ message: "Area Deleted successfully" });
