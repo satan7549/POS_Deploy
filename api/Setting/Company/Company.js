@@ -10,12 +10,12 @@ const CompanySchema = new mongoose.Schema({
     trim: true,
   },
 
-  cuisine: {
-    type: String,
-    maxlength: [50, "Maximum 50 charcters are permitted"],
-    minLength: [5, "cusine should have more than 5 character"],
-    trim: true,
-  },
+  // cuisine: {
+  //   type: String,
+  //   maxlength: [50, "Maximum 50 charcters are permitted"],
+  //   minLength: [5, "cusine should have more than 5 character"],
+  //   trim: true,
+  // },
 
   // Array of outlet references
   outlets: [
