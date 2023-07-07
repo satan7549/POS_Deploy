@@ -6,8 +6,6 @@ let printerController = require('./printer.controller');
 //  insert Printer
 router.post('/new', printerController.insertPrinter);
 
-
-
 /* show */
 router.get('/list/',printerController.showPrinters );
 
