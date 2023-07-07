@@ -33,7 +33,7 @@ exports.outletInsert = async (req, res, next) => {
     await company.save();
 
     // Send Response
-    res.status(200).json({ message: "success", outlet: savedOutlet, company });
+    res.status(200).json({ message: "success", outlet: savedOutlet });
   } catch (error) {
     // Send Error Response
     res.status(500).json({ message: "Error inserting data into database" });
