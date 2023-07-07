@@ -2,7 +2,6 @@ const { validateTable, validateUpdate } = require("./table.validator");
 const TableModel = require("./index");
 
 //insert new table
-
 exports.insertTable = async (req, res, next) => {
   try {
     // Validation
@@ -45,9 +44,11 @@ exports.showTable = async (req, res, next) => {
 exports.showTables = async (req, res, next) => {
   try {
     const table = await TableModel.find({ del_status: "Live" });
+
     if (!table || table.length === 0) {
       return res.status(404).json({ message: "Table not found" });
     }
+
     res.status(200).json({ message: "success", table });
   } catch (error) {
     res.status(500).json({ error });
@@ -57,17 +58,17 @@ exports.showTables = async (req, res, next) => {
 // Update Table
 exports.updateTable = async (req, res, next) => {
   try {
-    let id = req.params.id;
+    const id = req.params.id;
 
     // Validation
-    let { error, value } = validateUpdate(req.body);
+    const { error, value } = validateUpdate(req.body);
 
     // Check Error in Validation
     if (error) {
       return res.status(400).send(error.details[0].message);
     }
 
-    let table = await TableModel.findOneAndUpdate({ _id: id }, value, {
+    const table = await TableModel.findOneAndUpdate({ _id: id }, value, {
       new: true,
     });
 
@@ -75,7 +76,7 @@ exports.updateTable = async (req, res, next) => {
       return res.status(404).json({ message: "Table not found" });
     }
 
-    res.status(200).json({ message: "update success", table });
+    res.status(200).json({ message: "Update success", table });
   } catch (error) {
     // Send Error Response
     res.status(500).json({ error });
@@ -91,9 +92,11 @@ exports.deleteTable = async (req, res, next) => {
       { del_status: "Deleted" },
       { new: true }
     );
+
     if (!updatedTable) {
       return res.status(404).json({ message: "Table not found." });
     }
+
     res.status(200).json({ message: "Table deleted successfully" });
   } catch (error) {
     res.status(500).json({ error: error.message });
