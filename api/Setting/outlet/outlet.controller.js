@@ -47,7 +47,7 @@ exports.showAllOutlets = async (req, res, next) => {
     if (!outlets || outlets.length === 0) {
       return res.status(404).json({ message: "Outlets not found" });
     }
-    res.status(200).json({ outlets });
+    res.status(200).json({ message: "success", outlets });
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -129,17 +129,16 @@ exports.deleteOutlet = async (req, res, next) => {
   }
 };
 
-// For Testing Populate
+
 // Find Company
 exports.findCompanyByOutletId = async (req, res, next) => {
   try {
-    // console.log(req.body._id)
     const outlet = await OutletModel.findById(req.body._id).populate("Company");
     if (!outlet) {
       return res.status(404).json({ message: "outlet not found" });
     }
     const company = outlet.Company;
-    // console.log(outlet._id);
+    
     res.status(200).json({ message: "success", company });
   } catch (error) {
     res.status(500).json({ error });
