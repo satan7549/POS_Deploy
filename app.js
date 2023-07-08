@@ -28,6 +28,9 @@ const FoodCategory = require("./api/Setting/foodCategory/foodCategory.route");
 const FoodMenurouter = require("./api/Setting/foodMenu/foodMenuRoute");
 const Companyrouter = require("./api/Setting/Company/CompanyRoutes");
 const Orderrouter = require("./api/Setting/order/orderRoute");
+const IngredientCategoryrouter = require("./api/Setting/ingredientCategory/ingredientCategoryRoute");
+const IngredientUnitrouter = require("./api/Setting/ingredientUnit/ingredientUnitRoute");
+
 
 const app = express();
 
@@ -67,6 +70,9 @@ app.use("/setting/ingredient", settingIngredientRouter);
 app.use("/setting/foodcategory", FoodCategory);
 app.use("/setting/foodMenu", FoodMenurouter);
 app.use("/setting/order", Orderrouter);
+app.use("/setting/ingredientCategory", IngredientCategoryrouter);
+app.use("/setting/ingredientUnit",IngredientUnitrouter);
+
 
 app.use("/company", Companyrouter);
 
