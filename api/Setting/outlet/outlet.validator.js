@@ -6,7 +6,7 @@ const outletSchema = Joi.object({
     "string.empty": `Company ID is required`,
     "any.required": `Company ID is required`,
   }),
-  outlet_name: Joi.string().max(50).required().messages({
+  outlet_name: Joi.string().max(50).required(true).messages({
     "string.base": `Outlet name should be a string`,
     "string.empty": `Outlet name is required`,
     "string.max": `Outlet name should have at most {50} characters`,
@@ -26,13 +26,18 @@ const outletSchema = Joi.object({
     "string.max": `Address should have at most {200} characters`,
     "any.required": `Address is required`,
   }),
-  phone: Joi.number().integer().min(1000000000).max(9999999999).required().messages({
-    "number.base": `Phone number should be a number`,
-    "number.empty": `Phone number is required`,
-    "number.min": `Phone number should have at least {10} digits`,
-    "number.max": `Phone number should have at most {10} digits`,
-    "any.required": `Phone number is required`,
-  }),
+  phone: Joi.number()
+    .integer()
+    .min(1000000000)
+    .max(9999999999)
+    .required()
+    .messages({
+      "number.base": `Phone number should be a number`,
+      "number.empty": `Phone number is required`,
+      "number.min": `Phone number should have at least {10} digits`,
+      "number.max": `Phone number should have at most {10} digits`,
+      "any.required": `Phone number is required`,
+    }),
   email: Joi.string().email().min(5).max(30).required().messages({
     "string.base": `Email should be a string`,
     "string.empty": `Email is required`,
@@ -68,7 +73,9 @@ const outletSchema = Joi.object({
 function validateOutlet(outletData) {
   const { error, value } = outletSchema.validate(outletData);
   if (error) {
-    const errorMessage = error.details.map((detail) => detail.message).join(", ");
+    const errorMessage = error.details
+      .map((detail) => detail.message)
+      .join(", ");
     throw new Error(errorMessage);
   }
   return value;
@@ -78,7 +85,9 @@ function validateOutlet(outletData) {
 function validateUpdate(updateData) {
   const { error, value } = outletSchema.validate(updateData);
   if (error) {
-    const errorMessage = error.details.map((detail) => detail.message).join(", ");
+    const errorMessage = error.details
+      .map((detail) => detail.message)
+      .join(", ");
     throw new Error(errorMessage);
   }
   return value;
