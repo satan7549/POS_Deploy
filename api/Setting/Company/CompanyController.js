@@ -93,15 +93,19 @@ exports.deleteCompany = async (req, res) => {
   }
 };
 
-// Retrieve all outlets for a company
 exports.getOutletsForCompany = async (req, res) => {
   try {
     const id = req.params.companyId;
 
-    const company = await CompanyModel.findById(id).populate("outlets");
+    const company = await CompanyModel.findById(id).populate({
+      path: "outlets",
+      match: { del_status: "Live" },
+    });
 
-    if (!company) {
-      return res.status(404).json({ error: "Company not found" });
+    if (!company.outlets.length) {
+      return res
+        .status(404)
+        .json({ error: "No live outlets found for the company" });
     }
 
     const outlets = company.outlets;
