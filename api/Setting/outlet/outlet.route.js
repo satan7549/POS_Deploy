@@ -4,7 +4,7 @@ const router = express.Router(); // access the method of route
 const outletController = require("./outlet.controller");
 
 // Insert
-router.post("/new", outletController.outletInsert);
+router.post('/new', outletController.outletInsert);
 
 //Show List
 router.get("/list", outletController.showAllOutlets);
