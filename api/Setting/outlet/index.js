@@ -12,7 +12,6 @@ const outletSchema = Schema({
   outlet_name: {
     type: String,
     maxlength: [50, "Maximum 50 charcters are permitted"],
-    minLength: [5, "outlet_name should have more than 5 character"],
     required: [true, "please enter outlet_name"],
     trim: true,
     unique: true,
