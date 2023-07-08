@@ -83,7 +83,7 @@ exports.deleteCompany = async (req, res) => {
       return res.status(404).json({ error: "Company not found" });
     }
 
-    //Update del_status to "Deactive"
+    //Update del_status to "Deleted"
     companyExists.del_status = "Deleted";
     await CompanyModel.save();
 
