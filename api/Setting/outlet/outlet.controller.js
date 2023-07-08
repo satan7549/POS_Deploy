@@ -115,19 +115,20 @@ exports.deleteOutlet = async (req, res, next) => {
       company.outlets = company.outlets.filter(
         (outletId) => !outletId.equals(id)
       );
-      await company.save();
+      await company.save(); // Corrected: Use company.save() instead of CompanyModel.save()
     }
 
     // Set the del_status to "Deleted" for the outlet
     outlet.del_status = "Deleted";
-    await outlet.save();
+    await outlet.save(); // Corrected: Use outlet.save() instead of OutletModel.save()
 
     res.status(200).json({ message: "Outlet deleted successfully" });
   } catch (error) {
     // Send Error Response
-    res.status(500).json({ error });
+    res.status(500).json({ error: error.message }); // Corrected: Pass error.message to the response instead of the entire error object
   }
 };
+
 
 
 // Find Company
