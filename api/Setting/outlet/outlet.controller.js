@@ -24,6 +24,16 @@ exports.outletInsert = async (req, res, next) => {
     // Check if the outlet ID is already present in the company's outlet array
     const company = await CompanyModel.findOne({ _id: value.company_id });
 
+    if (!company) {
+      return res.status(404).json({ message: "Company not found" });
+    }
+
+    if (company.outlets.includes(value._id)) {
+      return res
+        .status(409)
+        .json({ message: "Outlet ID is already present in the company's outlet array" });
+    }
+
     // Insert outlet
     const outlet = new OutletModel(value);
     const savedOutlet = await outlet.save();
@@ -33,7 +43,7 @@ exports.outletInsert = async (req, res, next) => {
     await company.save();
 
     // Send Response
-    res.status(200).json({ message: "success", outlet: savedOutlet });
+    res.status(200).json({ message: "Outlet inserted", outlet: savedOutlet });
   } catch (error) {
     // Send Error Response
     res.status(500).json({ message: "Error inserting data into database" });
@@ -44,7 +54,7 @@ exports.outletInsert = async (req, res, next) => {
 exports.showAllOutlets = async (req, res, next) => {
   try {
     const outlets = await OutletModel.find({ del_status: "Live" });
-    if (!outlets || outlets.length === 0) {
+    if (outlets.length === 0) {
       return res.status(404).json({ message: "Outlets not found" });
     }
     res.status(200).json({ message: "success", outlets });
@@ -97,6 +107,7 @@ exports.updateOutlet = async (req, res, next) => {
   }
 };
 
+// Delete outlet
 exports.deleteOutlet = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -115,31 +126,32 @@ exports.deleteOutlet = async (req, res, next) => {
       company.outlets = company.outlets.filter(
         (outletId) => !outletId.equals(id)
       );
-      await company.save(); // Corrected: Use company.save() instead of CompanyModel.save()
+      await company.save();
     }
 
     // Set the del_status to "Deleted" for the outlet
     outlet.del_status = "Deleted";
-    await outlet.save(); // Corrected: Use outlet.save() instead of OutletModel.save()
+    await outlet.save();
 
     res.status(200).json({ message: "Outlet deleted successfully" });
   } catch (error) {
     // Send Error Response
-    res.status(500).json({ error: error.message }); // Corrected: Pass error.message to the response instead of the entire error object
+    res.status(500).json({ error: error.message });
   }
 };
 
-
-
-// Find Company
+// Find Company by Outlet ID
 exports.findCompanyByOutletId = async (req, res, next) => {
   try {
-    const outlet = await OutletModel.findById(req.body._id).populate("Company");
+    const id = req.params.id;
+    const outlet = await OutletModel.findById(id).populate("Company");
+
     if (!outlet) {
-      return res.status(404).json({ message: "outlet not found" });
+      return res.status(404).json({ message: "Outlet not found" });
     }
+
     const company = outlet.Company;
-    
+
     res.status(200).json({ message: "success", company });
   } catch (error) {
     res.status(500).json({ error });
