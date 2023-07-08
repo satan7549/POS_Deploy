@@ -3,9 +3,7 @@ const router = express.Router(); // access the method of route
 
 const userController = require('./user.controller');
 
-    // router.post('/new', ( req, res, next)  => {
-    //     res.send("hello world");
-    // });
+
 
 router.post('/new', userController.userInsert);
 
