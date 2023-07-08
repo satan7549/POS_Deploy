@@ -19,8 +19,6 @@ exports.outletInsert = async (req, res, next) => {
     if (outletExists) {
       return res.status(409).json({ message: "Outlet already exists!" });
     }
-    
-    return res.json({ message: "test", outletExists });
 
     const company = await CompanyModel.findOne({ _id: value.company_id });
 
@@ -97,7 +95,7 @@ exports.updateOutlet = async (req, res, next) => {
       return res.status(400).json({ message: error.details[0].message });
     }
 
-    const outlet = await OutletModel.findOneAndUpdate({ _id: id }, value, {
+    const outlet = await OutletModel.findByIdAndUpdate(id, value, {
       new: true,
     });
 
@@ -148,13 +146,13 @@ exports.deleteOutlet = async (req, res, next) => {
 exports.findCompanyByOutletId = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const outlet = await OutletModel.findById(id).populate("Company");
+    const outlet = await OutletModel.findById(id).populate("company_id");
 
     if (!outlet) {
       return res.status(404).json({ message: "Outlet not found" });
     }
 
-    const company = outlet.Company;
+    const company = outlet.company_id;
 
     res.status(200).json({ message: "Success", company });
   } catch (error) {
