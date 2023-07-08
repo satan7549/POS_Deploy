@@ -1,51 +1,47 @@
 const { validateArea, validateUpdate } = require("./area.validator");
 const AreaModel = require("./index");
 
-//insert new Area
+// Insert new Area
 exports.insertArea = async (req, res, next) => {
   try {
     // Validation
-    const { error, value } = validateArea(req.body);
+    const validatedData = validateArea(req.body);
 
-    // Check Error in Validation
-    if (error) {
-      return res.status(400).send(error.details[0].message);
-    }
-
-    //check area exists or not
-    const areaExists = await AreaModel.findOne({ area_name: value.area_name });
+    // Check area exists or not
+    const areaExists = await AreaModel.findOne({ area_name: validatedData.area_name });
 
     if (areaExists) {
       return res.status(409).json({ message: "Area Already Exists!" });
     }
 
     // Insert Area
-    const areaModel = new AreaModel(value);
-    const savedData = await areaModel.save();
+    const area = new AreaModel(validatedData);
+    const savedArea = await area.save();
 
     // Send Response
-    res.status(200).json({ message: "Area inserted", area: savedData });
+    res.status(200).json({ message: "Area inserted", area: savedArea });
   } catch (error) {
     // Send Error Response
     res.status(500).json({ message: "Error inserting data into database" });
   }
 };
 
-// Display List Area
+// Display List of Areas
 exports.showAreas = async (req, res, next) => {
   try {
-    const area = await AreaModel.find({ del_status: "Live" });
+    const areas = await AreaModel.find({ del_status: "Live" });
 
-    if (!area || area.length === 0) {
-      return res.status(404).json({ message: "Area not found" });
+    if (areas.length === 0) {
+      return res.status(404).json({ message: "No Areas found" });
     }
-    res.status(200).json({ message: "success", area });
+
+    res.status(200).json({ message: "success", areas });
   } catch (error) {
     res.status(500).json({ error });
   }
 };
 
-//Display one single Detail
+// Display a single Area by ID
 exports.findAreaByID = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -67,14 +63,9 @@ exports.updateArea = async (req, res, next) => {
     const id = req.params.id;
 
     // Validation
-    const { error, value } = validateUpdate(req.body);
+    const validatedData = validateUpdate(req.body);
 
-    // Check Error in Validation
-    if (error) {
-      return res.status(400).send(error.details[0].message);
-    }
-
-    const area = await AreaModel.findOneAndUpdate({ _id: id }, value, {
+    const area = await AreaModel.findOneAndUpdate({ _id: id }, validatedData, {
       new: true,
     });
 
@@ -86,7 +77,7 @@ exports.updateArea = async (req, res, next) => {
   } catch (error) {
     console.log(error);
     // Send Error Response
-    res.status(500).json("Error updating table");
+    res.status(500).json({ message: "Error updating area" });
   }
 };
 
@@ -95,13 +86,13 @@ exports.deleteArea = async (req, res, next) => {
   try {
     const id = req.params.id;
 
-    const area = await AreaModel.deleteOne({ _id: id });
+    const area = await AreaModel.findOne({ _id: id });
 
     if (!area) {
       return res.status(404).json({ message: "Area not found" });
     }
 
-    // Update del_status to "Deactive"
+    // Update del_status to "Deleted"
     area.del_status = "Deleted";
     await area.save();
 
