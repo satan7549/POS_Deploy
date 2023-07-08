@@ -1,7 +1,3 @@
-const { validateOutlet, validateUpdate } = require("./outlet.validator");
-const OutletModel = require("./index");
-const CompanyModel = require("../Company/Company");
-
 // Insert new outlet
 exports.outletInsert = async (req, res, next) => {
   try {
@@ -9,7 +5,7 @@ exports.outletInsert = async (req, res, next) => {
     const { error, value } = validateOutlet(req.body);
 
     if (error) {
-      return res.status(400).send(error.details[0].message);
+      return res.status(400).json({ message: error.details[0].message });
     }
 
     const outletExists = await OutletModel.findOne({
@@ -40,7 +36,10 @@ exports.outletInsert = async (req, res, next) => {
 
     res.status(200).json({ message: "Outlet inserted", outlet: savedOutlet });
   } catch (error) {
-    res.status(500).json({ message: "Error inserting data into the database" });
+    res.status(500).json({
+      message: "Error inserting data into the database",
+      error: error.message,
+    });
   }
 };
 
@@ -49,13 +48,16 @@ exports.showAllOutlets = async (req, res, next) => {
   try {
     const outlets = await OutletModel.find({ del_status: "Live" });
 
-    if (!outlets || outlets.length === 0) {
+    if (outlets.length === 0) {
       return res.status(404).json({ message: "Outlets not found" });
     }
 
     res.status(200).json({ message: "Success", outlets });
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(500).json({
+      message: "Error fetching outlets from the database",
+      error: error.message,
+    });
   }
 };
 
@@ -71,7 +73,10 @@ exports.showSingleOutlet = async (req, res, next) => {
 
     res.status(200).json({ message: "Success", outlet });
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(500).json({
+      message: "Error fetching outlet details from the database",
+      error: error.message,
+    });
   }
 };
 
@@ -83,7 +88,7 @@ exports.updateOutlet = async (req, res, next) => {
     const { error, value } = validateUpdate(req.body);
 
     if (error) {
-      return res.status(400).send(error.details[0].message);
+      return res.status(400).json({ message: error.details[0].message });
     }
 
     const outlet = await OutletModel.findOneAndUpdate({ _id: id }, value, {
@@ -96,7 +101,9 @@ exports.updateOutlet = async (req, res, next) => {
 
     res.status(200).json({ message: "Success", outlet });
   } catch (error) {
-    res.status(500).json({ message: "Error updating outlet" });
+    res
+      .status(500)
+      .json({ message: "Error updating outlet", error: error.message });
   }
 };
 
@@ -114,7 +121,9 @@ exports.deleteOutlet = async (req, res, next) => {
     const company = await CompanyModel.findOne({ _id: outlet.company_id });
 
     if (company) {
-      company.outlets = company.outlets.filter((outletId) => !outletId.equals(id));
+      company.outlets = company.outlets.filter(
+        (outletId) => !outletId.equals(id)
+      );
       await company.save();
     }
 
@@ -123,7 +132,9 @@ exports.deleteOutlet = async (req, res, next) => {
 
     res.status(200).json({ message: "Outlet deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error deleting outlet", error: error.message });
   }
 };
 
@@ -141,7 +152,11 @@ exports.findCompanyByOutletId = async (req, res, next) => {
 
     res.status(200).json({ message: "Success", company });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({
+        message: "Error fetching company details from the database",
+        error: error.message,
+      });
   }
 };
- 
