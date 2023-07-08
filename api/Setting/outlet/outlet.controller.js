@@ -1,3 +1,6 @@
+const OutletModel = require("./index");
+const CompanyModel = require("../Company/Company");
+
 // Insert new outlet
 exports.outletInsert = async (req, res, next) => {
   try {
@@ -152,11 +155,9 @@ exports.findCompanyByOutletId = async (req, res, next) => {
 
     res.status(200).json({ message: "Success", company });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: "Error fetching company details from the database",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Error fetching company details from the database",
+      error: error.message,
+    });
   }
 };
