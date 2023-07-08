@@ -19,6 +19,8 @@ exports.outletInsert = async (req, res, next) => {
     if (outletExists) {
       return res.status(409).json({ message: "Outlet already exists!" });
     }
+    
+    return res.json({ message: "test", outletExists });
 
     const company = await CompanyModel.findOne({ _id: value.company_id });
 
