@@ -24,7 +24,7 @@ exports.outletInsert = async (req, res, next) => {
 
     if (company.outlets.includes(value._id)) {
       return res.status(409).json({
-        message: "Outlet ID is already present in the company's outlet array",
+        message: "Outlet ID is already present in the company's outlet ",
       });
     }
 
