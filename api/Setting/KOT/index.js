@@ -36,7 +36,7 @@ const kotSchema = Schema({
   cooking_status: {
     type: String,
     enum: {
-      values: ["requested","cooking", "done"], // Use "values" instead of "value"
+      values: ["requested","cooking", "done"], 
       message: "Value is not matched",
     },
     required: [true, "please enter status"],
