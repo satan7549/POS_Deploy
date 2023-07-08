@@ -1,119 +1,146 @@
-const CompanyModel = require("./Company");
-
-// Create a new company
-exports.createCompany = async (req, res) => {
-  const { name } = req.body;
-
+// Insert new outlet
+exports.outletInsert = async (req, res, next) => {
   try {
-    const companyExists = await CompanyModel.findOne({ name: name });
+    // Validation
+    const { error, value } = validateOutlet(req.body);
 
-    if (companyExists) {
-      return res.status(409).json({ message: "Company Already Exists!" });
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
     }
 
-    const newCompany = new CompanyModel(req.body);
-    const company = await newCompany.save();
-    res.status(201).json({ message: "Company created successfully", company });
-  } catch (error) {
-    res.status(500).json({ error: "Failed to create company" });
-  }
-};
+    const outletExists = await OutletModel.findOne({ outlet_name: value.outlet_name });
 
-// Get all companys
-exports.getCompanys = async (req, res) => {
-  try {
-    const Company = await CompanyModel.find({ del_status: "Live" });
-
-    if (!Company || Company.length === 0) {
-      return res.status(404).json({ message: "Company not found" });
+    if (outletExists) {
+      return res.status(409).json({ message: "Outlet already exists!" });
     }
 
-    res.status(200).json({ message: "success", Company });
-  } catch (error) {
-    res.status(500).json({ error });
-  }
-};
-
-// Get a specific company by ID
-exports.getCompanyById = async (req, res) => {
-  try {
-    const id = req.params.id;
-    const Company = await CompanyModel.findById(id);
-
-    if (!Company) {
-      return res.status(404).json({ message: "Company not found" });
-    }
-
-    res.status(200).json({ message: "success", Company });
-  } catch (error) {
-    res.status(500).json({ error });
-  }
-};
-
-// Update a company
-exports.updateCompany = async (req, res) => {
-  const id = req.params.id;
-  const { name } = req.body;
-
-  try {
-    const company = await CompanyModel.findOneAndUpdate(
-      { _id: id },
-      { name },
-      {
-        new: true,
-      }
-    );
+    const company = await CompanyModel.findOne({ _id: value.company_id });
 
     if (!company) {
       return res.status(404).json({ message: "Company not found" });
     }
-    res.status(200).json({ message: "success", company });
-  } catch (error) {
-    res.status(500).json({ error: "Failed to update company" });
-  }
-};
 
-// Delete a company
-exports.deleteCompany = async (req, res) => {
-  const id = req.params.id;
-  try {
-    const companyExists = await CompanyModel.findById(id);
-
-    if (!companyExists) {
-      return res.status(404).json({ error: "Company not found" });
+    if (company.outlets.includes(value._id)) {
+      return res.status(409).json({
+        message: "Outlet ID is already present in the company's outlet array",
+      });
     }
 
-    // Update del_status to "Deleted"
-    companyExists.del_status = "Deleted";
-    await companyExists.save(); // <-- Corrected: Use companyExists.save() instead of CompanyModel.save()
+    const outlet = new OutletModel(value);
+    const savedOutlet = await outlet.save();
 
-    res.json({ message: "Company deleted successfully" });
+    company.outlets.push(savedOutlet._id);
+    await company.save();
+
+    res.status(200).json({ message: "Outlet inserted", outlet: savedOutlet });
   } catch (error) {
-    res.status(500).json({ error: "Failed to delete company" });
+    console.error(error);
+    res.status(500).json({ message: "Error inserting data into the database" });
   }
 };
 
-//get all outlets by company id
-exports.getOutletsForCompany = async (req, res) => {
+// Display list of outlets
+exports.showAllOutlets = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const outlets = await OutletModel.find({ del_status: "Live" });
 
+    if (outlets.length === 0) {
+      return res.status(404).json({ message: "Outlets not found" });
+    }
 
-    const company = await CompanyModel.findById(id).populate({
-      path: "outlets",
-      match: { del_status: "Live" },
+    res.status(200).json({ message: "Success", outlets });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching outlets from the database" });
+  }
+};
+
+// Display details of a single outlet
+exports.showSingleOutlet = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const outlet = await OutletModel.findOne({ _id: id });
+
+    if (!outlet) {
+      return res.status(404).json({ message: "Outlet not found" });
+    }
+
+    res.status(200).json({ message: "Success", outlet });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching outlet details from the database" });
+  }
+};
+
+// Update outlet
+exports.updateOutlet = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    const { error, value } = validateUpdate(req.body);
+
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
+
+    const outlet = await OutletModel.findOneAndUpdate({ _id: id }, value, {
+      new: true,
     });
 
-
-    if (!company.outlets.length) {
-      return res
-        .status(404)
-        .json({ error: "No outlets found for the company" });
+    if (!outlet) {
+      return res.status(404).json({ message: "Outlet not found" });
     }
 
-    const outlets = company.outlets;
-    res.status(200).json({ message: "success", outlets });
+    res.status(200).json({ message: "Success", outlet });
   } catch (error) {
-    res.status(500).json({ error: "Failed to retrieve company outlets" });
+    console.error(error);
+    res.status(500).json({ message: "Error updating outlet" });
+  }
+};
+
+// Delete outlet
+exports.deleteOutlet = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    const outlet = await OutletModel.findById(id);
+
+    if (!outlet) {
+      return res.status(404).json({ message: "Outlet not found" });
+    }
+
+    const company = await CompanyModel.findOne({ _id: outlet.company_id });
+
+    if (company) {
+      company.outlets = company.outlets.filter((outletId) => !outletId.equals(id));
+      await company.save();
+    }
+
+    outlet.del_status = "Deleted";
+    await outlet.save();
+
+    res.status(200).json({ message: "Outlet deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error deleting outlet" });
+  }
+};
+
+// Find Company by Outlet ID
+exports.findCompanyByOutletId = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const outlet = await OutletModel.findById(id).populate("Company");
+
+    if (!outlet) {
+      return res.status(404).json({ message: "Outlet not found" });
+    }
+
+    const company = outlet.Company;
+
+    res.status(200).json({ message: "Success", company });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching company details from the database" });
   }
 };
