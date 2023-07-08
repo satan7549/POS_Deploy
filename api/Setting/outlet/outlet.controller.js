@@ -8,19 +8,21 @@ exports.outletInsert = async (req, res, next) => {
     // Validation
     const { error, value } = validateOutlet(req.body);
 
+    const { company_id, outlet_name } = value;
+
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
     }
 
     const outletExists = await OutletModel.findOne({
-      outlet_name: value.outlet_name,
+      outlet_name: outlet_name,
     });
 
     if (outletExists) {
       return res.status(409).json({ message: "Outlet already exists!" });
     }
 
-    const company = await CompanyModel.findOne({ _id: value.company_id });
+    const company = await CompanyModel.findOne({ _id: company_id });
 
     if (!company) {
       return res.status(404).json({ message: "Company not found" });
@@ -40,10 +42,11 @@ exports.outletInsert = async (req, res, next) => {
 
     res.status(200).json({ message: "Outlet inserted", outlet: savedOutlet });
   } catch (error) {
-    res.status(500).json({
-      message: "Error inserting data into the database",
-      error: error.message,
-    });
+    res.status(500).json({ error });
+    // res.status(500).json({
+    //   message: "Error inserting data into the database",
+    //   error: error.message,
+    // });
   }
 };
 
