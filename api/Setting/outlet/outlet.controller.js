@@ -8,7 +8,6 @@ exports.outletInsert = async (req, res, next) => {
     // Validation
     const { error, value } = validateOutlet(req.body);
 
-    // Check Error in Validation
     if (error) {
       return res.status(400).send(error.details[0].message);
     }
@@ -21,7 +20,6 @@ exports.outletInsert = async (req, res, next) => {
       return res.status(409).json({ message: "Outlet already exists!" });
     }
 
-    // Check if the outlet ID is already present in the company's outlet array
     const company = await CompanyModel.findOne({ _id: value.company_id });
 
     if (!company) {
@@ -29,26 +27,20 @@ exports.outletInsert = async (req, res, next) => {
     }
 
     if (company.outlets.includes(value._id)) {
-      return res
-        .status(409)
-        .json({
-          message: "Outlet ID is already present in the company's outlet array",
-        });
+      return res.status(409).json({
+        message: "Outlet ID is already present in the company's outlet array",
+      });
     }
 
-    // Insert outlet
     const outlet = new OutletModel(value);
     const savedOutlet = await outlet.save();
 
-    // Update company's outlet array with the new outlet ID
     company.outlets.push(savedOutlet._id);
     await company.save();
 
-    // Send Response
     res.status(200).json({ message: "Outlet inserted", outlet: savedOutlet });
   } catch (error) {
-    // Send Error Response
-    res.status(500).json({ message: "Error inserting data into database" });
+    res.status(500).json({ message: "Error inserting data into the database" });
   }
 };
 
@@ -56,10 +48,12 @@ exports.outletInsert = async (req, res, next) => {
 exports.showAllOutlets = async (req, res, next) => {
   try {
     const outlets = await OutletModel.find({ del_status: "Live" });
-    if (outlets.length === 0) {
+
+    if (!outlets || outlets.length === 0) {
       return res.status(404).json({ message: "Outlets not found" });
     }
-    res.status(200).json({ message: "success", outlets });
+
+    res.status(200).json({ message: "Success", outlets });
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -75,7 +69,7 @@ exports.showSingleOutlet = async (req, res, next) => {
       return res.status(404).json({ message: "Outlet not found" });
     }
 
-    res.status(200).json({ message: "success", outlet });
+    res.status(200).json({ message: "Success", outlet });
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -86,10 +80,8 @@ exports.updateOutlet = async (req, res, next) => {
   try {
     const id = req.params.id;
 
-    // Validation
     const { error, value } = validateUpdate(req.body);
 
-    // Check Error in Validation
     if (error) {
       return res.status(400).send(error.details[0].message);
     }
@@ -102,9 +94,8 @@ exports.updateOutlet = async (req, res, next) => {
       return res.status(404).json({ message: "Outlet not found" });
     }
 
-    res.status(200).json({ message: "success", outlet });
+    res.status(200).json({ message: "Success", outlet });
   } catch (error) {
-    // Send Error Response
     res.status(500).json({ message: "Error updating outlet" });
   }
 };
@@ -120,24 +111,18 @@ exports.deleteOutlet = async (req, res, next) => {
       return res.status(404).json({ message: "Outlet not found" });
     }
 
-    // Find the company that contains the outlet ID
     const company = await CompanyModel.findOne({ _id: outlet.company_id });
 
     if (company) {
-      // Remove the outlet ID from the company's outlets array
-      company.outlets = company.outlets.filter(
-        (outletId) => !outletId.equals(id)
-      );
+      company.outlets = company.outlets.filter((outletId) => !outletId.equals(id));
       await company.save();
     }
 
-    // Set the del_status to "Deleted" for the outlet
     outlet.del_status = "Deleted";
     await outlet.save();
 
     res.status(200).json({ message: "Outlet deleted successfully" });
   } catch (error) {
-    // Send Error Response
     res.status(500).json({ error: error.message });
   }
 };
@@ -154,8 +139,9 @@ exports.findCompanyByOutletId = async (req, res, next) => {
 
     const company = outlet.Company;
 
-    res.status(200).json({ message: "success", company });
+    res.status(200).json({ message: "Success", company });
   } catch (error) {
     res.status(500).json({ error });
   }
 };
+ 
