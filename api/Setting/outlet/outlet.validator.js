@@ -6,10 +6,9 @@ const outletSchema = Joi.object({
     "string.empty": `Company ID is required`,
     "any.required": `Company ID is required`,
   }),
-  outlet_name: Joi.string().min(5).max(50).required().messages({
+  outlet_name: Joi.string().max(50).required().messages({
     "string.base": `Outlet name should be a string`,
     "string.empty": `Outlet name is required`,
-    "string.min": `Outlet name should have at least {5} characters`,
     "string.max": `Outlet name should have at most {50} characters`,
     "any.required": `Outlet name is required`,
   }),
