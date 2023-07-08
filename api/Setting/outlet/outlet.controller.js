@@ -1,13 +1,12 @@
 const OutletModel = require("./index");
 const CompanyModel = require("../Company/Company");
+const { validateOutlet, validateUpdate } = require("./outlet.validator");
 
 // Insert new outlet
 exports.outletInsert = async (req, res, next) => {
   try {
     // Validation
     const { error, value } = validateOutlet(req.body);
-
-    console.log("value", value);
 
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
@@ -22,7 +21,6 @@ exports.outletInsert = async (req, res, next) => {
     }
 
     const company = await CompanyModel.findOne({ _id: value.company_id });
-    console.log("company find", company);
 
     if (!company) {
       return res.status(404).json({ message: "Company not found" });
@@ -39,7 +37,6 @@ exports.outletInsert = async (req, res, next) => {
 
     company.outlets.push(savedOutlet._id);
     await company.save();
-    console.log("company after outlet save", company);
 
     res.status(200).json({ message: "Outlet inserted", outlet: savedOutlet });
   } catch (error) {
