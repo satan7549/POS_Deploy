@@ -105,7 +105,7 @@ exports.getOutletsForCompany = async (req, res) => {
     if (!company.outlets.length) {
       return res
         .status(404)
-        .json({ error: "No live outlets found for the company" });
+        .json({ error: "No outlets found for the company" });
     }
 
     const outlets = company.outlets;
