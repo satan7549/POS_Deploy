@@ -33,7 +33,9 @@ const userSchema = Schema({
   },
   password: {
     type: String,
-    required: true,
+    minLength: [6, "Password should have more than 6 character"],
+    required: [true, "please enter password"],
+    trim: true,
   },
   company_id: {
     type: String,
@@ -47,14 +49,17 @@ const userSchema = Schema({
     },
     required: true,
   },
+
   designation: {
     type: String,
     default: null,
   },
+
   will_login: {
     type: String,
     default: "No",
   },
+
   outlet_id: {
     type: Number,
     default: null,
@@ -111,6 +116,7 @@ const userSchema = Schema({
     type: Number,
     default: null,
   },
+  
   forgotPasswardToken: String,
   forgotPasswardExpiry: Date,
   createdAt: {
