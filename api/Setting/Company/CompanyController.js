@@ -93,6 +93,7 @@ exports.deleteCompany = async (req, res) => {
   }
 };
 
+//get all outlets by company id 
 exports.getOutletsForCompany = async (req, res) => {
   try {
     const id = req.params.companyId;
