@@ -2,7 +2,6 @@ const OutletModel = require("./index");
 const CompanyModel = require("../Company/Company");
 const { validateOutlet, validateUpdate } = require("./outlet.validator");
 
-// Insert new outlet
 exports.outletInsert = async (req, res, next) => {
   try {
     // Validation
@@ -13,7 +12,11 @@ exports.outletInsert = async (req, res, next) => {
     }
 
     const outletExists = await OutletModel.findOne({
-      outlet_name: value.outlet_name,
+      $or: [
+        { outlet_name: value.outlet_name },
+        { outlet_code: value.outlet_code },
+        { email: value.email },
+      ],
     });
 
     if (outletExists) {
