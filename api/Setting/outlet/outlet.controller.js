@@ -11,12 +11,8 @@ exports.outletInsert = async (req, res, next) => {
       return res.status(400).json({ message: error.details[0].message });
     }
 
-    const outletExists = await OutletModel.findOne({
-      $or: [
-        { outlet_name: value.outlet_name },
-        { outlet_code: value.outlet_code },
-        { email: value.email },
-      ],
+    const outletExists = await OutletModel.exists({
+      $or: [{ outlet_name: value.outlet_name }, { email: value.email }],
     });
 
     if (outletExists) {
