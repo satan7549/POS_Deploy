@@ -22,11 +22,11 @@ const ingredientCategorySchema = Joi.object({
     "string.max": "description should have at most {#limit} characters",
     "any.required": "description is required",
   }),
-  user_id: Joi.string().required().messages({
-    "string.base": "user_id must be a string",
-    "string.empty": "user_id cannot be empty",
-    "any.required": "user_id is required",
-  }),
+  // user_id: Joi.string().required().messages({
+  //   "string.base": "user_id must be a string",
+  //   "string.empty": "user_id cannot be empty",
+  //   "any.required": "user_id is required",
+  // }),
   company_id: Joi.string().required().messages({
     "string.base": "company_id must be a string",
     "string.empty": "company_id cannot be empty",
@@ -61,11 +61,11 @@ const updateSchema = Joi.object({
     "string.max": "description should have at most {#limit} characters",
     "any.required": "description is required",
   }),
-  user_id: Joi.string().required().messages({
-    "string.base": "user_id must be a string",
-    "string.empty": "user_id cannot be empty",
-    "any.required": "user_id is required",
-  }),
+  // user_id: Joi.string().required().messages({
+  //   "string.base": "user_id must be a string",
+  //   "string.empty": "user_id cannot be empty",
+  //   "any.required": "user_id is required",
+  // }),
   company_id: Joi.string().required().messages({
     "string.base": "company_id must be a string",
     "string.empty": "company_id cannot be empty",
