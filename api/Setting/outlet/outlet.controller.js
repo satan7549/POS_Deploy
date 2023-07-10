@@ -26,13 +26,6 @@ exports.outletInsert = async (req, res, next) => {
       return res.status(404).json({ message: "Company not found" });
     }
 
-    // // concept not clear make review again below line
-    // if (company.outlets.includes(value._id)) {
-    //   return res.status(409).json({
-    //     message: "Outlet ID is already present in the company's outlet ",
-    //   });
-    // }
-
     const outlet = new OutletModel(value);
     const savedOutlet = await outlet.save();
 
