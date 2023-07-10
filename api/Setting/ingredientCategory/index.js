@@ -20,12 +20,12 @@ const ingredientCategorySchema = new mongoose.Schema({
     default: null
   },
 
-  user_id: {
-    type: Number,
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    require: [true, "please enter user_id"],
-  },
+  // user_id: {
+  //   type: Number,
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "User",
+  //   require: [true, "please enter user_id"],
+  // },
 
   company_id: {
     type: Number,
