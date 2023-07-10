@@ -14,9 +14,7 @@ ingredientUnit_name: {
 
   description: {
     type: String,
-    maxlength: [100, "Maximum 100 charcters are permitted"],
-    minLength: [10, "description should have more than 10 character"],
-    required: [true, "please enter description"],
+    maxlength: [200, "Maximum 100 charcters are permitted"],
     trim: true,
     default: null
   },

@@ -1,7 +1,4 @@
-const {
-  validateIngredient,
-  validateUpdate,
-} = require("./ingredient.validator");
+const { validateIngredient, validateUpdate,} = require("./ingredient.validator");
 const IngredientModel = require("./index");
 
 //insert new Ingredient

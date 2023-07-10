@@ -1,11 +1,14 @@
-const { validateIngredientCategory, validateUpdate } = require("./ingredientCategoryValidator");
+const {
+  validateIngredientCategory,
+  validateUpdate,
+} = require("./ingredientCategoryValidator");
 const IngredientCategoryModel = require("./index");
 
 //nsert new IngredientCategory
 exports.ingredientCategoryInsert = async (req, res, next) => {
   try {
     // Validation
-    let { error, value } = validateIngredientCategory(req.body);
+    const { error, value } = validateIngredientCategory(req.body);
 
     // Check Error in Validation
     if (error) {
@@ -13,8 +16,8 @@ exports.ingredientCategoryInsert = async (req, res, next) => {
     }
 
     // Insert table
-    let ingredientCategoryModel = new IngredientCategoryModel(value);
-    let savedData = await ingredientCategoryModel.save();
+    const ingredientCategoryModel = new IngredientCategoryModel(value);
+    const savedData = await ingredientCategoryModel.save();
 
     // Send Response
     res.status(200).json({ message: "success", ingredientCategory: savedData });
@@ -28,7 +31,9 @@ exports.ingredientCategoryInsert = async (req, res, next) => {
 exports.showIngredientCategory = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const ingredientCategory = await IngredientCategoryModel.findOne({ _id: id });
+    const ingredientCategory = await IngredientCategoryModel.findOne({
+      _id: id,
+    });
 
     if (!ingredientCategory) {
       return res.status(404).json({ message: "IngredientCategory not found" });
@@ -42,7 +47,9 @@ exports.showIngredientCategory = async (req, res, next) => {
 //Dispaly List
 exports.showIngredientCategorys = async (req, res, next) => {
   try {
-    const ingredientCategory = await IngredientCategoryModel.find({ del_status: "Live" });
+    const ingredientCategory = await IngredientCategoryModel.find({
+      del_status: "Live",
+    });
 
     if (!ingredientCategory || ingredientCategory.length === 0) {
       return res.status(404).json({ message: "IngredientCategory not found" });
@@ -67,9 +74,13 @@ exports.updateIngredientCategory = async (req, res, next) => {
       return res.status(400).send(error.details[0].message);
     }
 
-    const ingredientCategory = await IngredientCategoryModel.findOneAndUpdate({ _id: id }, value, {
-      new: true,
-    });
+    const ingredientCategory = await IngredientCategoryModel.findOneAndUpdate(
+      { _id: id },
+      value,
+      {
+        new: true,
+      }
+    );
 
     if (!ingredientCategory) {
       return res.status(404).json({ message: "IngredientCategory not found" });
@@ -86,15 +97,18 @@ exports.updateIngredientCategory = async (req, res, next) => {
 exports.deleteIngredientCategory = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const updatedIngredientCategory = await IngredientCategoryModel.findByIdAndUpdate(
-      id,
-      { del_status: "Deleted" },
-      { new: true }
-    );
+    const updatedIngredientCategory =
+      await IngredientCategoryModel.findByIdAndUpdate(
+        id,
+        { del_status: "Deleted" },
+        { new: true }
+      );
     if (!updatedIngredientCategory) {
       return res.status(404).json({ message: "IngredientCategory not found." });
     }
-    res.status(200).json({ message: "IngredientCategory deleted successfully" });
+    res
+      .status(200)
+      .json({ message: "IngredientCategory deleted successfully" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
