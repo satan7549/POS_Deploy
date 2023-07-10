@@ -55,6 +55,11 @@ const kotSchema = Schema({
         ref: "FoodMenu",
         required: true,
       },
+      quantity: {
+        type: Number,
+        required: true,
+        default: 1,
+      },
       customer_comment: {
         type: String,
         default: null,
