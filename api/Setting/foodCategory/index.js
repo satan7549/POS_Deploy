@@ -18,14 +18,6 @@ const foodCategorySchema = Schema({
     minlength: [10,"Food category description should have at least 10 characters.",
     ],
   },
-  del_status: {
-    type: String,
-    enum: {
-      values: ["Live", "Deleted"],
-      message: "Value is not matched",
-    },
-    default: "Live",
-  },
   createdAt: {
     type: Date,
     default: Date.now,
@@ -33,6 +25,14 @@ const foodCategorySchema = Schema({
   updatedAt: {
     type: Date,
     default: Date.now,
+  },
+  del_status: {
+    type: String,
+    enum: {
+      values: ["Live", "Deleted"],
+      message: "Value is not matched",
+    },
+    default: "Live",
   },
 });
 
