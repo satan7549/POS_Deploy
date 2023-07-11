@@ -39,9 +39,18 @@ const foodComboSchema = new Schema({
       },
     },
   ],
-  price: {
+  Dine_price: {
     type: Number,
-    required: [true, "Please enter a price"],
+    required: [true, "Please enter a Dine_price"],
+  },
+
+  Takeaway_price: {
+    type: Number,
+    required: [true, "Please enter a Takeaway_price"],
+  },
+  Delivery_price: {
+    type: Number,
+    required: [true, "Please enter a Delivery_price"],
   },
   description: {
     type: String,

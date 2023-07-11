@@ -12,10 +12,31 @@ const foodMenuJoiSchema = Joi.object({
       })
     )
     .required(),
-  price: Joi.number().required(),
+  Dine_price: Joi.number().required().messages({
+    "number.base": "Dine_price must be a number",
+    "number.empty": "Dine_price is required",
+    "any.required": "Please enter a Dine_price",
+  }),
+  Takeaway_price: Joi.number().required().messages({
+    "number.base": "Takeaway_price must be a number",
+    "number.empty": "Takeaway_price is required",
+    "any.required": "Please enter a Takeaway_price",
+  }),
+  Delivery_price: Joi.number().required().messages({
+    "number.base": "Delivery_price must be a number",
+    "number.empty": "Delivery_price is required",
+    "any.required": "Please enter a Delivery_price",
+  }),
   description: Joi.string().max(200).required(),
-  isVeg: Joi.string().valid("yes", "no").required(),
-  isBeverage: Joi.string().valid("yes", "no").required(),
+  isVeg: Joi.boolean().required().messages({
+    "boolean.base": "IsVeg must be a boolean",
+    "any.required": "Please specify if the combo is vegetarian",
+  }),
+
+  isBeverage: Joi.boolean().required().messages({
+    "boolean.base": "IsBeverage must be a boolean",
+    "any.required": "Please specify if the combo is a beverage",
+  }),
   outlet: Joi.string().required(),
 });
 
@@ -31,10 +52,33 @@ const updateJoiSchema = Joi.object({
       })
     )
     .required(),
-  price: Joi.number().required(),
+  Dine_price: Joi.number().required().messages({
+    "number.base": "Dine_price must be a number",
+    "number.empty": "Dine_price is required",
+    "any.required": "Please enter a Dine_price",
+  }),
+  Takeaway_price: Joi.number().required().messages({
+    "number.base": "Takeaway_price must be a number",
+    "number.empty": "Takeaway_price is required",
+    "any.required": "Please enter a Takeaway_price",
+  }),
+  Delivery_price: Joi.number().required().messages({
+    "number.base": "Delivery_price must be a number",
+    "number.empty": "Delivery_price is required",
+    "any.required": "Please enter a Delivery_price",
+  }),
+
   description: Joi.string().max(200).required(),
-  isVeg: Joi.string().valid("yes", "no").required(),
-  isBeverage: Joi.string().valid("yes", "no").required(),
+
+  isVeg: Joi.boolean().required().messages({
+    "boolean.base": "IsVeg must be a boolean",
+    "any.required": "Please specify if the combo is vegetarian",
+  }),
+
+  isBeverage: Joi.boolean().required().messages({
+    "boolean.base": "IsBeverage must be a boolean",
+    "any.required": "Please specify if the combo is a beverage",
+  }),
   outlet: Joi.string().required(),
 });
 

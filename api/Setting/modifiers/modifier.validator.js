@@ -30,21 +30,21 @@ const modifierSchema = Joi.object({
     "any.required": "Please enter a company ID",
   }),
 
-  tax_information: Joi.string().min(10).max(100).required().trim().messages({
-    "string.base": "Tax information must be a string",
-    "string.empty": "Tax information is required",
-    "string.min": "Tax information should have at least {#limit} characters",
-    "string.max": "Tax information can have at most {#limit} characters",
-    "any.required": "Please enter tax information",
-  }),
+  // tax_information: Joi.string().min(10).max(100).required().trim().messages({
+  //   "string.base": "Tax information must be a string",
+  //   "string.empty": "Tax information is required",
+  //   "string.min": "Tax information should have at least {#limit} characters",
+  //   "string.max": "Tax information can have at most {#limit} characters",
+  //   "any.required": "Please enter tax information",
+  // }),
 
-  tax_string: Joi.string().min(10).max(250).required().trim().messages({
-    "string.base": "Tax string must be a string",
-    "string.empty": "Tax string is required",
-    "string.min": "Tax string should have at least {#limit} characters",
-    "string.max": "Tax string can have at most {#limit} characters",
-    "any.required": "Please enter a tax string",
-  }),
+  // tax_string: Joi.string().min(10).max(250).required().trim().messages({
+  //   "string.base": "Tax string must be a string",
+  //   "string.empty": "Tax string is required",
+  //   "string.min": "Tax string should have at least {#limit} characters",
+  //   "string.max": "Tax string can have at most {#limit} characters",
+  //   "any.required": "Please enter a tax string",
+  // }),
 
   total_cost: Joi.number().required().messages({
     "number.base": "Total cost must be a number",
