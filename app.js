@@ -26,12 +26,12 @@ const settingIngredientRouter = require("./api/Setting/ingredients/ingredient.ro
 //const settingAttendanceRouter = require("./api/Setting/attendance/attendance.route");
 const FoodCategory = require("./api/Setting/foodCategory/foodCategory.route");
 const FoodMenurouter = require("./api/Setting/foodMenu/foodMenuRoute");
+const FoodCombo = require("./api/Setting/foodCombos/foodCombo.Route");
 const Companyrouter = require("./api/Setting/Company/CompanyRoutes");
 const orederRoutes = require("./api/Setting/order/orderRoute");
 const IngredientCategoryrouter = require("./api/Setting/ingredientCategory/ingredientCategoryRoute");
 const IngredientUnitrouter = require("./api/Setting/ingredientUnit/ingredientUnitRoute");
 const Modifierrouter = require("./api/Setting/modifiers/modifier.route");
-
 
 
 const app = express();
@@ -71,10 +71,13 @@ app.use("/setting/ingredient", settingIngredientRouter);
 //app.use("/setting/attendance", settingAttendanceRouter);
 app.use("/setting/foodcategory", FoodCategory);
 app.use("/setting/foodMenu", FoodMenurouter);
+app.use("/setting/foodcombo", FoodCombo);
 app.use("/setting/order", orederRoutes);
 app.use("/setting/ingredientCategory", IngredientCategoryrouter);
+
 app.use("/setting/ingredientUnit",IngredientUnitrouter);
 app.use("/setting/modifier",Modifierrouter);
+
 
 
 

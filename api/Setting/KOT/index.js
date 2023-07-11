@@ -19,13 +19,17 @@ const kotSchema = Schema({
 
   waiter_name: {
     type: String,
-    required: true,
+    maxlength: [50, "Maximum 50 charcters are permitted"],
+    minLength: [3, "name should have more than 3 character"],
+    required: [true, "please enter waiter name"],
+    trim: true,
     default: null,
   },
 
   table: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Table",
+    required: [true, "please enter table"],
   },
 
   order: {
@@ -36,7 +40,7 @@ const kotSchema = Schema({
   cooking_status: {
     type: String,
     enum: {
-      values: ["requested","cooking", "done"], 
+      values: ["requested", "cooking", "done"],
       message: "Value is not matched",
     },
     required: [true, "please enter status"],
@@ -51,6 +55,11 @@ const kotSchema = Schema({
         ref: "FoodMenu",
         required: true,
       },
+      quantity: {
+        type: Number,
+        required: true,
+        default: 1,
+      },
       customer_comment: {
         type: String,
         default: null,
@@ -61,6 +70,11 @@ const kotSchema = Schema({
   customer_comment_for_all_food: {
     type: String,
     default: null,
+  },
+
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
 
   del_status: {
