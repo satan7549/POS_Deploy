@@ -30,7 +30,7 @@ const Companyrouter = require("./api/Setting/Company/CompanyRoutes");
 const orederRoutes = require("./api/Setting/order/orderRoute");
 const IngredientCategoryrouter = require("./api/Setting/ingredientCategory/ingredientCategoryRoute");
 const IngredientUnitrouter = require("./api/Setting/ingredientUnit/ingredientUnitRoute");
-const Modifierrouter = require("./api/Setting/modifier/modifierRoute");
+const Modifierrouter = require("./api/Setting/modifiers/modifier.route");
 
 
 
