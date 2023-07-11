@@ -1,7 +1,4 @@
-const {
-  validateModifier,
-  validateUpdate,
-} = require("./modifier.validator");
+const {validateModifier,validateUpdate,} = require("./modifier.validator");
 const ModifierModel = require("./index");
 
 //insert new Modifier

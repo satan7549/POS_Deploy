@@ -5,7 +5,7 @@ const IngredientUnitModel = require("./index");
 exports.ingredientUnitInsert = async (req, res, next) => {
   try {
     // Validation
-    let { error, value } = validateIngredientUnit(req.body);
+    const { error, value } = validateIngredientUnit(req.body);
 
     // Check Error in Validation
     if (error) {
@@ -13,8 +13,8 @@ exports.ingredientUnitInsert = async (req, res, next) => {
     }
 
     // Insert table
-    let ingredientUnitModel = new IngredientUnitModel(value);
-    let savedData = await ingredientUnitModel.save();
+    const ingredientUnitModel = new IngredientUnitModel(value);
+    const savedData = await ingredientUnitModel.save();
 
     // Send Response
     res.status(200).json({ message: "success", ingredientUnit: savedData });
