@@ -31,12 +31,11 @@ const Companyrouter = require("./api/Setting/Company/CompanyRoutes");
 const orederRoutes = require("./api/Setting/order/orderRoute");
 const IngredientCategoryrouter = require("./api/Setting/ingredientCategory/ingredientCategoryRoute");
 const IngredientUnitrouter = require("./api/Setting/ingredientUnit/ingredientUnitRoute");
-<<<<<<< HEAD
-const KOTrouter = require("./api/Setting/KOT/kot.router");
-=======
-const Modifierrouter = require("./api/Setting/modifier/modifierRoute");
 
->>>>>>> e31f852e4b561161ba3f3715831dbe7950814350
+const Modifierrouter = require("./api/Setting/modifiers/modifier.route");
+
+const KOTrouter = require("./api/Setting/KOT/kot.router");
+
 
 const app = express();
 
@@ -78,17 +77,12 @@ app.use("/setting/foodMenu", FoodMenurouter);
 app.use("/setting/foodcombo", FoodCombo);
 app.use("/setting/order", orederRoutes);
 app.use("/setting/ingredientCategory", IngredientCategoryrouter);
-<<<<<<< HEAD
+
 app.use("/setting/ingredientUnit", IngredientUnitrouter);
 app.use("/setting/kot",KOTrouter);
-=======
 
-app.use("/setting/ingredientUnit",IngredientUnitrouter);
 app.use("/setting/modifier",Modifierrouter);
 
-
-
->>>>>>> e31f852e4b561161ba3f3715831dbe7950814350
 
 app.use("/company", Companyrouter);
 

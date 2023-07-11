@@ -87,4 +87,6 @@ const kotSchema = Schema({
   },
 });
 
-module.exports = mongoose.model("kot", kotSchema);
+const Kot = mongoose.model("Kot", kotSchema);
+
+module.exports = Kot;
