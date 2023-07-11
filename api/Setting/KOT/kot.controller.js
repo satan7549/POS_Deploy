@@ -86,7 +86,7 @@ exports.deleteKot = async (req, res, next) => {
   try {
     const id = req.params.id;
 
-    const kot = await KotModel.deleteOne({ _id: id });
+    const kot = await KotModel.findById(id);
 
     if (!kot) {
       return res.status(404).json({ message: "KOT not found" });
