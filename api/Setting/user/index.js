@@ -44,9 +44,10 @@ const userSchema = Schema({
   role: {
     type: String,
     enum: {
-      values: ["Super_Admin", "Admin", "Employee", "Customer"],
+      values: ["Super_Admin", "Admin", "Employee", "Customer", ],
       message: `Value is not supported`,
     },
+    default: "Customer",
     required: true,
   },
 
@@ -116,7 +117,7 @@ const userSchema = Schema({
     type: Number,
     default: null,
   },
-  
+
   forgotPasswardToken: String,
   forgotPasswardExpiry: Date,
   createdAt: {
@@ -140,12 +141,10 @@ userSchema.methods.isValidatedPassword = async function (userSendPasswrord) {
 
 //create and return JWT token
 userSchema.methods.getToken = async function () {
-  return jwt.sign(
-    {
+  return jwt.sign({
       id: this._id,
     },
-    process.env.JWT_SECRET,
-    {
+    process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRY,
     }
   );
