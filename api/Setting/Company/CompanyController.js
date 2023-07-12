@@ -53,12 +53,12 @@ exports.getCompanyById = async (req, res) => {
 // Update a company
 exports.updateCompany = async (req, res) => {
   const id = req.params.id;
-  const { name, cuisine } = req.body;
+  const { name } = req.body;
 
   try {
     const company = await CompanyModel.findOneAndUpdate(
       { _id: id },
-      { name, cuisine },
+      { name },
       {
         new: true,
       }
@@ -85,7 +85,7 @@ exports.deleteCompany = async (req, res) => {
 
     //Update del_status to "Deactive"
     companyExists.del_status = "Deleted";
-    await CompanyModel.save();
+    await companyExists.save();
 
     res.json({ message: "Company deleted successfully" });
   } catch (error) {

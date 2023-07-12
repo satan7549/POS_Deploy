@@ -1,7 +1,7 @@
-let express = require("express");
-let router = express.Router();
+const express = require("express");
+const router = express.Router();
 
-let ingredientController = require("./ingredient.controller");
+const ingredientController = require("./ingredient.controller");
 
 
 

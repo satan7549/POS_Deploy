@@ -7,6 +7,8 @@ const orderSchema = Joi.object({
   order_type: Joi.string().valid("Dine_In", "Take_Away", "Delivery").required(),
   table_id: Joi.array().items(Joi.string().required()).required(),
   foodMenu: Joi.array().items(Joi.string().required()).required(),
+  kot_print: Joi.array().items(Joi.string().allow(null)).default(null),
+  total_order_price: Joi.number().required(),
   del_status: Joi.string().valid("Live", "Deleted").default("Live"),
 });
 
@@ -17,6 +19,8 @@ const updateSchema = Joi.object({
   order_type: Joi.string().valid("Dine_In", "Take_Away", "Delivery").required(),
   table_id: Joi.array().items(Joi.string().required()).required(),
   foodMenu: Joi.array().items(Joi.string().required()).required(),
+  kot_print: Joi.array().items(Joi.string().allow(null)).default(null),
+  total_order_price: Joi.number().required(),
   del_status: Joi.string().valid("Live", "Deleted").default("Live"),
 });
 

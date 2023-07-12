@@ -34,8 +34,17 @@ const orderSchema = Schema({
   },
 
   table_id: [{ type: mongoose.Schema.Types.ObjectId, ref: "Table" }],
-  
-  foodMenu: [{ type: mongoose.Schema.Types.ObjectId, ref: "FoodMenu" }],
+
+  // foodMenu: [{ type: mongoose.Schema.Types.ObjectId, ref: "FoodMenu" }],
+
+  kot_print: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "kot", default: null },
+  ],
+
+  total_order_price: {
+    type: Number,
+    required: true,
+  },
 
   del_status: {
     type: String,

@@ -8,27 +8,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const indexRouter = require("./routes/index");
-//const usersRouter = require("./routes/users");
-const settingAreaRouter = require("./api/Setting/area/area.route");
-const settingTableRouter = require("./api/Setting/table/table.route"); // call and include the route
-const settingUserRouter = require("./api/Setting/user/user.route");
-//const settingRoleRouter = require("./api/Setting/role/role.route");
-const settingOutletRouter = require("./api/Setting/outlet/outlet.route");
-//const settingCompaniestRouter = require("./api/Setting/companies/companies.route");
-//const settingKitchenSalesRouter = require("./api/Setting/kitchenSales/kitchenSales.route");
-//const settingExpensesRouter = require("./api/Setting/expenses/expenses.route");
-const settingIngredientRouter = require("./api/Setting/ingredients/ingredient.route");
-//const settingRecipeRouter = require("./api/Setting/recipe/recipeRoute");
-//const settingPrinterRouter = require("./api/Setting/printer/printer.route");
-//const settingPaymentRouter = require("./api/Setting/payment/payment.route");
-//const settingCurrencyRouter = require("./api/Setting/currency/currency.route");
-//const settingAccessRouter = require("./api/Setting/access/access.route");
-//const settingAttendanceRouter = require("./api/Setting/attendance/attendance.route");
-const FoodCategory = require("./api/Setting/foodCategory/foodCategory.route");
-const FoodMenurouter = require("./api/Setting/foodMenu/foodMenuRoute");
-const Companyrouter = require("./api/Setting/Company/CompanyRoutes");
-const Orderrouter = require("./api/Setting/order/orderRoute");
-const Modifiersrouter = require("./api/Setting/modifiers/modifier.route");
 
 const app = express();
 
@@ -48,6 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+// Base URL
 app.use("/", indexRouter);
 //app.use("/users", usersRouter);
 app.use("/setting/area", settingAreaRouter);
@@ -68,9 +48,10 @@ app.use("/setting/ingredient", settingIngredientRouter);
 app.use("/setting/foodcategory", FoodCategory);
 app.use("/setting/foodMenu", FoodMenurouter);
 app.use("/setting/order", Orderrouter);
-app.use("/setting/modifier", Modifiersrouter);
 
-app.use("/company", Companyrouter);
+//oreder related routes
+app.use("/setting/order", orederRoutes);
+app.use("/setting/kot", kotRouter);
 
 // moongoose Connection
 

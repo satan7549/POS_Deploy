@@ -1,11 +1,9 @@
-let express = require('express');
-let router = express.Router(); // access the method of route
+const express = require('express');
+const router = express.Router(); // access the method of route
 
-let userController = require('./user.controller');
+const userController = require('./user.controller');
 
-    // router.post('/new', ( req, res, next)  => {
-    //     res.send("hello world");
-    // });
+
 
 router.post('/new', userController.userInsert);
 
