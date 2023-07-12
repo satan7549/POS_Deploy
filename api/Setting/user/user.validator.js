@@ -20,7 +20,7 @@ const userSchema = Joi.object({
       "number.max": `Phone number should have at most {#limit} digits`,
       "any.required": `Phone number is required`,
     }),
-  email_address: Joi.string().email().required().max(50).messages({
+  email: Joi.string().email().required().max(50).messages({
     "string.base": `Email address should be a string`,
     "string.empty": `Email address is required`,
     "string.email": `Please enter a valid email address`,
@@ -33,12 +33,6 @@ const userSchema = Joi.object({
     "string.min": `Password should have at least {#limit} characters`,
     "string.max": `Password should have at most {#limit} characters`,
     "any.required": `Password is required`,
-  }),
-  company_id: Joi.string().required().max(250).messages({
-    "string.base": `Company ID should be a string`,
-    "string.empty": `Company ID is required`,
-    "string.max": `Company ID should have at most {#limit} characters`,
-    "any.required": `Company ID is required`,
   }),
   role: Joi.string()
     .valid("Super_Admin", "Admin", "Employee", "Customer")
@@ -53,29 +47,13 @@ const userSchema = Joi.object({
     "string.base": `Designation should be a string`,
     "string.max": `Designation should have at most {#limit} characters`,
   }),
-  will_login: Joi.string().valid("Yes", "No").default("No").messages({
-    "string.base": `Will login should be a string`,
-    "any.only": `Invalid will login value`,
-  }),
   outlet_id: Joi.number().integer().allow(null).messages({
     "number.base": `Outlet ID should be a number`,
     "number.integer": `Outlet ID should be an integer`,
   }),
-  outlets: Joi.string().allow(null).max(100).messages({
-    "string.base": `Outlets should be a string`,
-    "string.max": `Outlets should have at most {#limit} characters`,
-  }),
   kitchens: Joi.string().allow(null).max(250).messages({
     "string.base": `Kitchens should be a string`,
     "string.max": `Kitchens should have at most {#limit} characters`,
-  }),
-  account_creation_date: Joi.string().allow(null).max(100).messages({
-    "string.base": `Account creation date should be a string`,
-    "string.max": `Account creation date should have at most {#limit} characters`,
-  }),
-  language: Joi.string().default("english").max(100).messages({
-    "string.base": `Language should be a string`,
-    "string.max": `Language should have at most {#limit} characters`,
   }),
   last_login: Joi.string().allow(null).max(100).messages({
     "string.base": `Last login should be a string`,
