@@ -7,10 +7,9 @@ const logger = require("morgan");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const indexRouter = require("./routes/index")
-// user related route import 
+const indexRouter = require("./routes/index");
+// user related route import
 const userRouter = require("./api/Setting/user/user.route");
-
 
 // Company area locations route import
 const companyRouter = require("./api/Setting/Company/CompanyRoutes");
@@ -21,12 +20,10 @@ const tableRouter = require("./api/Setting/table/table.route"); // call and incl
 // Kitchen route import
 const kitchenRoute = require("./api/Setting/kitchen/kitchen.route");
 
-
 //Ingredient route import
 const ingredientRouter = require("./api/Setting/ingredients/ingredient.route");
 const ingredientCategoryRouter = require("./api/Setting/ingredientCategory/ingredientCategoryRoute");
 const ingredientUnitRouter = require("./api/Setting/ingredientUnit/ingredientUnitRoute");
-
 
 // food ,menu related route import
 const foodCategory = require("./api/Setting/foodCategory/foodCategory.route");
@@ -57,36 +54,35 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+// Base URL
 app.use("/", indexRouter);
-//app.use("/users", usersRouter);
-app.use("/setting/area", settingAreaRouter);
-app.use("/setting/table", settingTableRouter); // using of route or Registered the route
-app.use("/setting/user", settingUserRouter);
-//app.use("/setting/role", settingRoleRouter);
-app.use("/setting/outlet", settingOutletRouter);
-//app.use("/setting/companies", settingCompaniestRouter);
-//app.use("/setting/kitchenSales", settingKitchenSalesRouter);
-//app.use("/setting/expenses", settingExpensesRouter);
-app.use("/setting/ingredient", settingIngredientRouter);
-//app.use("/setting/recipe", settingRecipeRouter);
-//app.use("/setting/printer", settingPrinterRouter);
-//app.use("/setting/payment", settingPaymentRouter);
-//app.use("/setting/currency", settingCurrencyRouter);
-//app.use("/setting/access", settingAccessRouter);
-//app.use("/setting/attendance", settingAttendanceRouter);
-app.use("/setting/foodcategory", FoodCategory);
-app.use("/setting/foodMenu", FoodMenurouter);
+
+// User base route
+app.use("/setting/user", userRouter);
+
+// Company Base URL
+app.use("/company", companyRouter);
+
+// Outlet Base URL
+app.use("/setting/outlet", outletRouter);
+
+// Area Base URL
+app.use("/setting/area", areaRouter);
+
+//Table Base URL 
+app.use("/setting/table", tableRouter);
+
+// Ingredient Base URL
+app.use("/setting/ingredient", ingredientRouter);
+
+// Food Relate Base URL
+app.use("/setting/foodcategory", foodCategory);
+app.use("/setting/foodMenu", foodMenuRouter);
 app.use("/setting/foodcombo", FoodCombo);
-
-app.use("/setting/order", orederRoutes);
-
 
 //oreder related routes
 app.use("/setting/order", orederRoutes);
 app.use("/setting/kot", kotRouter);
-
-
-
 
 // moongoose Connection
 
