@@ -28,6 +28,7 @@ const FoodCategory = require("./api/Setting/foodCategory/foodCategory.route");
 const FoodMenurouter = require("./api/Setting/foodMenu/foodMenuRoute");
 const Companyrouter = require("./api/Setting/Company/CompanyRoutes");
 const Orderrouter = require("./api/Setting/order/orderRoute");
+const Modifiersrouter = require("./api/Setting/modifiers/modifier.route");
 
 const app = express();
 
@@ -67,6 +68,7 @@ app.use("/setting/ingredient", settingIngredientRouter);
 app.use("/setting/foodcategory", FoodCategory);
 app.use("/setting/foodMenu", FoodMenurouter);
 app.use("/setting/order", Orderrouter);
+app.use("/setting/modifier", Modifiersrouter);
 
 app.use("/company", Companyrouter);
 
