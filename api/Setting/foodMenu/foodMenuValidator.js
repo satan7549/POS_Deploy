@@ -1,6 +1,7 @@
 const Joi = require("joi");
 
-const foodMenuJoiSchema = Joi.object({
+const foodMenuSchema = Joi.object({
+
   name: Joi.string().max(50).required(),
   code: Joi.string().max(50).required(),
   food_category: Joi.string().required(),
@@ -40,7 +41,10 @@ const foodMenuJoiSchema = Joi.object({
   outlet: Joi.string().required(),
 });
 
-const updateJoiSchema = Joi.object({
+
+
+const updateSchema = Joi.object({
+  
   name: Joi.string().max(50).required(),
   code: Joi.string().max(50).required(),
   food_category: Joi.string().required(),
@@ -83,11 +87,11 @@ const updateJoiSchema = Joi.object({
 });
 
 function validateFoodMenu(foodMenuData) {
-  return foodMenuJoiSchema.validate(foodMenuData);
+  return foodMenuSchema.validate(foodMenuData);
 }
 
 function validateUpdate(updateData) {
-  return updateJoiSchema.validate(updateData);
+  return updateSchema.validate(updateData);
 }
 
 module.exports = {
