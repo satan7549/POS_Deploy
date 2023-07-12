@@ -36,6 +36,8 @@ const Modifierrouter = require("./api/Setting/modifiers/modifier.route");
 
 const KOTrouter = require("./api/Setting/KOT/kot.router");
 
+const Taxrouter = require("./api/Setting/tax/tax.route");
+
 
 const app = express();
 
@@ -80,6 +82,7 @@ app.use("/setting/ingredientCategory", IngredientCategoryrouter);
 
 app.use("/setting/ingredientUnit", IngredientUnitrouter);
 app.use("/setting/kot",KOTrouter);
+app.use("/setting/tax",Taxrouter);
 
 app.use("/setting/modifier",Modifierrouter);
 
