@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const foodMenuController = require("./foodMenuController");
+const foodMenuController = require("./foodMenu.Controller");
 
 // /* add */
 // router.get('/new', foodMenuController.addfoodMenu);

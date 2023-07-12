@@ -1,4 +1,3 @@
-module.exports = mongoose.model("Modifier", modifierSchema);
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
@@ -10,7 +9,7 @@ const modifierSchema = Schema({
     minLength: [5, "name should have more than 5 character"],
     required: [true, "please enter modifier_name"],
     trim: true,
-    default: null
+    default: null,
   },
   price: {
     type: Number,
@@ -22,9 +21,9 @@ const modifierSchema = Schema({
     minLength: [10, "modifier_description should have more than 10 character"],
     required: [true, "please enter modifier_description"],
     trim: true,
-    default: null
+    default: null,
   },
-  
+
   company_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Company",
@@ -52,9 +51,9 @@ const modifierSchema = Schema({
   },
   del_status: {
     type: String,
-    enum: ['Live', 'Deleted'],
-    default: 'Live'
-  }
+    enum: ["Live", "Deleted"],
+    default: "Live",
+  },
 });
 
 module.exports = mongoose.model("Modifier", modifierSchema);

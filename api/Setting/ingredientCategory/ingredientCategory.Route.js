@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const ingredientCategoryController = require("./ingredientCategoryController");
+const ingredientCategoryController = require("./ingredientCategory.Controller");
 
 /* Insert */
 router.post("/new", ingredientCategoryController.ingredientCategoryInsert);

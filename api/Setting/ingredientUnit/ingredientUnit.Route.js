@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const ingredientUnitController = require("./ingredientUnitController");
+const ingredientUnitController = require("./ingredientUnit.Controller");
 
 /* Insert */
 router.post("/new", ingredientUnitController.ingredientUnitInsert);

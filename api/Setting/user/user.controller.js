@@ -1,6 +1,6 @@
 const { validateUser, validateUpdate } = require("./user.validator");
 const UserModel = require("./index");
-const companyModel = require("../Company/Company");
+const companyModel = require("../Company");
 const cookieToken = require("../../../utils/cookieToken");
 const CustomError = require("../../../utils/customError");
 

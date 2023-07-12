@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const orderController = require("./orderController");
+const orderController = require("./order.Controller");
 
 /* Insert */
 router.post("/new", orderController.orderInsert);

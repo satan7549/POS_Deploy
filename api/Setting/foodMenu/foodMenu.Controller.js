@@ -1,4 +1,4 @@
-const { validateFoodMenu, validateUpdate } = require("./foodMenuValidator");
+const { validateFoodMenu, validateUpdate } = require("./foodMenu.Validator");
 const FoodMenuModel = require("./index");
 // const OutletModel = require("../outlet/index");
 
