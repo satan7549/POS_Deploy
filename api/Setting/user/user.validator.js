@@ -1,7 +1,7 @@
 const Joi = require("joi");
 
 const userSchema = Joi.object({
-  full_name: Joi.string().min(5).max(50).required().messages({
+  username: Joi.string().min(5).max(50).required().messages({
     "string.base": `Full name should be a string`,
     "string.empty": `Full name is required`,
     "string.min": `Full name should have at least {#limit} characters`,
@@ -95,7 +95,10 @@ const userSchema = Joi.object({
 
 // Validate the user data
 function validateUser(userData) {
-  const { error, value } = userSchema.validate(userData);
+  const {
+    error,
+    value
+  } = userSchema.validate(userData);
   if (error) {
     const errorMessage = error.details
       .map((detail) => detail.message)
@@ -107,7 +110,10 @@ function validateUser(userData) {
 
 // Validate the update data
 function validateUpdate(updateData) {
-  const { error, value } = userSchema.validate(updateData);
+  const {
+    error,
+    value
+  } = userSchema.validate(updateData);
   if (error) {
     const errorMessage = error.details
       .map((detail) => detail.message)

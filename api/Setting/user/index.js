@@ -4,9 +4,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const Schema = mongoose.Schema;
-
 const userSchema = Schema({
-  full_name: {
+  username: {
     type: String,
     maxlength: [50, "Maximum 50 charcters are permitted"],
     minLength: [5, "name should have more than 5 character"],
@@ -23,24 +22,24 @@ const userSchema = Schema({
     default: null,
   },
 
-  email_address: {
+  email: {
     type: String,
-    required: [true, "please enter email"],
-    trim: true,
-    default: null,
     unique: true,
-    validate: [validator.isEmail, "please enter valid email"],
+    required: [true, "please enter email"],
+    validate(value) {
+      if (!validator.isEmail(value)) {
+        throw new Error("Please provide the valid email address");
+      }
+    },
   },
+
   password: {
     type: String,
     minLength: [6, "Password should have more than 6 character"],
     required: [true, "please enter password"],
     trim: true,
   },
-  company_id: {
-    type: String,
-    required: true,
-  },
+
   role: {
     type: String,
     enum: {
@@ -55,68 +54,16 @@ const userSchema = Schema({
     default: null,
   },
 
-  will_login: {
-    type: String,
-    default: "No",
-  },
-
   outlet_id: {
     type: Number,
     default: null,
   },
-  outlets: {
-    type: String,
-    default: null,
-  },
-  kitchens: {
-    type: String,
-    default: null,
-  },
-  account_creation_date: {
-    type: String,
-    default: null,
-  },
-  language: {
-    type: String,
-    default: "english",
-  },
-  last_login: {
-    type: String,
-    default: null,
-  },
-  created_id: {
+
+  admin_id: {
     type: Number,
     default: null,
   },
-  active_status: {
-    type: String,
-    default: "Active",
-  },
-  del_status: {
-    type: String,
-    default: "Active",
-  },
-  question: {
-    type: String,
-    default: null,
-  },
-  answer: {
-    type: String,
-    default: null,
-  },
-  login_pin: {
-    type: String,
-    default: null,
-  },
-  order_receiving_id: {
-    type: Number,
-    default: 0,
-  },
-  role_id: {
-    type: Number,
-    default: null,
-  },
-  
+
   forgotPasswardToken: String,
   forgotPasswardExpiry: Date,
   createdAt: {
@@ -140,12 +87,10 @@ userSchema.methods.isValidatedPassword = async function (userSendPasswrord) {
 
 //create and return JWT token
 userSchema.methods.getToken = async function () {
-  return jwt.sign(
-    {
+  return jwt.sign({
       id: this._id,
     },
-    process.env.JWT_SECRET,
-    {
+    process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRY,
     }
   );
