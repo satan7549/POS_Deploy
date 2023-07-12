@@ -8,6 +8,8 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const indexRouter = require("./routes/index");
+const settingAreaRouter=require("./api/Setting/area/area.route")
+
 
 const app = express();
 
