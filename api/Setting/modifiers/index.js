@@ -1,3 +1,4 @@
+module.exports = mongoose.model("Modifier", modifierSchema);
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
