@@ -8,7 +8,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const indexRouter = require("./routes/index");
-//const usersRouter = require("./routes/users");
+// const usersRouter = require("./routes/users");
 const settingAreaRouter = require("./api/Setting/area/area.route");
 const settingTableRouter = require("./api/Setting/table/table.route"); // call and include the route
 const settingUserRouter = require("./api/Setting/user/user.route");
@@ -56,7 +56,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-//app.use("/users", usersRouter);
+// app.use("/users", usersRouter);
 app.use("/setting/area", settingAreaRouter);
 app.use("/setting/table", settingTableRouter); // using of route or Registered the route
 app.use("/setting/user", settingUserRouter);
