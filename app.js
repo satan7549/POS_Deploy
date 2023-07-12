@@ -35,7 +35,7 @@ const KitchenRoute = require("./api/Setting/kitchen/kitchen.route");
 
 const Modifierrouter = require("./api/Setting/modifiers/modifier.route");
 
-const KOTrouter = require("./api/Setting/KOT/kot.router");
+const kotRouter = require("./api/Setting/KOT/kot.router");
 
 const app = express();
 
@@ -79,7 +79,7 @@ app.use("/setting/order", orederRoutes);
 app.use("/setting/ingredientCategory", IngredientCategoryrouter);
 
 app.use("/setting/ingredientUnit", IngredientUnitrouter);
-app.use("/setting/kot", KOTrouter);
+app.use("/setting/kot", kotRouter);
 
 app.use("/setting/modifier", Modifierrouter);
 app.use("/setting/kitchen", KitchenRoute);
