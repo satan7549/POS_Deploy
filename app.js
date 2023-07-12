@@ -8,8 +8,15 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const indexRouter = require("./routes/index");
-const settingAreaRouter=require("./api/Setting/area/area.route")
 
+// user related route import
+const userRouter = require("./api/Setting/user/user.route");
+const RoleRouter = require("./api/Setting/role/role.route");
+
+
+
+//Tax related route
+const TaxRouter = require("./api/Setting/tax/tax.route");
 
 const app = express();
 
@@ -31,29 +38,47 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Base URL
 app.use("/", indexRouter);
-//app.use("/users", usersRouter);
-app.use("/setting/area", settingAreaRouter);
-app.use("/setting/table", settingTableRouter); // using of route or Registered the route
-app.use("/setting/user", settingUserRouter);
-//app.use("/setting/role", settingRoleRouter);
-app.use("/setting/outlet", settingOutletRouter);
-//app.use("/setting/companies", settingCompaniestRouter);
-//app.use("/setting/kitchenSales", settingKitchenSalesRouter);
-//app.use("/setting/expenses", settingExpensesRouter);
-app.use("/setting/ingredient", settingIngredientRouter);
-//app.use("/setting/recipe", settingRecipeRouter);
-//app.use("/setting/printer", settingPrinterRouter);
-//app.use("/setting/payment", settingPaymentRouter);
-//app.use("/setting/currency", settingCurrencyRouter);
-//app.use("/setting/access", settingAccessRouter);
-//app.use("/setting/attendance", settingAttendanceRouter);
-app.use("/setting/foodcategory", FoodCategory);
-app.use("/setting/foodMenu", FoodMenurouter);
-app.use("/setting/order", Orderrouter);
 
-//oreder related routes
+
+// User base url
+app.use("/setting/user", userRouter);
+app.use("setting/role", RoleRouter);
+
+// Company Base URL
+app.use("/company", companyRouter);
+
+// Outlet Base URL
+app.use("/setting/outlet", outletRouter);
+
+// Area Base URL
+app.use("/setting/area", areaRouter);
+
+//Table Base URL 
+app.use("/setting/table", tableRouter);
+
+// Ingredient Base URL
+app.use("/setting/ingredient", ingredientRouter);
+app.use("/setting/ingredientCategory", ingredientRouter );
+app.use("/setting/ingredientUnit", ingredientUnitRouter);
+
+// Food Relate Base URL
+app.use("/setting/foodcategory", foodCategory);
+app.use("/setting/foodMenu", foodMenuRouter);
+app.use("/setting/foodcombo", FoodCombo);
+
+
+//Order related url
 app.use("/setting/order", orederRoutes);
 app.use("/setting/kot", kotRouter);
+
+//Kitchen related url
+app.use("/setting/kitchen", kitchenRoute);
+app.use("/setting/modifier", modifierRouter);
+
+//Tax related url
+app.use("/setting/tax", TaxRouter);
+
+
 
 // moongoose Connection
 
