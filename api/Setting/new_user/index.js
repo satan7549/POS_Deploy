@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const userSchema = Schema({
+  outlet_id: {
+    type: Number,
+    default: null,
+  },
+
   full_name: {
     type: String,
     maxlength: [50, "Maximum 50 charcters are permitted"],
@@ -19,7 +24,7 @@ const userSchema = Schema({
     default: null,
   },
 
-  email_address: {
+  email: {
     type: String,
     required: [true, "please enter email"],
     trim: true,
@@ -38,7 +43,7 @@ const userSchema = Schema({
   role: {
     type: String,
     enum: {
-      values: ["Admin", "Employee", "Customer", ],
+      values: ["Admin", "Employee", "Customer", "SuperAdmin", ],
       message: `Value is not supported`,
     },
     default: "Customer",
@@ -50,14 +55,10 @@ const userSchema = Schema({
     default: null,
   },
 
-  outlet_id: {
-    type: Number,
-    default: null,
-  },
-
   admin_id: {
     type: Number,
     default: null,
+    required: true,
   },
 
   createdAt: {

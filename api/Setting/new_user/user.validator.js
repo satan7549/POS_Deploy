@@ -117,10 +117,7 @@ const userSchema = Joi.object({
 
 // Validate the user data
 function validateUser(userData) {
-  const {
-    error,
-    value
-  } = userSchema.validate(userData);
+  const { error, value } = userSchema.validate(userData);
   if (error) {
     const errorMessage = error.details
       .map((detail) => detail.message)
@@ -132,10 +129,7 @@ function validateUser(userData) {
 
 // Validate the update data
 function validateUpdate(updateData) {
-  const {
-    error,
-    value
-  } = userSchema.validate(updateData);
+  const { error, value } = userSchema.validate(updateData);
   if (error) {
     const errorMessage = error.details
       .map((detail) => detail.message)

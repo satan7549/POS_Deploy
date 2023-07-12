@@ -1,4 +1,4 @@
-// const { validateUser, validateUpdate } = require("./user.validator");
+const { validateUser, validateUpdate } = require("./user.validator");
 const UserModel = require("./index");
 const companyModel = require("../Company/Company");
 const cookieToken = require("../../../utils/cookieToken");
@@ -7,15 +7,19 @@ const CustomError = require("../../../utils/customError");
 //insert new User
 exports.userInsert = async (req, res, next) => {
   try {
-    const companyExists = await companyModel.findOne({
-      _id: value.company_id
-    });
+    // Validation
+    const { error, value } = validateUser(req.body);
+
+    // Check Error in Validation
+    if (error) {
+      return res.status(400).send(error.details[0].message);
+    }
+
+    const companyExists = await companyModel.findOne({ _id: value.company_id });
 
     if (!companyExists) {
       // Send Error Response
-      return res.status(404).json({
-        message: "Company not found!"
-      });
+      return res.status(404).json({ message: "Company not found!" });
     }
 
     const userExists = await UserModel.findOne({
@@ -24,9 +28,7 @@ exports.userInsert = async (req, res, next) => {
 
     if (userExists) {
       // Send Error Response
-      return res.status(409).json({
-        message: "User already Exists!"
-      });
+      return res.status(409).json({ message: "User already Exists!" });
     }
 
     // Insert user
@@ -37,9 +39,7 @@ exports.userInsert = async (req, res, next) => {
     cookieToken(savedData, res);
   } catch (error) {
     // Send Error Response
-    res.status(500).json({
-      message: "Error inserting data into database"
-    });
+    res.status(500).json({ message: "Error inserting data into database" });
   }
 };
 
@@ -47,63 +47,44 @@ exports.userInsert = async (req, res, next) => {
 exports.updateUser = async (req, res, next) => {
   try {
     const id = req.params.id;
-    // // Validation
-    // const {
-    //   error,
-    //   value
-    // } = validateUpdate(req.body);
 
-    // // Check Error in Validation
-    // if (error) {
-    //   return res.status(400).send(error.details[0].message);
-    // }
+    // Validation
+    const { error, value } = validateUpdate(req.body);
 
-    const user = await UserModel.findOneAndUpdate({
-      _id: id
-    }, value, {
+    // Check Error in Validation
+    if (error) {
+      return res.status(400).send(error.details[0].message);
+    }
+
+    const user = await UserModel.findOneAndUpdate({ _id: id }, value, {
       new: true,
     });
 
     if (!user) {
-      return res.status(404).json({
-        message: "User not found"
-      });
+      return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(200).json({
-      message: "sucess",
-      user
-    });
-
+    res.status(200).json({ message: "sucess", user });
   } catch (error) {
     // Send Error Response
     res.status(500).json("Error updating user");
   }
-
 };
 
 // Display Single User
 exports.showUser = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const user = await UserModel.findOne({
-      _id: id
-    });
+    const user = await UserModel.findOne({ _id: id });
 
     if (!user) {
       console.log("user not found");
-      return res.status(404).json({
-        message: "User not found"
-      });
+      return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(200).json({
-      user
-    });
+    res.status(200).json({ user });
   } catch (error) {
-    res.status(500).json({
-      error
-    });
+    res.status(500).json({ error });
   }
 };
 
@@ -113,17 +94,11 @@ exports.showUsers = async (req, res, next) => {
     const user = await UserModel.find();
     if (!user || user.length === 0) {
       console.log("User not found");
-      return res.status(404).json({
-        message: "User not found"
-      });
+      return res.status(404).json({ message: "User not found" });
     }
-    res.status(200).json({
-      user
-    });
+    res.status(200).json({ user });
   } catch (error) {
-    res.status(500).json({
-      error
-    });
+    res.status(500).json({ error });
   }
 };
 
@@ -131,42 +106,31 @@ exports.showUsers = async (req, res, next) => {
 exports.deleteUser = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const user = await UserModel.deleteOne({
-      _id: id
-    });
+
+    const user = await UserModel.deleteOne({ _id: id });
 
     if (!user) {
       console.log("User not found");
-      return res.status(404).json({
-        message: "User not found"
-      });
+      return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(200).json({
-      id
-    });
+    res.status(200).json({ id });
   } catch (error) {
     // Send Error Response
-    res.status(500).json({
-      error
-    });
+    res.status(500).json({ error });
   }
 };
 
 //user Login
 exports.login = async (req, res, next) => {
-  const {
-    email_address,
-    password
-  } = req.body;
+  const { email_address, password } = req.body;
+
   //check for presence of email and password
   if (!email_address || !password) {
     return next(new CustomError("Please provide email and password", 400));
   }
 
-  const user = await UserModel.findOne({
-    email_address
-  }).select("+password");
+  const user = await UserModel.findOne({ email_address }).select("+password");
 
   if (!user) {
     return next(
