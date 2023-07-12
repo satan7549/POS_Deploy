@@ -44,11 +44,23 @@ quantity: Joi.number().min(1).max(10).required()
 }),
 })
 ),
-price: Joi.number().required()
+Dine_price: Joi.number().required()
 .messages({
-'number.base': 'Price must be a number',
-'number.empty': 'Price is required',
-'any.required': 'Please enter a price',
+'number.base': 'Dine_price must be a number',
+'number.empty': 'Dine_price is required',
+'any.required': 'Please enter a Dine_price',
+}),
+Takeaway_price: Joi.number().required()
+.messages({
+'number.base': 'Takeaway_price must be a number',
+'number.empty': 'Takeaway_price is required',
+'any.required': 'Please enter a Takeaway_price',
+}),
+Delivery_price: Joi.number().required()
+.messages({
+'number.base': 'Delivery_price must be a number',
+'number.empty': 'Delivery_price is required',
+'any.required': 'Please enter a Delivery_price',
 }),
 
 description: Joi.string().min(10).max(200).required().trim()
@@ -127,11 +139,23 @@ quantity: Joi.number().min(1).max(10).required()
 }),
 })
 ),
-price: Joi.number().required()
+Dine_price: Joi.number().required()
 .messages({
-'number.base': 'Price must be a number',
-'number.empty': 'Price is required',
-'any.required': 'Please enter a price',
+'number.base': 'Dine_price must be a number',
+'number.empty': 'Dine_price is required',
+'any.required': 'Please enter a Dine_price',
+}),
+Takeaway_price: Joi.number().required()
+.messages({
+'number.base': 'Takeaway_price must be a number',
+'number.empty': 'Takeaway_price is required',
+'any.required': 'Please enter a Takeaway_price',
+}),
+Delivery_price: Joi.number().required()
+.messages({
+'number.base': 'Delivery_price must be a number',
+'number.empty': 'Delivery_price is required',
+'any.required': 'Please enter a Delivery_price',
 }),
 
 description: Joi.string().min(10).max(200).required().trim()

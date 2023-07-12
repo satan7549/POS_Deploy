@@ -8,7 +8,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const indexRouter = require("./routes/index");
-// const usersRouter = require("./routes/users");
+//const usersRouter = require("./routes/users");
 const settingAreaRouter = require("./api/Setting/area/area.route");
 const settingTableRouter = require("./api/Setting/table/table.route"); // call and include the route
 const settingUserRouter = require("./api/Setting/user/user.route");
@@ -31,11 +31,40 @@ const Companyrouter = require("./api/Setting/Company/CompanyRoutes");
 const orederRoutes = require("./api/Setting/order/orderRoute");
 const IngredientCategoryrouter = require("./api/Setting/ingredientCategory/ingredientCategoryRoute");
 const IngredientUnitrouter = require("./api/Setting/ingredientUnit/ingredientUnitRoute");
-
 const Modifierrouter = require("./api/Setting/modifiers/modifier.route");
-
 const KOTrouter = require("./api/Setting/KOT/kot.router");
+const Rolerouter = require("./api/Setting/role/role.route");
 
+// user related route import 
+const userRouter = require("./api/Setting/user/user.route");
+
+
+// Company area locations route import
+const companyRouter = require("./api/Setting/Company/CompanyRoutes");
+const outletRouter = require("./api/Setting/outlet/outlet.route");
+const areaRouter = require("./api/Setting/area/area.route");
+const tableRouter = require("./api/Setting/table/table.route"); // call and include the route
+
+// Kitchen route import
+const kitchenRoute = require("./api/Setting/kitchen/kitchen.route");
+
+
+//Ingredient route import
+const ingredientRouter = require("./api/Setting/ingredients/ingredient.route");
+const ingredientCategoryRouter = require("./api/Setting/ingredientCategory/ingredientCategoryRoute");
+const ingredientUnitRouter = require("./api/Setting/ingredientUnit/ingredientUnitRoute");
+
+
+// food ,menu related route import
+const foodCategory = require("./api/Setting/foodCategory/foodCategory.route");
+const foodMenuRouter = require("./api/Setting/foodMenu/foodMenuRoute");
+const FoodCombo = require("./api/Setting/foodCombos/foodCombo.Route");
+const modifierRouter = require("./api/Setting/modifiers/modifier.route");
+
+// Order related route
+const orederRoutes = require("./api/Setting/order/orderRoute");
+
+const kotRouter = require("./api/Setting/KOT/kot.router");
 
 const app = express();
 
@@ -56,7 +85,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-// app.use("/users", usersRouter);
+//app.use("/users", usersRouter);
 app.use("/setting/area", settingAreaRouter);
 app.use("/setting/table", settingTableRouter); // using of route or Registered the route
 app.use("/setting/user", settingUserRouter);
@@ -75,16 +104,23 @@ app.use("/setting/ingredient", settingIngredientRouter);
 app.use("/setting/foodcategory", FoodCategory);
 app.use("/setting/foodMenu", FoodMenurouter);
 app.use("/setting/foodcombo", FoodCombo);
+
 app.use("/setting/order", orederRoutes);
 app.use("/setting/ingredientCategory", IngredientCategoryrouter);
-
 app.use("/setting/ingredientUnit", IngredientUnitrouter);
 app.use("/setting/kot",KOTrouter);
-
 app.use("/setting/modifier",Modifierrouter);
+app.use("/setting/role",Rolerouter);
 
 
 app.use("/company", Companyrouter);
+
+//oreder related routes
+app.use("/setting/order", orederRoutes);
+app.use("/setting/kot", kotRouter);
+
+
+
 
 // moongoose Connection
 

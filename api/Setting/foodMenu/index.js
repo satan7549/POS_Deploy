@@ -44,10 +44,18 @@ const foodMenuSchema = Schema({
     },
   ],
 
-  price: {
+  Dine_price: {
     type: Number,
-    required: [true, "Please enter price"],
-    default: null,
+    required: [true, "Please enter a Dine_price"],
+  },
+
+  Takeaway_price: {
+    type: Number,
+    required: [true, "Please enter a Takeaway_price"],
+  },
+  Delivery_price: {
+    type: Number,
+    required: [true, "Please enter a Delivery_price"],
   },
 
   description: {
@@ -60,25 +68,15 @@ const foodMenuSchema = Schema({
   },
 
   isVeg: {
-    type: String,
-    enum: {
-      values: ["yes", "no"],
-      message: "Value is not matched",
-    },
-    required: [true, "please enter isVeg"],
-    default: "no",
-    trim: true,
+    type: Boolean,
+    required: [true, "Please specify if the combo is vegetarian"],
+    default: false,
   },
 
   isBeverage: {
-    type: String,
-    enum: {
-      values: ["yes", "no"], // Use "values" instead of "value"
-      message: "Value is not matched",
-    },
-    required: [true, "please enter isBeverage"],
-    default: "no",
-    trim: true,
+    type: Boolean,
+    required: [true, "Please specify if the combo is vegetarian"],
+    default: false,
   },
 
   outlet: {

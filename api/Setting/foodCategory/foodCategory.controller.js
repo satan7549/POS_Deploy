@@ -1,93 +1,118 @@
+const { validateFoodCategory, validateUpdate } = require("./foodCategory.validator");
 const FoodCategoryModel = require("./index");
+// const OutletModel = require("../outlet/index");
 
-// CREATE - Create a new food category
-const createFoodCategory = async (req, res) => {
+//insert new FoodCategory
+exports.foodCategoryInsert = async (req, res, next) => {
   try {
-    const { name, description } = req.body;
-    const ExistFoodCategory = await FoodCategoryModel.findOne({ name: name });
-    if (ExistFoodCategory) {
-      return res.status(409).json("Food Category Already Exists!");
+    // Validation
+    const { error, value } = validateFoodCategory(req.body);
+
+    // Check Error in Validation
+    if (error) {
+      return res.status(400).send(error.details[0].message);
     }
-    const newFoodCategory = new FoodCategoryModel({ name, description });
-    const savedCategory = await newFoodCategory.save();
-    res.status(201).json({ message: "success", foodCategory: savedCategory });
+
+    const foodCategoryExists = await FoodCategoryModel.findOne({
+      name: value.name,
+    });
+
+    if (foodCategoryExists) {
+      // Send Response
+      return res.status(409).json({ message: "FoodCategory already exists!" });
+    }
+
+    // Insert foodCategory
+    const foodCategory = new FoodCategoryModel(value);
+    const savedData = await foodCategory.save();
+
+    // Send Response
+    res.status(200).json({ message: "success", foodCategory: savedData });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    // Send Error Response
+    res.status(500).json("Error inserting data into the database");
   }
 };
 
-// READ - Get all food categories
-const getAllFoodCategories = async (req, res) => {
+// Display Single FoodCategory
+exports.showFoodCategory = async (req, res, next) => {
   try {
-    const foodCategory = await FoodCategoryModel.find({ del_status: "Live" });
+    const id = req.params.id;
+    const foodCategory = await FoodCategoryModel.findOne({ _id: id });
 
-    if (!foodCategory || foodCategory.length === 0) {
-      return res.status(404).json({ message: "Food category not found" });
+    if (!foodCategory) {
+      return res.status(404).json({ message: "FoodCategory not found" });
     }
 
     res.status(200).json({ message: "success", foodCategory });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error });
   }
 };
 
-// READ - Get a single food category by ID
-const getFoodCategoryById = async (req, res) => {
+// Display List
+exports.showFoodCategorys = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const category = await FoodCategoryModel.findById(id);
+    const foodCategory = await FoodCategoryModel.find({ del_status: "Live" });
 
-    if (!category) {
-      return res.status(404).json({ message: "Food category not found." });
+    if (!foodCategory || foodCategory.length === 0) {
+      return res.status(404).json({ message: "foodCategory not found" });
     }
-    res.status(200).json({ message: "success", foodCategory: category });
+
+    res.status(200).json({ message: "success", foodCategory });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error });
   }
 };
 
-// UPDATE - Update a food category by ID
-const updateFoodCategory = async (req, res) => {
+// Update FoodCategory
+exports.updateFoodCategory = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const { name, description } = req.body;
-    const updatedCategory = await FoodCategoryModel.findByIdAndUpdate(
-      id,
-      { name, description },
-      { new: true }
+    const id = req.params.id;
+
+    // Validation
+    const { error, value } = validateUpdate(req.body);
+
+    // Check Error in Validation
+    if (error) {
+      return res.status(400).send(error.details[0].message);
+    }
+
+    const foodCategory = await FoodCategoryModel.findOneAndUpdate(
+      { _id: id },
+      value,
+      {
+        new: true,
+      }
     );
-    if (!updatedCategory) {
-      return res.status(404).json({ message: "Food category not found." });
+
+    if (!foodCategory) {
+      console.log("FoodCategory not found");
+      return res.status(404).json({ message: "FoodCategory not found" });
     }
-    res.status(200).json({ message: "success", updatedCategory });
+
+    res.status(200).json({ foodCategory});
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.log(error);
+    // Send Error Response
+    res.status(500).json("Error updating foodCategory");
   }
 };
 
-// DELETE - Soft delete a food category by ID
-const softDeleteFoodCategory = async (req, res) => {
+//   // Delete FoodCategory
+exports.deleteFoodCategory = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const updatedCategory = await FoodCategoryModel.findByIdAndUpdate(
+    const updatedFoodCategory = await FoodCategoryModel.findByIdAndUpdate(
       id,
       { del_status: "Deleted" },
       { new: true }
     );
-    if (!updatedCategory) {
-      return res.status(404).json({ message: "Food category not found." });
+    if (!updatedFoodCategory) {
+      return res.status(404).json({ message: "FoodCategory not found." });
     }
-    res.status(200).json({ message: "food category deleted successfully" });
+    res.status(200).json({ message: "FoodCategory deleted successfully" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-};
-
-
-module.exports = {
-  createFoodCategory,
-  getAllFoodCategories,
-  getFoodCategoryById,
-  updateFoodCategory,
-  softDeleteFoodCategory,
 };

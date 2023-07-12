@@ -61,7 +61,9 @@ exports.showFoodMenus = async (req, res, next) => {
 
     res.status(200).json({ message: "success", foodMenu });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Somthing went wrong", eror: error.message });
   }
 };
 
@@ -78,13 +80,9 @@ exports.updateFoodMenu = async (req, res, next) => {
       return res.status(400).send(error.details[0].message);
     }
 
-    const foodMenu = await FoodMenuModel.findOneAndUpdate(
-      { _id: id },
-      value,
-      {
-        new: true,
-      }
-    );
+    const foodMenu = await FoodMenuModel.findOneAndUpdate({ _id: id }, value, {
+      new: true,
+    });
 
     if (!foodMenu) {
       console.log("FoodMenu not found");

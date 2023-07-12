@@ -29,22 +29,22 @@ const modifierSchema = Schema({
     ref: "Company",
     required: [true, "please enter Company_id"],
   },
-  tax_information: {
-    type: String,
-    maxlength: [100, "Maximum 100 charcters are permitted"],
-    minLength: [10, "tax_information should have more than 10 character"],
-    required: [true, "please enter tax_information"],
-    trim: true,
-    default: null
-  },
-  tax_string: {
-    type: String,
-    maxlength: [250, "Maximum 250 charcters are permitted"],
-    minLength: [10, "tax_string should have more than 10 character"],
-    required: [true, "please enter tax_string"],
-    trim: true,
-    default: null
-  },
+  // tax_information: {
+  //   type: String,
+  //   maxlength: [100, "Maximum 100 charcters are permitted"],
+  //   minLength: [10, "tax_information should have more than 10 character"],
+  //   required: [true, "please enter tax_information"],
+  //   trim: true,
+  //   default: null
+  // },
+  // tax_string: {
+  //   type: String,
+  //   maxlength: [250, "Maximum 250 charcters are permitted"],
+  //   minLength: [10, "tax_string should have more than 10 character"],
+  //   required: [true, "please enter tax_string"],
+  //   trim: true,
+  //   default: null
+  // },
   total_cost: {
     type: Number,
     required: [true, "Please enter a total_cost"],
