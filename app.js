@@ -8,7 +8,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const indexRouter = require("./routes/index");
-
 //const usersRouter = require("./routes/users");
 const settingAreaRouter = require("./api/Setting/area/area.route");
 const settingTableRouter = require("./api/Setting/table/table.route"); // call and include the route
@@ -86,24 +85,24 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/setting/user", userRouter);
-
-// Company area locations
-app.use("/company", companyRouter);
-app.use("/setting/outlet", outletRouter);
-app.use("/setting/area", areaRouter);
-app.use("/setting/table", tableRouter);
-app.use("/setting/kitchen", kitchenRoute);
-
-//ingredients related route
-app.use("/setting/ingredientUnit", ingredientUnitRouter);
-app.use("/setting/ingredientCategory", ingredientCategoryRouter);
-app.use("/setting/ingredient", ingredientRouter);
-
-//Food menu related routes
-app.use("/setting/foodCategory", foodCategory);
-app.use("/setting/foodMenu", foodMenuRouter);
-app.use("/setting/modifier", modifierRouter);
+//app.use("/users", usersRouter);
+app.use("/setting/area", settingAreaRouter);
+app.use("/setting/table", settingTableRouter); // using of route or Registered the route
+app.use("/setting/user", settingUserRouter);
+//app.use("/setting/role", settingRoleRouter);
+app.use("/setting/outlet", settingOutletRouter);
+//app.use("/setting/companies", settingCompaniestRouter);
+//app.use("/setting/kitchenSales", settingKitchenSalesRouter);
+//app.use("/setting/expenses", settingExpensesRouter);
+app.use("/setting/ingredient", settingIngredientRouter);
+//app.use("/setting/recipe", settingRecipeRouter);
+//app.use("/setting/printer", settingPrinterRouter);
+//app.use("/setting/payment", settingPaymentRouter);
+//app.use("/setting/currency", settingCurrencyRouter);
+//app.use("/setting/access", settingAccessRouter);
+//app.use("/setting/attendance", settingAttendanceRouter);
+app.use("/setting/foodcategory", FoodCategory);
+app.use("/setting/foodMenu", FoodMenurouter);
 app.use("/setting/foodcombo", FoodCombo);
 
 app.use("/setting/order", orederRoutes);
