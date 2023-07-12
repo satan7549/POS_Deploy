@@ -8,34 +8,12 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const indexRouter = require("./routes/index");
+
 // user related route import
 const userRouter = require("./api/Setting/user/user.route");
 const RoleRouter = require("./api/Setting/role/role.route");
 
-// Company area locations route import
-const companyRouter = require("./api/Setting/Company/CompanyRoutes");
-const outletRouter = require("./api/Setting/outlet/outlet.route");
-const areaRouter = require("./api/Setting/area/area.route");
-const tableRouter = require("./api/Setting/table/table.route"); // call and include the route
 
-// Kitchen route import
-const kitchenRoute = require("./api/Setting/kitchen/kitchen.route");
-
-//Ingredient route import
-const ingredientRouter = require("./api/Setting/ingredients/ingredient.route");
-const ingredientCategoryRouter = require("./api/Setting/ingredientCategory/ingredientCategoryRoute");
-const ingredientUnitRouter = require("./api/Setting/ingredientUnit/ingredientUnitRoute");
-
-// food ,menu related route import
-const foodCategory = require("./api/Setting/foodCategory/foodCategory.route");
-const foodMenuRouter = require("./api/Setting/foodMenu/foodMenuRoute");
-const FoodCombo = require("./api/Setting/foodCombos/foodCombo.Route");
-const modifierRouter = require("./api/Setting/modifiers/modifier.route");
-
-// Order related route
-const orederRoutes = require("./api/Setting/order/orderRoute");
-
-const kotRouter = require("./api/Setting/KOT/kot.router");
 
 //Tax related route
 const TaxRouter = require("./api/Setting/tax/tax.route");
@@ -60,6 +38,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Base URL
 app.use("/", indexRouter);
+
 
 // User base url
 app.use("/setting/user", userRouter);
@@ -86,6 +65,7 @@ app.use("/setting/ingredientUnit", ingredientUnitRouter);
 app.use("/setting/foodcategory", foodCategory);
 app.use("/setting/foodMenu", foodMenuRouter);
 app.use("/setting/foodcombo", FoodCombo);
+
 
 //Order related url
 app.use("/setting/order", orederRoutes);
