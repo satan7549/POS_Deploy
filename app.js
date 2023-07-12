@@ -31,10 +31,9 @@ const Companyrouter = require("./api/Setting/Company/CompanyRoutes");
 const orederRoutes = require("./api/Setting/order/orderRoute");
 const IngredientCategoryrouter = require("./api/Setting/ingredientCategory/ingredientCategoryRoute");
 const IngredientUnitrouter = require("./api/Setting/ingredientUnit/ingredientUnitRoute");
-
 const Modifierrouter = require("./api/Setting/modifiers/modifier.route");
-
 const KOTrouter = require("./api/Setting/KOT/kot.router");
+const Rolerouter = require("./api/Setting/role/role.route");
 
 
 const app = express();
@@ -77,14 +76,15 @@ app.use("/setting/foodMenu", FoodMenurouter);
 app.use("/setting/foodcombo", FoodCombo);
 app.use("/setting/order", orederRoutes);
 app.use("/setting/ingredientCategory", IngredientCategoryrouter);
-
 app.use("/setting/ingredientUnit", IngredientUnitrouter);
 app.use("/setting/kot",KOTrouter);
-
 app.use("/setting/modifier",Modifierrouter);
+app.use("/setting/role",Rolerouter);
 
 
 app.use("/company", Companyrouter);
+
+
 
 // moongoose Connection
 
