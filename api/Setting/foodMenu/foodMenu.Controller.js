@@ -97,7 +97,7 @@ exports.updateFoodMenu = async (req, res, next) => {
   }
 };
 
-//   // Delete FoodMenu
+// Delete FoodMenu
 exports.deleteFoodMenu = async (req, res, next) => {
   try {
     const { id } = req.params;
