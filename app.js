@@ -10,6 +10,7 @@ dotenv.config();
 const indexRouter = require("./routes/index");
 // user related route import
 const userRouter = require("./api/Setting/user/user.route");
+const RoleRouter = require("./api/Setting/role/role.route");
 
 // Company area locations route import
 const companyRouter = require("./api/Setting/Company/CompanyRoutes");
@@ -36,6 +37,9 @@ const orederRoutes = require("./api/Setting/order/orderRoute");
 
 const kotRouter = require("./api/Setting/KOT/kot.router");
 
+//Tax related route
+const TaxRouter = require("./api/Setting/tax/tax.route");
+
 const app = express();
 
 app.use(
@@ -57,8 +61,9 @@ app.use(express.static(path.join(__dirname, "public")));
 // Base URL
 app.use("/", indexRouter);
 
-// User base route
+// User base url
 app.use("/setting/user", userRouter);
+app.use("setting/role", RoleRouter);
 
 // Company Base URL
 app.use("/company", companyRouter);
@@ -74,15 +79,26 @@ app.use("/setting/table", tableRouter);
 
 // Ingredient Base URL
 app.use("/setting/ingredient", ingredientRouter);
+app.use("/setting/ingredientCategory", ingredientRouter );
+app.use("/setting/ingredientUnit", ingredientUnitRouter);
 
 // Food Relate Base URL
 app.use("/setting/foodcategory", foodCategory);
 app.use("/setting/foodMenu", foodMenuRouter);
 app.use("/setting/foodcombo", FoodCombo);
 
-//oreder related routes
+//Order related url
 app.use("/setting/order", orederRoutes);
 app.use("/setting/kot", kotRouter);
+
+//Kitchen related url
+app.use("/setting/kitchen", kitchenRoute);
+app.use("/setting/modifier", modifierRouter);
+
+//Tax related url
+app.use("/setting/tax", TaxRouter);
+
+
 
 // moongoose Connection
 
