@@ -28,7 +28,9 @@ exports.insertTable = async (req, res, next) => {
 exports.showTable = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const table = await TableModel.findOne({ _id: id });
+    const table = await TableModel.findOne({ _id: id })
+      .populate("area_id")
+      .exec();
 
     if (!table) {
       return res.status(404).json({ message: "Table not found" });
@@ -40,16 +42,17 @@ exports.showTable = async (req, res, next) => {
   }
 };
 
-// Display List
 exports.showTables = async (req, res, next) => {
   try {
-    const table = await TableModel.find({ del_status: "Live" });
+    const tables = await TableModel.find({ del_status: "Live" })
+      .populate("area_id")
+      .exec();
 
-    if (!table || table.length === 0) {
+    if (!tables || tables.length === 0) {
       return res.status(404).json({ message: "Table not found" });
     }
 
-    res.status(200).json({ message: "success", table });
+    res.status(200).json({ message: "success", tables });
   } catch (error) {
     res.status(500).json({ error });
   }
