@@ -92,7 +92,7 @@ app.use("/setting/ingredientUnit", ingredientUnitRouter);
 
 // Food Relate Base URL
 app.use("/setting/foodcategory", foodCategory);
-app.use("/setting/foodMenu", foodMenuRouter);
+app.use("/setting/foodmenu", foodMenuRouter);
 app.use("/setting/modifier", modifierRouter);
 app.use("/setting/foodcombo", FoodCombo);
 
