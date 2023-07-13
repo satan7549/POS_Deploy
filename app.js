@@ -47,6 +47,7 @@ const kotRouter = require("./api/Setting/KOT/kot.router");
 
 //Tax related route
 const TaxRouter = require("./api/Setting/tax/tax.route");
+const BillingRouter = require("./api/Setting/billing/billing.route");
 
 const app = express();
 
@@ -105,6 +106,7 @@ app.use("/setting/kitchen", kitchenRoute);
 
 //Tax related url
 app.use("/setting/tax", TaxRouter);
+app.use("/setting/billing", BillingRouter);
 
 // moongoose Connection
 
