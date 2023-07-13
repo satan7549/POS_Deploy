@@ -45,7 +45,7 @@ exports.showTable = async (req, res, next) => {
 exports.showTables = async (req, res, next) => {
   try {
     const tables = await TableModel.find({ del_status: "Live" })
-      .populate("area_id")
+      .populate({ path: "area_id", match: { del_status: "Live" } })
       .exec();
 
     if (!tables || tables.length === 0) {
