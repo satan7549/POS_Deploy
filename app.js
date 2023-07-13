@@ -71,7 +71,7 @@ app.use("/", indexRouter);
 
 // User base url
 app.use("/setting/user", userRouter);
-app.use("setting/role", RoleRouter);
+app.use("/setting/role", RoleRouter);
 
 // Company Base URL
 app.use("/company", companyRouter);
