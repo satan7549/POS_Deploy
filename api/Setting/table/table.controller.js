@@ -29,7 +29,7 @@ exports.showTable = async (req, res, next) => {
   try {
     const id = req.params.id;
     const table = await TableModel.findOne({ _id: id })
-      .populate("area_id")
+      .populate({ path: "area_id", match: { del_status: "Live" } })
       .exec();
 
     if (!table) {
