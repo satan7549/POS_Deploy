@@ -64,16 +64,16 @@ exports.showSingleOutlet = async (req, res, next) => {
     const id = req.params.id;
 
     const outlet = await OutletModel.findOne({ _id: id })
-      .populate({
-        path: "area",
-        match: { del_status: "Live" },
-        populate: {
-          path: "tables",
-          match: { del_status: "Live" },
-          model: "Table",
-        },
-      })
-      .exec();
+      // .populate({
+      //   path: "area",
+      //   match: { del_status: "Live" },
+      //   populate: {
+      //     path: "tables",
+      //     match: { del_status: "Live" },
+      //     model: "Table",
+      //   },
+      // })
+      // .exec();
 
     if (!outlet) {
       return res.status(404).json({ message: "Outlet not found" });
