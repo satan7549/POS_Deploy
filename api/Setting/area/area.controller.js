@@ -32,7 +32,7 @@ exports.insertArea = async (req, res, next) => {
 exports.showAreas = async (req, res, next) => {
   try {
     const areas = await AreaModel.find({ del_status: "Live" })
-      .populate({ path: "Table", match: { del_status: "Live" } })
+      .populate({ path: "tables", match: { del_status: "Live" } })
       .exec();
 
     if (areas.length === 0) {
@@ -50,7 +50,7 @@ exports.findAreaByID = async (req, res, next) => {
   try {
     const id = req.params.id;
     const area = await AreaModel.findOne({ _id: id })
-      .populate({ path: "Table", match: { del_status: "Live" } })
+      .populate({ path: "tables", match: { del_status: "Live" } })
       .exec();
 
     if (!area) {
