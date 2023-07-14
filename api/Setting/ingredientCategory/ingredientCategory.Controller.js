@@ -1,7 +1,7 @@
 const {
   validateIngredientCategory,
   validateUpdate,
-} = require("./ingredientCategoryValidator");
+} = require("./ingredientCategory.Validator");
 const IngredientCategoryModel = require("./index");
 
 //nsert new IngredientCategory

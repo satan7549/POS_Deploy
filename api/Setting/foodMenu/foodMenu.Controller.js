@@ -1,4 +1,4 @@
-const { validateFoodMenu, validateUpdate } = require("./foodMenuValidator");
+const { validateFoodMenu, validateUpdate } = require("./foodMenu.Validator");
 const FoodMenuModel = require("./index");
 // const OutletModel = require("../outlet/index");
 
@@ -97,7 +97,7 @@ exports.updateFoodMenu = async (req, res, next) => {
   }
 };
 
-//   // Delete FoodMenu
+// Delete FoodMenu
 exports.deleteFoodMenu = async (req, res, next) => {
   try {
     const { id } = req.params;

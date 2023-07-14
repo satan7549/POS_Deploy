@@ -1,4 +1,4 @@
-const { validateIngredientUnit, validateUpdate } = require("./ingredientUnitValidator");
+const { validateIngredientUnit, validateUpdate } = require("./ingredientUnit.Validator");
 const IngredientUnitModel = require("./index");
 
 //nsert new IngredientUnit

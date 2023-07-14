@@ -1,5 +1,5 @@
 const OutletModel = require("./index");
-const CompanyModel = require("../Company/Company");
+const CompanyModel = require("../Company/index");
 const { validateOutlet, validateUpdate } = require("./outlet.validator");
 
 exports.outletInsert = async (req, res, next) => {
