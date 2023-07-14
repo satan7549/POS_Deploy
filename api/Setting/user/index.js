@@ -13,7 +13,6 @@ const userSchema = Schema({
     trim: true,
     default: null,
   },
-
   phone: {
     type: Number,
     min: [1000000000, "phone number should be equal 10 digit"],
@@ -21,8 +20,7 @@ const userSchema = Schema({
     required: [true, "Please enter phone"],
     default: null,
   },
-
-  email: {
+  email_address: {
     type: String,
     unique: true,
     required: [true, "please enter email"],
@@ -32,38 +30,35 @@ const userSchema = Schema({
       }
     },
   },
-
   password: {
     type: String,
     minLength: [6, "Password should have more than 6 character"],
     required: [true, "please enter password"],
     trim: true,
   },
-
-  role: {
+  jobTitle: {
     type: String,
-    enum: {
-      values: ["Super_Admin", "Admin", "Employee", "Customer"],
-      message: `Value is not supported`,
-    },
-    required: true,
+    maxLength: [30, "Job Title name should be under 30 Characters"],
+    trim: true,
   },
-
-  designation: {
+  superAdmin: {
+    type: Boolean,
+    default: false,
+  },
+  admin: {
+    type: Boolean,
+    default: false,
+  },
+  permissions: {
+    type: [Number],
+  },
+  active: {
+    type: Boolean,
+    default: true,
+  },
+  outlet_code: {
     type: String,
-    default: null,
   },
-
-  outlet_id: {
-    type: Number,
-    default: null,
-  },
-
-  admin_id: {
-    type: Number,
-    default: null,
-  },
-
   forgotPasswardToken: String,
   forgotPasswardExpiry: Date,
   createdAt: {

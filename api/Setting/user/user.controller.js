@@ -3,56 +3,80 @@ const {
   validateUpdate
 } = require("./user.validator");
 const UserModel = require("./index");
-const companyModel = require("../Company/index");
+// const companyModel = require("../Company/index");
 const cookieToken = require("../../../utils/cookieToken");
 const CustomError = require("../../../utils/customError");
+const OutletModel = require("../outlet/index");
 
 //insert new User
 exports.userInsert = async (req, res, next) => {
   try {
     // Validation
-    const {
-      error,
-      value
-    } = validateUser(req.body);
+    // const {
+    //   error,
+    //   value
+    // } = validateUser(req.body);
 
     // Check Error in Validation
-    if (error) {
-      return res.status(400).send(error.details[0].message);
-    }
+    // if (error) {
+    //   return res.status(400).send(error.details[0].message);
+    // }
 
-    const companyExists = await companyModel.findOne({
-      _id: value.company_id
-    });
+    // const companyExists = await companyModel.findOne({
+    //   _id: value.company_id
+    // });
 
-    if (!companyExists) {
-      // Send Error Response
-      return res.status(404).json({
-        message: "Company not found!"
-      });
-    }
+    // if (!companyExists) {
+    //   // Send Error Response
+    //   return res.status(404).json({
+    //     message: "Company not found!"
+    //   });
+    // }
 
-    const userExists = await UserModel.findOne({
-      email: value.email,
-    });
+    // const userExists = await UserModel.findOne({
+    //   email: value.email,
+    // });
 
-    if (userExists) {
-      // Send Error Response
-      return res.status(409).json({
-        message: "User already Exists!"
-      });
-    }
+    // if (userExists) {
+    //   // Send Error Response
+    //   return res.status(409).json({
+    //     message: "User already Exists!"
+    //   });
+    // }
 
     // Insert user
-    const userModel = new UserModel(value);
+    // Find the associated outlet by ID
+ 
+    const outlet = await OutletModel.find({
+      outlet_code: req.body.outlet_code //values
+    });
+
+    // // If outlet not found, return a 404 error response
+    // if (!outlet) {
+    //   throw new ErrorHandler("Outlet not found", 404);
+    // }
+    // Add the admin to the outlet's admins array
+    // outlet.admins.push(admin._id);
+    const userModel = new UserModel(req.body); //value
     const savedData = await userModel.save();
+
+    // // Save the admin and outlet to the database
+    // await Promise.all([admin.save()]);
 
     // Send Response
     cookieToken(savedData, res);
+
+    // Response Status
+    // res.status(201).json({
+    //   message: "sucess",
+    //   user: savedData
+    // });
+    
   } catch (error) {
     // Send Error Response
     res.status(500).json({
-      message: "Error inserting data into database"
+      message: "Error inserting data into database",
+      error: error.message
     });
   }
 };
