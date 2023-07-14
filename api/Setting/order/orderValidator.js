@@ -11,7 +11,7 @@ const orderSchema = Joi.object({
   total_order_price: Joi.number().required(),
   del_status: Joi.string().valid("Live", "Deleted").default("Live"),
 });
-
+ 
 const updateSchema = Joi.object({
   persons: Joi.number().min(1).required(),
   waiter: Joi.string().min(3).max(50).required(),
