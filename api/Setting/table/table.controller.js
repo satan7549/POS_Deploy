@@ -1,5 +1,6 @@
 const { validateTable, validateUpdate } = require("./table.validator");
 const TableModel = require("./index");
+const AreaModel = require("../area/index");
 
 //insert new table
 exports.insertTable = async (req, res, next) => {
@@ -12,9 +13,21 @@ exports.insertTable = async (req, res, next) => {
       return res.status(400).send(error.details[0].message);
     }
 
+    // Find area Exists or not!
+    const area = await AreaModel.findById(value.area_id);
+
+    //If Area not fond
+    if (!area) {
+      return res.status(404).json({ message: "Area not found" });
+    }
+
     // Insert table
     const tableModel = new TableModel(value);
     const savedData = await tableModel.save();
+
+    //if area present then push table(id) in tables array in Area .
+    area.tables.push(savedData._id);
+    await area.save();
 
     // Send Response
     res.status(200).json({ message: "Table inserted", table: savedData });
