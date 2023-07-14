@@ -5,8 +5,7 @@ const Schema = mongoose.Schema;
 const orderSchema = Schema({
   persons: {
     type: String,
-    maxlength: [50, "Maximum 50 charcters are permitted"],
-    minLength: [5, "persons should have more than 5 character"],
+    minLength: [1, "Minimum 1 person required"],
     required: [true, "please enter persons"],
     trim: true,
   },
