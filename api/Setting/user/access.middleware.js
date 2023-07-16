@@ -1,10 +1,5 @@
-// RBAM permissions
-const RBAM = {
-    "101": "read",
-    "102": "write",
-    "103": "update",
-    "104": "delete",
-};
+
+
 
 // Middleware function
 const accessControlMiddleware = (req, res, next) => {

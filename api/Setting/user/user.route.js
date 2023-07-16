@@ -6,7 +6,7 @@ const {
     accessControlMiddleware
 } = require("./access.middleware");
 const {
-    checkRole
+    authorization
 } = require("./role.auth");
 
 // add user
@@ -16,15 +16,15 @@ router.post('/new', userController.userInsert);
 router.post('/login', userController.login);
 
 // all users
-router.get('/list',accessControlMiddleware, userController.showUsers);
+router.get('/list', authorization(101), userController.showUsers);
 
 /* show */
-router.get('/show/:id',accessControlMiddleware, userController.showUser);
+router.get('/show/:id', userController.showUser);
 
 /* update */
-router.put('/update/:id',accessControlMiddleware, userController.updateUser);
+router.put('/update/:id', userController.updateUser);
 
 // /* update */
-router.delete('/delete/:id',accessControlMiddleware, checkRole, userController.deleteUser);
+router.delete('/delete/:id', userController.deleteUser);
 
 module.exports = router;

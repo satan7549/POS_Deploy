@@ -2,7 +2,7 @@ const {
   validateUser,
   validateUpdate
 } = require("./user.validator");
-const UserModel = require("./index");
+const {userModel} = require("./index");
 // const companyModel = require("../Company/index");
 const cookieToken = require("../../../utils/cookieToken");
 const CustomError = require("../../../utils/customError");
@@ -57,7 +57,7 @@ exports.userInsert = async (req, res, next) => {
     // }
     // Add the admin to the outlet's admins array
     // outlet.admins.push(admin._id);
-    const userModel = new UserModel(req.body); //value
+    const userModel = new userModel(req.body); //value
     const savedData = await userModel.save();
 
     // // Save the admin and outlet to the database
@@ -97,7 +97,7 @@ exports.updateUser = async (req, res, next) => {
       return res.status(400).send(error.details[0].message);
     }
 
-    const user = await UserModel.findOneAndUpdate({
+    const user = await userModel.findOneAndUpdate({
       _id: id
     }, value, {
       new: true,
@@ -123,7 +123,7 @@ exports.updateUser = async (req, res, next) => {
 exports.showUser = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const user = await UserModel.findOne({
+    const user = await userModel.findOne({
       _id: id
     });
 
@@ -145,9 +145,9 @@ exports.showUser = async (req, res, next) => {
 };
 
 // Display List
-exports.showUsers = async (req, res, next) => {
+exports.showUsers = async (req, res) => {
   try {
-    const user = await UserModel.find();
+    const user = await userModel.find();
     if (!user || user.length === 0) {
       console.log("User not found");
       return res.status(404).json({
@@ -203,7 +203,7 @@ exports.login = async (req, res, next) => {
     return next(new CustomError("Please provide email and password", 400));
   }
 
-  const user = await UserModel.findOne({
+  const user = await userModel.findOne({
     email_address
   }).select("+password");
 
