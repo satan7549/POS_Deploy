@@ -49,6 +49,9 @@ const kotRouter = require("./api/Setting/KOT/kot.router");
 const TaxRouter = require("./api/Setting/tax/tax.route");
 const BillingRouter = require("./api/Setting/billing/billing.route");
 
+//DeliveryPartner route
+const DeliveryPartnerRouter = require("./api/Setting/deliveryPartner/deliveryPartner.route");
+
 const app = express();
 
 app.use(
@@ -71,8 +74,10 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 
 // User base url
-app.use("/setting/user", userRouter);
-app.use("/setting/role", RoleRouter);
+
+app.use("/user", userRouter);
+app.use("/role", RoleRouter);
+
 
 // Company Base URL
 app.use("/company", companyRouter);
@@ -108,6 +113,9 @@ app.use("/setting/kitchen", kitchenRoute);
 app.use("/setting/tax", TaxRouter);
 app.use("/setting/billing", BillingRouter);
 
+//DeliveryPartner route
+app.use("/setting/deliveryPartner", DeliveryPartnerRouter);
+
 // moongoose Connection
 
 const mongoose = require("mongoose");
@@ -136,3 +144,6 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
+
+
+

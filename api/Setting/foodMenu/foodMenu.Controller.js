@@ -85,15 +85,15 @@ exports.updateFoodMenu = async (req, res, next) => {
     });
 
     if (!foodMenu) {
-      console.log("FoodMenu not found");
       return res.status(404).json({ message: "FoodMenu not found" });
     }
 
-    res.status(200).json({ foodMenu });
+    res.status(200).json({ message: "success", foodMenu });
   } catch (error) {
-    console.log(error);
     // Send Error Response
-    res.status(500).json("Error updating foodMenu");
+    res
+      .status(500)
+      .json({ message: "Error updating foodMenu", error: error.message });
   }
 };
 
@@ -111,6 +111,8 @@ exports.deleteFoodMenu = async (req, res, next) => {
     }
     res.status(200).json({ message: "FoodMenu deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res
+      .status(500)
+      .json({ message: "Somting went wrong !", error: error.message });
   }
 };

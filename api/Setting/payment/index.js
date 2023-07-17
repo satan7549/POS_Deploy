@@ -12,14 +12,8 @@ const paymentMethodSchema = Schema(
         type: String, 
         required: true 
     },
-    user_id: { 
-        type: Number, 
-        required: true 
-    },
-    company_id: { 
-        type: Number, 
-        required: true 
-    },
+    user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: [true, "Please enter user_id"], },
+    company_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Company', required: [true, "Please enter company_id"], },
     order_by: { 
         type: Number, 
         default: null 
