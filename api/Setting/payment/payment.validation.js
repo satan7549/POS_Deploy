@@ -1,34 +1,52 @@
 const Joi = require('joi');
 
-const paymentMethodSchema = Joi.object({
-  name: Joi.string().required().max(50),
-  description: Joi.string().required().max(50),
-  user_id: Joi.number().required(),
-  company_id: Joi.number().required(),
-  order_by: Joi.number().allow(null),
-  personalinformation: Joi.string().allow(null),
-  del_status: Joi.string().max(10).default('Active')
+const paymentSchema = Joi.object({
+  payment_name: Joi.string().required().messages({
+    'any.required': 'Please enter the payment method name',
+    'string.empty': 'Please enter the payment method name',
+  }),
+  payment_method: Joi.string().valid('Credit-Card', 'Debit-Card', 'Cash').messages({
+    'any.only': 'Value is not matched',
+  }),
+  other_method: Joi.string().valid('Other', 'UPI').messages({
+    'any.only': 'Value is not matched',
+  }),
+  user_id: Joi.string(),
+  company_id: Joi.string().required().messages({
+    'any.required': 'Please enter company_id',
+    'string.empty': 'Please enter company_id',
+  }),
+  del_status: Joi.string().required().default('Active'),
 });
 
-const updatePaymentMethodSchema = Joi.object({
-  name: Joi.string().max(50),
-  description: Joi.string().max(50),
-  user_id: Joi.number(),
-  company_id: Joi.number(),
-  order_by: Joi.number().allow(null),
-  personalinformation: Joi.string().allow(null),
-  del_status: Joi.string().max(10)
+const updatePaymentSchema = Joi.object({
+  payment_name: Joi.string().required().messages({
+    'any.required': 'Please enter the payment method name',
+    'string.empty': 'Please enter the payment method name',
+  }),
+  payment_method: Joi.string().valid('Credit-Card', 'Debit-Card', 'Cash').messages({
+    'any.only': 'Value is not matched',
+  }),
+  other_method: Joi.string().valid('Other', 'UPI').messages({
+    'any.only': 'Value is not matched',
+  }),
+  user_id: Joi.string(),
+  company_id: Joi.string().required().messages({
+    'any.required': 'Please enter company_id',
+    'string.empty': 'Please enter company_id',
+  }),
+  del_status: Joi.string().required().default('Active'),
 });
 
-function validatePaymentMethod(paymentMethodData) {
-  return paymentMethodSchema.validate(paymentMethodData);
+function validatePayment(paymentData) {
+  return paymentSchema.validate(paymentData);
 }
 
-function validateUpdatePaymentMethod(updateData) {
-  return updatePaymentMethodSchema.validate(updateData);
+function validateUpdatePayment(updateData) {
+  return updatePaymentSchema.validate(updateData);
 }
 
 module.exports = {
-  validatePaymentMethod,
-  validateUpdatePaymentMethod
+  validatePayment,
+  validateUpdatePayment
 };

@@ -45,9 +45,10 @@ const orederRoutes = require("./api/Setting/order/order.Route");
 // KOT Route Import
 const kotRouter = require("./api/Setting/KOT/kot.router");
 
-//Tax related route
+//Payment related route
 const TaxRouter = require("./api/Setting/tax/tax.route");
 const BillingRouter = require("./api/Setting/billing/billing.route");
+const PaymentRouter = require("./api/Setting/payment/payment.route");
 
 //DeliveryPartner route
 const DeliveryPartnerRouter = require("./api/Setting/deliveryPartner/deliveryPartner.route");
@@ -107,9 +108,10 @@ app.use("/setting/kot", kotRouter);
 //Kitchen related url
 app.use("/setting/kitchen", kitchenRoute);
 
-//Tax related url
+//Payment related url
 app.use("/setting/tax", TaxRouter);
 app.use("/setting/billing", BillingRouter);
+app.use("/setting/payment", PaymentRouter);
 
 //DeliveryPartner route
 app.use("/setting/deliveryPartner", DeliveryPartnerRouter);
