@@ -51,26 +51,11 @@ exports.userInsert = async (req, res, next) => {
       outlet_code: req.body.outlet_code //values
     });
 
-    // // If outlet not found, return a 404 error response
-    // if (!outlet) {
-    //   throw new ErrorHandler("Outlet not found", 404);
-    // }
-    // Add the admin to the outlet's admins array
-    // outlet.admins.push(admin._id);
-    const userModel = new userModel(req.body); //value
-    const savedData = await userModel.save();
-
-    // // Save the admin and outlet to the database
-    // await Promise.all([admin.save()]);
+    const UserModel = new userModel(req.body); //value
+    const savedData = await UserModel.save();
 
     // Send Response
     cookieToken(savedData, res);
-
-    // Response Status
-    // res.status(201).json({
-    //   message: "sucess",
-    //   user: savedData
-    // });
     
   } catch (error) {
     // Send Error Response
@@ -110,7 +95,7 @@ exports.updateUser = async (req, res, next) => {
     }
 
     res.status(200).json({
-      message: "sucess",
+      message: "success",
       user
     });
   } catch (error) {
@@ -169,7 +154,7 @@ exports.deleteUser = async (req, res, next) => {
   try {
     const id = req.params.id;
 
-    const user = await UserModel.deleteOne({
+    const user = await userModel.deleteOne({
       _id: id
     });
 
