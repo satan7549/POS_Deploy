@@ -17,9 +17,9 @@ const tableSchema = Schema({
     default: null,
   },
   sit_capacity: {
-    type: String,
-    maxlength: [50, "Maximum 50 charcters are permitted"],
-    minLength: [5, "sit_capacity should have more than 5 character"],
+    type: Number,
+    maxlength: [10, "Maximum 10 charcters are permitted"],
+    minLength: [1, "sit_capacity should have more than 1 character"],
     required: [true, "please enter sit_capacity"],
     trim: true,
     default: null,

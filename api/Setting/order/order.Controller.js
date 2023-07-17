@@ -1,4 +1,4 @@
-const { validateOrder, validateUpdate } = require("./orderValidator");
+const { validateOrder, validateUpdate } = require("./order.Validator");
 const OrderModel = require("./index");
 
 //nsert new Order
