@@ -19,12 +19,12 @@ router.post('/login', userController.login);
 router.get('/list', authorization(101), userController.showUsers);
 
 /* show */
-router.get('/show/:id', userController.showUser);
+router.get('/show/:id', authorization(102), userController.showUser);
 
 /* update */
-router.put('/update/:id', userController.updateUser);
+router.put('/update/:id', authorization(104), userController.updateUser);
 
-// /* update */
-router.delete('/delete/:id', userController.deleteUser);
+/* Delete */
+router.delete('/delete/:id', authorization(103), userController.deleteUser);
 
 module.exports = router;

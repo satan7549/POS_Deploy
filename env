@@ -1,8 +1,0 @@
-MONGODB_URL=mongodb+srv://satansharma:satansharma@cluster0.ncc9mtu.mongodb.net/iResto?retryWrites=true&w=majority
-PORT=8080
-
-
-JWT_SECRET=thisismyJWTtopsecret
-JWT_EXPIRY=3D
-
-FORGOT_PASSWORD_EXPIRY=1200000

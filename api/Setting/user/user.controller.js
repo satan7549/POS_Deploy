@@ -57,8 +57,8 @@ exports.userInsert = async (req, res, next) => {
     // }
     // Add the admin to the outlet's admins array
     // outlet.admins.push(admin._id);
-    const userModel = new userModel(req.body); //value
-    const savedData = await userModel.save();
+    const UserModel = new userModel(req.body); //value
+    const savedData = await UserModel.save();
 
     // // Save the admin and outlet to the database
     // await Promise.all([admin.save()]);
@@ -110,7 +110,7 @@ exports.updateUser = async (req, res, next) => {
     }
 
     res.status(200).json({
-      message: "sucess",
+      message: "success",
       user
     });
   } catch (error) {
@@ -169,7 +169,7 @@ exports.deleteUser = async (req, res, next) => {
   try {
     const id = req.params.id;
 
-    const user = await UserModel.deleteOne({
+    const user = await userModel.deleteOne({
       _id: id
     });
 
