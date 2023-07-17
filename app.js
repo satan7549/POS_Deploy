@@ -71,8 +71,10 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 
 // User base url
-app.use("/setting/user", userRouter);
-app.use("/setting/role", RoleRouter);
+
+app.use("/user", userRouter);
+app.use("/role", RoleRouter);
+
 
 // Company Base URL
 app.use("/company", companyRouter);
@@ -136,3 +138,6 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
+
+
+

@@ -4,9 +4,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const Schema = mongoose.Schema;
-
 const userSchema = Schema({
-  full_name: {
+  username: {
     type: String,
     maxlength: [50, "Maximum 50 charcters are permitted"],
     minLength: [5, "name should have more than 5 character"],
@@ -14,7 +13,6 @@ const userSchema = Schema({
     trim: true,
     default: null,
   },
-
   phone: {
     type: Number,
     min: [1000000000, "phone number should be equal 10 digit"],
@@ -22,14 +20,15 @@ const userSchema = Schema({
     required: [true, "Please enter phone"],
     default: null,
   },
-
   email_address: {
     type: String,
-    required: [true, "please enter email"],
-    trim: true,
-    default: null,
     unique: true,
-    validate: [validator.isEmail, "please enter valid email"],
+    required: [true, "please enter email"],
+    validate(value) {
+      if (!validator.isEmail(value)) {
+        throw new Error("Please provide the valid email address");
+      }
+    },
   },
   password: {
     type: String,
@@ -37,86 +36,29 @@ const userSchema = Schema({
     required: [true, "please enter password"],
     trim: true,
   },
-  company_id: {
+  jobTitle: {
     type: String,
-    required: true,
+    maxLength: [30, "Job Title name should be under 30 Characters"],
+    trim: true,
   },
-  role: {
+  superAdmin: {
+    type: Boolean,
+    default: false,
+  },
+  admin: {
+    type: Boolean,
+    default: false,
+  },
+  permissions: {
+    type: [Number],
+  },
+  active: {
+    type: Boolean,
+    default: true,
+  },
+  outlet_code: {
     type: String,
-    enum: {
-      values: ["Super_Admin", "Admin", "Employee", "Customer"],
-      message: `Value is not supported`,
-    },
-    required: true,
   },
-
-  designation: {
-    type: String,
-    default: null,
-  },
-
-  will_login: {
-    type: String,
-    default: "No",
-  },
-
-  outlet_id: {
-    type: Number,
-    default: null,
-  },
-  outlets: {
-    type: String,
-    default: null,
-  },
-  kitchens: {
-    type: String,
-    default: null,
-  },
-  account_creation_date: {
-    type: String,
-    default: null,
-  },
-  language: {
-    type: String,
-    default: "english",
-  },
-  last_login: {
-    type: String,
-    default: null,
-  },
-  created_id: {
-    type: Number,
-    default: null,
-  },
-  active_status: {
-    type: String,
-    default: "Active",
-  },
-  del_status: {
-    type: String,
-    default: "Active",
-  },
-  question: {
-    type: String,
-    default: null,
-  },
-  answer: {
-    type: String,
-    default: null,
-  },
-  login_pin: {
-    type: String,
-    default: null,
-  },
-  order_receiving_id: {
-    type: Number,
-    default: 0,
-  },
-  role_id: {
-    type: Number,
-    default: null,
-  },
-  
   forgotPasswardToken: String,
   forgotPasswardExpiry: Date,
   createdAt: {
@@ -140,15 +82,17 @@ userSchema.methods.isValidatedPassword = async function (userSendPasswrord) {
 
 //create and return JWT token
 userSchema.methods.getToken = async function () {
-  return jwt.sign(
-    {
+  return jwt.sign({
       id: this._id,
     },
-    process.env.JWT_SECRET,
-    {
+    process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRY,
     }
   );
 };
 
-module.exports = mongoose.model("User", userSchema);
+const userModel = mongoose.model("User", userSchema);
+
+module.exports = {
+  userModel,
+}
