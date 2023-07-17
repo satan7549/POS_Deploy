@@ -46,16 +46,13 @@ const foodMenuSchema = Schema({
 
   Dine_price: {
     type: Number,
-    required: [true, "Please enter a Dine_price"],
   },
 
   Takeaway_price: {
     type: Number,
-    required: [true, "Please enter a Takeaway_price"],
   },
   Delivery_price: {
     type: Number,
-    required: [true, "Please enter a Delivery_price"],
   },
 
   description: {
@@ -94,7 +91,6 @@ const foodMenuSchema = Schema({
     },
     default: "Live",
   },
- 
 });
 
 module.exports = mongoose.model("FoodMenu", foodMenuSchema);
