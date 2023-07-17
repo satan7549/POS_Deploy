@@ -16,7 +16,7 @@ router.post('/new', userController.userInsert);
 router.post('/login', userController.login);
 
 // all users
-router.get('/list', authorization(101), userController.showUsers);
+router.get('/list', authorization(100), userController.showUsers);
 
 /* show */
 router.get('/show/:id', authorization(102), userController.showUser);

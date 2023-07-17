@@ -51,26 +51,11 @@ exports.userInsert = async (req, res, next) => {
       outlet_code: req.body.outlet_code //values
     });
 
-    // // If outlet not found, return a 404 error response
-    // if (!outlet) {
-    //   throw new ErrorHandler("Outlet not found", 404);
-    // }
-    // Add the admin to the outlet's admins array
-    // outlet.admins.push(admin._id);
     const UserModel = new userModel(req.body); //value
     const savedData = await UserModel.save();
 
-    // // Save the admin and outlet to the database
-    // await Promise.all([admin.save()]);
-
     // Send Response
     cookieToken(savedData, res);
-
-    // Response Status
-    // res.status(201).json({
-    //   message: "sucess",
-    //   user: savedData
-    // });
     
   } catch (error) {
     // Send Error Response
