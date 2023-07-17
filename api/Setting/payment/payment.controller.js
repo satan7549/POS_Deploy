@@ -20,7 +20,7 @@ exports.insertPaymentMethod = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({ error: 'Error inserting payment method' });
   }
-};
+}; 
 
 exports.getPaymentMethods = async (req, res, next) => {
   try {

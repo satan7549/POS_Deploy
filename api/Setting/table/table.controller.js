@@ -1,5 +1,6 @@
 const { validateTable, validateUpdate } = require("./table.validator");
 const TableModel = require("./index");
+const AreaModel = require("../area/index");
 
 //insert new table
 exports.insertTable = async (req, res, next) => {
@@ -12,9 +13,21 @@ exports.insertTable = async (req, res, next) => {
       return res.status(400).send(error.details[0].message);
     }
 
+    // Find area Exists or not!
+    const area = await AreaModel.findById(value.area_id);
+
+    //If Area not fond
+    if (!area) {
+      return res.status(404).json({ message: "Area not found" });
+    }
+
     // Insert table
     const tableModel = new TableModel(value);
     const savedData = await tableModel.save();
+
+    //if area present then push table(id) in tables array in Area .
+    area.tables.push(savedData._id);
+    await area.save();
 
     // Send Response
     res.status(200).json({ message: "Table inserted", table: savedData });
@@ -28,7 +41,9 @@ exports.insertTable = async (req, res, next) => {
 exports.showTable = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const table = await TableModel.findOne({ _id: id });
+    const table = await TableModel.findOne({ _id: id })
+      .populate({ path: "area_id", match: { del_status: "Live" } })
+      .exec();
 
     if (!table) {
       return res.status(404).json({ message: "Table not found" });
@@ -40,16 +55,17 @@ exports.showTable = async (req, res, next) => {
   }
 };
 
-// Display List
 exports.showTables = async (req, res, next) => {
   try {
-    const table = await TableModel.find({ del_status: "Live" });
+    const tables = await TableModel.find({ del_status: "Live" })
+      .populate({ path: "area_id", match: { del_status: "Live" } })
+      .exec();
 
-    if (!table || table.length === 0) {
+    if (!tables || tables.length === 0) {
       return res.status(404).json({ message: "Table not found" });
     }
 
-    res.status(200).json({ message: "success", table });
+    res.status(200).json({ message: "success", tables });
   } catch (error) {
     res.status(500).json({ error });
   }

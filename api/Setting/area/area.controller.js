@@ -8,7 +8,9 @@ exports.insertArea = async (req, res, next) => {
     const validatedData = validateArea(req.body);
 
     // Check area exists or not
-    const areaExists = await AreaModel.findOne({ area_name: validatedData.area_name });
+    const areaExists = await AreaModel.findOne({
+      area_name: validatedData.area_name,
+    });
 
     if (areaExists) {
       return res.status(409).json({ message: "Area Already Exists!" });
@@ -29,7 +31,9 @@ exports.insertArea = async (req, res, next) => {
 // Display List of Areas
 exports.showAreas = async (req, res, next) => {
   try {
-    const areas = await AreaModel.find({ del_status: "Live" });
+    const areas = await AreaModel.find({ del_status: "Live" })
+      .populate({ path: "tables", match: { del_status: "Live" } })
+      .exec();
 
     if (areas.length === 0) {
       return res.status(404).json({ message: "No Areas found" });
@@ -45,7 +49,9 @@ exports.showAreas = async (req, res, next) => {
 exports.findAreaByID = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const area = await AreaModel.findOne({ _id: id });
+    const area = await AreaModel.findOne({ _id: id })
+      .populate({ path: "tables", match: { del_status: "Live" } })
+      .exec();
 
     if (!area) {
       return res.status(404).json({ message: "Area not found" });

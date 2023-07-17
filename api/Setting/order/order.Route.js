@@ -18,4 +18,4 @@ router.put("/update/:id", orderController.updateOrder);
 /* delete */
 router.delete("/delete/:id", orderController.deleteOrder);
 
-module.exports = router;
+module.exports = router; 

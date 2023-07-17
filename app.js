@@ -47,6 +47,7 @@ const kotRouter = require("./api/Setting/KOT/kot.router");
 
 //Tax related route
 const TaxRouter = require("./api/Setting/tax/tax.route");
+const BillingRouter = require("./api/Setting/billing/billing.route");
 
 const app = express();
 
@@ -70,8 +71,10 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 
 // User base url
+
 app.use("/user", userRouter);
 app.use("/role", RoleRouter);
+
 
 // Company Base URL
 app.use("/company", companyRouter);
@@ -92,7 +95,7 @@ app.use("/setting/ingredientUnit", ingredientUnitRouter);
 
 // Food Relate Base URL
 app.use("/setting/foodcategory", foodCategory);
-app.use("/setting/foodMenu", foodMenuRouter);
+app.use("/setting/foodmenu", foodMenuRouter);
 app.use("/setting/modifier", modifierRouter);
 app.use("/setting/foodcombo", FoodCombo);
 
@@ -105,6 +108,7 @@ app.use("/setting/kitchen", kitchenRoute);
 
 //Tax related url
 app.use("/setting/tax", TaxRouter);
+app.use("/setting/billing", BillingRouter);
 
 // moongoose Connection
 
