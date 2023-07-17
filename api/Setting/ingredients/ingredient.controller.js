@@ -1,4 +1,7 @@
-const { validateIngredient, validateUpdate,} = require("./ingredient.validator");
+const {
+  validateIngredient,
+  validateUpdate,
+} = require("./ingredient.validator");
 const IngredientModel = require("./index");
 
 //insert new Ingredient
@@ -37,7 +40,11 @@ exports.ingredientInsert = async (req, res, next) => {
 exports.showIngredient = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const ingredient = await IngredientModel.findOne({ _id: id });
+    const ingredient = await IngredientModel.findOne({ _id: id })
+      .populate({ path: "category", match: { del_status: "Live" } })
+      .populate({ path: "PurchaseUnit", match: { del_status: "Live" } })
+      .populate({ path: "ConsumptionUnit", match: { del_status: "Live" } })
+      .exec();
 
     if (!ingredient) {
       return res.status(404).json({ message: "Ingredient not found" });
@@ -52,7 +59,11 @@ exports.showIngredient = async (req, res, next) => {
 // Display List
 exports.showingredients = async (req, res, next) => {
   try {
-    const ingredient = await IngredientModel.find({ del_status: "Live" });
+    const ingredient = await IngredientModel.find({ del_status: "Live" })
+      .populate({ path: "category", match: { del_status: "Live" } })
+      .populate({ path: "PurchaseUnit", match: { del_status: "Live" } })
+      .populate({ path: "ConsumptionUnit", match: { del_status: "Live" } })
+      .exec();
 
     if (!ingredient || ingredient.length === 0) {
       return res.status(404).json({ message: "ingredient not found" });
