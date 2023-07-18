@@ -38,6 +38,7 @@ const foodCategory = require("./api/Setting/foodCategory/foodCategory.route");
 const foodMenuRouter = require("./api/Setting/foodMenu/foodMenu.Route");
 const modifierRouter = require("./api/Setting/modifiers/modifier.route");
 const FoodCombo = require("./api/Setting/foodCombos/foodCombo.Route");
+const premadeFoodRouter = require("./api/Setting/preFoodMade/preFoodMade.Route");
 
 //Order related Route Import
 const orederRoutes = require("./api/Setting/order/order.Route");
@@ -100,6 +101,7 @@ app.use("/setting/foodcategory", foodCategory);
 app.use("/setting/foodmenu", foodMenuRouter);
 app.use("/setting/modifier", modifierRouter);
 app.use("/setting/foodcombo", FoodCombo);
+app.use("/setting/preFoodMade", premadeFoodRouter);
 
 //Order related url
 app.use("/setting/order", orederRoutes);

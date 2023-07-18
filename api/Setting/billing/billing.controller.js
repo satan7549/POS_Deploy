@@ -1,6 +1,16 @@
-const { validateBilling } = require("./billing.validator");
+let mongoose = require('mongoose');
+// const jwt = require("jsonwebtoken")
+let billing = require('./index');
 const nodemailer = require("nodemailer");
+const ErrorHander = require("../utils/errorhander")
+// const catchAsyncError = require("../middleware/catchAsyncError")
+// const sendToken = require("../utils/jwtToken");
+// const { sendMail  } = require("../utils/sendEmail");
+// const crypto = require("crypto")
 const { google } = require('googleapis');
+let { validateBilling } = require('./billing.validator');
+// let BillingModel = require('./index');
+
 
 const CLIENT_ID = '983972594472-cgl7t5ag7lnbp96eb7pffhevhs1jgu35.apps.googleusercontent.com';
 const CLIENT_SECRET = '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';
@@ -42,30 +52,28 @@ async function sendMail(options) {
 
 // Insert new Billing
 exports.billingInsert = async (req, res, next) => {
+
   try {
     const { billing_name, userID, email_address, billingDate, totalAmount, paymentMethod, transactionStatus } = req.body;
 
     // Validate Billing data
     const { error } = validateBilling(req.body);
 
-    // Check for validation error
+    // Check Error in Validation
     if (error) {
       return res.status(400).send(error.details[0].message);
     }
 
-    const billingExists = await BillingModel.findOne({
-      billing_name: value.billing_name,
-    });
-
-    if (billingExists) {
-      // Send Response
-      return res.status(409).json({ message: "Billing already exists!" });
+    // Check if billing already exists
+    const existingBilling = await billing.findOne({ billing_name });
+    if (existingBilling) {
+      return res.status(409).json({ error: 'Billing already exists' });
     }
-
+  
     // Insert new Billing
-    const newBilling = await BillingModel.create({
-      billing_name,
-      userID,
+    const newBilling = await billing.create({
+      billing_name, 
+      userID, 
       email_address, 
       billingDate, 
       totalAmount, 
@@ -73,42 +81,42 @@ exports.billingInsert = async (req, res, next) => {
       transactionStatus
     });
 
+    //send the the token through mail
+    // const getToken = newBilling.getBillingPasswordToken();
+      await newBilling.save({ validateBeforeSave: false });
+
+      // const billingPasswordUrl = `${req.protocol}://${req.get(
+      // "host"
+      // )}/api/password/reset/${getToken}`;
+
     // Send registration success email
     const mailOptions = {
       email_address: newBilling.email_address,
-      subject: 'Mail Sent Successfully',
-      message: `Your Payment is ${billing_name}`
+      subject: 'Registration Successful',
+      // message: 'Congratulations! Your registration was successful.',
+      message: `Your Balance is: ${totalAmount}`,
     };
     const result = await sendMail(mailOptions);
-
-    res.status(200).json({
-      success: true,
-      newBilling,
-      message: `Email sent to ${newBilling.email_address} successfully`,
-    });
+    
+    // console.log(mailOptions)
+    // res.status(201).json({
+      res.status(200).json({
+        success: true,
+        newBilling,
+        message: `Email sent to ${newBilling.email_address} successfully`,
+      });
   } catch (error) {
-    res.status(500).json({ error });
+    console.error(error);
+    res.status(500).json({ error: 'Error inserting data into the database' });
+
+    // newBilling.billingPasswordToken = undefined;
+    // newBilling.billingPasswordExpires = undefined;
+    // await newBilling.save({ validateBeforeSave: false });
+    
+    // return next(new ErrorHander(error.message, 500));
   }
-
-  const accountSid = 'ACf5e75a2f082268a5e3dbdc0347f90899';
-  const authToken = '499b00c0098cf4f1b28c47715ac4cabe';
-
-  if (!accountSid || !authToken) {
-    console.error('Please provide your Twilio account credentials.');
-    process.exit(1);
-  }
-
-  const client = require('twilio')(accountSid, authToken);
-
-  client.messages
-    .create({
-      body: 'Hello from twilio-node',
-      to: '+917566007436', // Text your number
-      from: '+18145381198', // From a valid Twilio number
-    })
-    .then((message) => console.log(message.sid))
-    .catch((error) => console.error(error));
 };
+
 
 
 // Display Single Billing
