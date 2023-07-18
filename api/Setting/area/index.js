@@ -19,7 +19,6 @@ const areasSchema = Schema({
   description: {
     type: String,
     maxlength: [200, "Maximum 200 charcters are permitted"],
-    minLength: [5, "description should have more than 5 character"],
     default: null,
     trim: true,
   },
