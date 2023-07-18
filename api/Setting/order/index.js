@@ -6,7 +6,6 @@ const orderSchema = Schema({
   persons: {
     type: String,
     minLength: [1, "Minimum 1 person required"],
-    required: [true, "please enter persons"],
     trim: true,
   },
 
@@ -14,7 +13,6 @@ const orderSchema = Schema({
     type: String,
     maxlength: [50, "Maximum 50 charcters are permitted"],
     minLength: [3, "waiter name should have more than 3 character"],
-    required: [true, "please enter waiter"],
     trim: true,
   },
 
@@ -30,11 +28,11 @@ const orderSchema = Schema({
       message: "Value is not supported",
     },
     required: [true, "please enter order_type"],
+    default: "Dine_In",
   },
 
-  table_id: [{ type: mongoose.Schema.Types.ObjectId, ref: "Table" }],
+  table: { type: mongoose.Schema.Types.ObjectId, ref: "Table" },
 
-  // foodMenu: [{ type: mongoose.Schema.Types.ObjectId, ref: "FoodMenu" }],
 
   kot_print: [
     { type: mongoose.Schema.Types.ObjectId, ref: "kot", default: null },
@@ -43,6 +41,15 @@ const orderSchema = Schema({
   total_order_price: {
     type: Number,
     required: true,
+  },
+
+  order_status: {
+    type: String,
+    enum: {
+      values: ["Active", "Running", "Billing", "Settle"],
+      message: "Value is not matched",
+    },
+    default: "Active",
   },
 
   del_status: {
