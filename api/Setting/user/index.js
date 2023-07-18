@@ -82,10 +82,12 @@ userSchema.methods.isValidatedPassword = async function (userSendPasswrord) {
 
 //create and return JWT token
 userSchema.methods.getToken = async function () {
-  return jwt.sign({
+  return jwt.sign(
+    {
       id: this._id,
     },
-    process.env.JWT_SECRET, {
+    process.env.JWT_SECRET,
+    {
       expiresIn: process.env.JWT_EXPIRY,
     }
   );
@@ -94,5 +96,5 @@ userSchema.methods.getToken = async function () {
 const userModel = mongoose.model("User", userSchema);
 
 module.exports = {
-  userModel
-}
+  userModel,
+};
