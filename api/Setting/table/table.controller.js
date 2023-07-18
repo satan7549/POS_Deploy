@@ -33,7 +33,9 @@ exports.insertTable = async (req, res, next) => {
     res.status(200).json({ message: "Table inserted", table: savedData });
   } catch (error) {
     // Send Error Response
-    res.status(500).json({ message: "Error inserting data into database" });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -51,7 +53,9 @@ exports.showTable = async (req, res, next) => {
 
     res.status(200).json({ message: "success", table });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -67,7 +71,9 @@ exports.showTables = async (req, res, next) => {
 
     res.status(200).json({ message: "success", tables });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -95,7 +101,9 @@ exports.updateTable = async (req, res, next) => {
     res.status(200).json({ message: "Update success", table });
   } catch (error) {
     // Send Error Response
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -115,6 +123,8 @@ exports.deleteTable = async (req, res, next) => {
 
     res.status(200).json({ message: "Table deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
