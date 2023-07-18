@@ -15,7 +15,9 @@ exports.createTax = async (req, res) => {
     const tax = await newTax.save();
     res.status(201).json({ message: "Tax created successfully", tax });
   } catch (error) {
-    res.status(500).json({ error: "Failed to create Tax" });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -30,7 +32,9 @@ exports.getTaxes = async (req, res) => {
 
     res.status(200).json({ message: "Success", taxes });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -46,7 +50,9 @@ exports.getTaxById = async (req, res) => {
 
     res.status(200).json({ message: "success", tax });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -69,7 +75,9 @@ exports.updateTax = async (req, res) => {
     }
     res.status(200).json({ message: "success", tax });
   } catch (error) {
-    res.status(500).json({ error: "Failed to update tax" });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -89,6 +97,8 @@ exports.deleteTax = async (req, res) => {
 
     res.json({ message: "Tax deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: "Failed to delete tax" });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
