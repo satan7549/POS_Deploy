@@ -20,7 +20,7 @@ exports.ingredientUnitInsert = async (req, res, next) => {
     res.status(200).json({ message: "success", ingredientUnit: savedData });
   } catch (error) {
     // Send Error Response
-    res.status(500).json("Error inserting data into database");
+    res.status(500).json({message:"Something went wrong",error:error.message});
   }
 };
 
@@ -35,7 +35,7 @@ exports.showIngredientUnit = async (req, res, next) => {
     }
     res.status(200).json({ message: "success", ingredientUnit });
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(500).json({ message:"Something went wrong",error:error.message });
   }
 };
 
@@ -50,7 +50,7 @@ exports.showIngredientUnits = async (req, res, next) => {
 
     res.status(200).json({ message: "success", ingredientUnit });
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(500).json({ message:"Something went wrong",error:error.message });
   }
 };
 
@@ -78,7 +78,7 @@ exports.updateIngredientUnit = async (req, res, next) => {
     res.status(200).json({ ingredientUnit });
   } catch (error) {
     //send error response
-    res.status(500).json("Error Updating IngredientUnit");
+    res.status(500).json({message:"Something went wrong",error:error.message});
   }
 };
 
@@ -96,6 +96,6 @@ exports.deleteIngredientUnit = async (req, res, next) => {
     }
     res.status(200).json({ message: "IngredientUnit deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message:"Something went wrong",error:error.message });
   }
 };
