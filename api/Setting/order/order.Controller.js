@@ -20,7 +20,9 @@ exports.orderInsert = async (req, res, next) => {
     res.status(200).json({ message: "success", order: savedData });
   } catch (error) {
     // Send Error Response
-    res.status(500).json("Error inserting data into database");
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -35,7 +37,9 @@ exports.showOrder = async (req, res, next) => {
     }
     res.status(200).json({ message: "success", order });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -50,7 +54,9 @@ exports.showOrders = async (req, res, next) => {
 
     res.status(200).json({ message: "success", order });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -78,7 +84,9 @@ exports.updateOrder = async (req, res, next) => {
     res.status(200).json({ order });
   } catch (error) {
     //send error response
-    res.status(500).json("Error Updating order");
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -96,6 +104,8 @@ exports.deleteOrder = async (req, res, next) => {
     }
     res.status(200).json({ message: "Order deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
