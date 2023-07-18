@@ -15,7 +15,7 @@ const ingredientCategorySchema = Joi.object({
         "ingredientCategory_name should have at most {#limit} characters",
       "any.required": "ingredientCategory_name is required",
     }),
-  description: Joi.string().min(10).max(100).required().trim().messages({
+  description: Joi.string().max(100).required().trim().messages({
     "string.base": "description must be a string",
     "string.empty": "description cannot be empty",
     "string.min": "description should have at least {#limit} characters",
