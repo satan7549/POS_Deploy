@@ -3,6 +3,7 @@ const Joi = require("joi");
 const billingSchema = Joi.object({
   billing_name: Joi.string().required(),
   userID: Joi.string().required(),
+  email_address: Joi.string().required(),
   billingDate: Joi.date().required(),
   totalAmount: Joi.number().required(),
   paymentMethod: Joi.string().required(),
@@ -13,6 +14,7 @@ const billingSchema = Joi.object({
 const updateSchema = Joi.object({
   billing_name: Joi.string().required(),
   userID: Joi.string().required(),
+  email_address: Joi.string().required(),
   billingDate: Joi.date().required(),
   totalAmount: Joi.number().required(),
   paymentMethod: Joi.string().required(),

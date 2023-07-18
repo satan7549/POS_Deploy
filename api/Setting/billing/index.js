@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const billingSchema = Schema({
   billing_name: { type: String, required: true, },
   userID: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, },
+  email_address: { type: String, required: true },
   billingDate: { type: Date, required: true, },
   totalAmount: { type: Number, required: true,  },
   paymentMethod: { type: String, required: true, },
