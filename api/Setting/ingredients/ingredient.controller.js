@@ -1,7 +1,4 @@
-const {
-  validateIngredient,
-  validateUpdate,
-} = require("./ingredient.validator");
+const {validateIngredient,validateUpdate,} = require("./ingredient.validator");
 const IngredientModel = require("./index");
 
 //insert new Ingredient
@@ -32,7 +29,7 @@ exports.ingredientInsert = async (req, res, next) => {
     res.status(200).json({ message: "success", ingredient: savedData });
   } catch (error) {
     // Send Error Response
-    res.status(500).json("Error inserting data into the database");
+    res.status(500).json({message:"Something went wrong",error:error.message});
   }
 };
 
@@ -52,7 +49,7 @@ exports.showIngredient = async (req, res, next) => {
 
     res.status(200).json({ message: "success", ingredient });
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(500).json({ message:"Something went wrong",error:error.message });
   }
 };
 
@@ -71,7 +68,7 @@ exports.showingredients = async (req, res, next) => {
 
     res.status(200).json({ message: "success", ingredient });
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(500).json({ message:"Something went wrong",error:error.message });
   }
 };
 
@@ -103,7 +100,7 @@ exports.updateIngredient = async (req, res, next) => {
     res.status(200).json({ message: "success", ingredient });
   } catch (error) {
     // Send Error Response
-    res.status(500).json("Error updating table");
+    res.status(500).json({message:"Something went wrong",error:error.message});
   }
 };
 
@@ -121,6 +118,6 @@ exports.deleteIngredient = async (req, res, next) => {
     }
     res.status(200).json({ message: "Ingredient deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message:"Something went wrong",error:error.message });
   }
 };
