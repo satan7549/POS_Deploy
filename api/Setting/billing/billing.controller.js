@@ -29,7 +29,9 @@ exports.billingInsert = async (req, res, next) => {
     res.status(200).json({ message: "success", billing: savedData });
   } catch (error) {
     // Send Error Response
-    res.status(500).json("Error inserting data into the database");
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -45,7 +47,9 @@ exports.showBilling = async (req, res, next) => {
 
     res.status(200).json({ message: "success", billing });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -60,8 +64,9 @@ exports.showAllBills = async (req, res, next) => {
 
     res.status(200).json({ message: "success", billings });
   } catch (error) {
-    res.status(500)
-    .json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -78,24 +83,22 @@ exports.updateBilling = async (req, res, next) => {
       return res.status(400).send(error.details[0].message);
     }
 
-    const billing = await BillingModel.findOneAndUpdate(
-      { _id: id },
-      value,
-      {
-        new: true,
-      }
-    );
+    const billing = await BillingModel.findOneAndUpdate({ _id: id }, value, {
+      new: true,
+    });
 
     if (!billing) {
-      console.log("Billing not found");
+      //console.log("Billing not found");
       return res.status(404).json({ message: "Billing not found" });
     }
 
     res.status(200).json({ billing });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
     // Send Error Response
-    res.status(500).json("Error updating Billing");
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -113,6 +116,8 @@ exports.deleteBilling = async (req, res, next) => {
     }
     res.status(200).json({ message: "Billing deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
