@@ -8,7 +8,7 @@ const roleSchema = Joi.object({
         'any.required': 'Please enter role_name',
       }),
   
-    description: Joi.string().max(200).min(10).required()
+    description: Joi.string().max(200).required()
       .messages({
         'string.max': 'Maximum 200 characters are permitted',
         'string.min': 'RoleDescription should have more than 10 characters',
@@ -42,7 +42,7 @@ const updateSchema = Joi.object({
       'any.required': 'Please enter role_name',
     }),
 
-  description: Joi.string().max(200).min(10).required()
+  description: Joi.string().max(200).required()
     .messages({
       'string.max': 'Maximum 200 characters are permitted',
       'string.min': 'RoleDescription should have more than 10 characters',
