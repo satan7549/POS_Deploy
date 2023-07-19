@@ -157,3 +157,26 @@ exports.deleteKitchen = async (req, res, next) => {
       .json({ message: "Something went wrong", error: error.message });
   }
 };
+
+// Find Models by Kitchen ID
+exports.findModelByKitchenId = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const kitchen = await KitchenModel.findById(id)
+      .populate({
+        path: "kitchen_area",
+        match:{del_status:"Live"}
+      })
+      .populate({
+        path: "outlet",
+        match:{del_status:"Live"}
+      });
+
+    res.status(200).json({ message: "Success", kitchen });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error fetching kitchen details from the database",
+      error: error.message,
+    });
+  }
+};

@@ -5,32 +5,34 @@ const PreFoodMadeModel = require("./index");
 exports.preFoodMadeInsert = async (req, res, next) => {
   try {
     // Validation
-    let { error, value } = validatePreFoodMade(req.body);
+    const { error, value } = validatePreFoodMade(req.body);
 
     // Check Error in Validation
     if (error) {
-      return res.status(400).send(error.details[0].message);
+      return res.status(400).json({ error: error.details[0].message });
     }
 
-    // Insert table
-    let preFoodMadeModel = new PreFoodMadeModel(value);
-    let savedData = await preFoodMadeModel.save();
+    // Create pre-made food item
+    const preMadeFood = new PreFoodMadeModel(value);
+    const savedData = await preMadeFood.save();
 
     // Send Response
-    res.status(200).json({ message: "success", preFoodMade: savedData });
+    res.status(200).json({ message: "Success", preFoodMade: savedData });
   } catch (error) {
     // Send Error Response
-    res.status(500).json("Error inserting data into database");
+    console.error(error);
+    res.status(500).json({ error: "Error inserting data into the database" });
   }
 };
 
+
 //Display Single PreFoodMade
-exports.showPreFoodMade = async (req, res, next) => {
+exports.showPreFoodMadeById = async (req, res, next) => {
   try {
     const id = req.params.id;
     const preFoodMade = await PreFoodMadeModel.findOne({ _id: id });
 
-    if (!ordpreFoodMadeer) {
+    if (!preFoodMade) {
       return res.status(404).json({ message: "preFoodMade not found" });
     }
     res.status(200).json({ message: "success", preFoodMade });
@@ -40,7 +42,7 @@ exports.showPreFoodMade = async (req, res, next) => {
 };
 
 //Dispaly List
-exports.showPreFoodMadesById = async (req, res, next) => {
+exports.showPreFoodMades = async (req, res, next) => {
   try {
     const preFoodMade = await PreFoodMadeModel.find({ del_status: "Live" });
 

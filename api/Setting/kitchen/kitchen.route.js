@@ -18,4 +18,7 @@ router.put("/update/:id", kitchenController.updateKitchen);
 /* delete */
 router.delete("/delete/:id", kitchenController.deleteKitchen);
 
+// Find Model for Test
+router.get("/find-model/:id", kitchenController.findModelByKitchenId);
+
 module.exports = router;

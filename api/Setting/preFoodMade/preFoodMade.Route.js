@@ -7,10 +7,10 @@ const preFoodMadeController = require("./preFoodMade.Controller");
 router.post("/new", preFoodMadeController.preFoodMadeInsert);
 
 /* show */
-router.get("/list", preFoodMadeController.showPreFoodMade);
+router.get("/list", preFoodMadeController.showPreFoodMades);
 
 /* edit */
-router.get("/:id", preFoodMadeController.showPreFoodMadesById);
+router.get("/:id", preFoodMadeController.showPreFoodMadeById);
 
 /* update */
 router.put("/update/:id", preFoodMadeController.updatePreFoodMade);
