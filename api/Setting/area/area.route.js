@@ -18,4 +18,7 @@ router.put("/update/:id", areaController.updateArea);
 /* delete */
 router.delete("/delete/:id", areaController.deleteArea);
 
+// Find Model for Test
+router.get("/find-outlet/:id", areaController.findOutletByAreaId);
+
 module.exports = router;

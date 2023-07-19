@@ -104,7 +104,7 @@ exports.deleteTable = async (req, res, next) => {
 };
 
 // Find outlet by Table ID
-exports.findOutletByTableId = async (req, res, next) => {
+exports.findModelByTableId = async (req, res, next) => {
   try {
     const id = req.params.id;
     const table = await TableModel.findById(id)

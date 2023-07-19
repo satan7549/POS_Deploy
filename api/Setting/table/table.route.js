@@ -19,7 +19,7 @@ router.put('/update/:id', tableController.updateTable );
 router.delete('/delete/:id', tableController.deleteTable);
 
 // Find Model for Test
-router.get("/find-outlet/:id", tableController.findOutletByTableId);
+router.get("/find-model/:id", tableController.findModelByTableId);
 
 module.exports = router;
 

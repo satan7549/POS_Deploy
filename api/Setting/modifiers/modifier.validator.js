@@ -30,6 +30,12 @@ const modifierSchema = Joi.object({
     "any.required": "Please enter a company ID",
   }),
 
+  foodCategory: Joi.string().required().messages({
+    "string.base": "FoodCategory ID must be a string",
+    "string.empty": "FoodCategory ID is required",
+    "any.required": "FoodCategory enter a company ID",
+  }),
+
   // tax_information: Joi.string().min(10).max(100).required().trim().messages({
   //   "string.base": "Tax information must be a string",
   //   "string.empty": "Tax information is required",
@@ -85,6 +91,12 @@ const updateSchema = Joi.object({
     "string.base": "Company ID must be a string",
     "string.empty": "Company ID is required",
     "any.required": "Please enter a company ID",
+  }),
+
+  foodCategory: Joi.string().required().messages({
+    "string.base": "FoodCategory ID must be a string",
+    "string.empty": "FoodCategory ID is required",
+    "any.required": "FoodCategory enter a company ID",
   }),
 
   tax_information: Joi.string().min(10).max(100).required().trim().messages({

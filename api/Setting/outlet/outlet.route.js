@@ -19,6 +19,6 @@ router.put("/update/:id", outletController.updateOutlet);
 router.delete("/delete/:id", outletController.deleteOutlet);
 
 // Find Company for Test
-router.get("/find-company", outletController.findCompanyByOutletId);
+router.get("/find-company/:id", outletController.findCompanyByOutletId);
 
 module.exports = router;

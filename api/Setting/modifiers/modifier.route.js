@@ -20,6 +20,7 @@ router.put("/update/:id", modifierController.updateModifier);
 /* delete */
 router.delete("/delete/:id", modifierController.deleteModifier);
 
-
+// Find Model for Test
+router.get("/find-model/:id", modifierController.findModelByModifierId);
 
 module.exports = router;
