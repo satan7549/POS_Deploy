@@ -63,7 +63,7 @@ Delivery_price: Joi.number().required()
 'any.required': 'Please enter a Delivery_price',
 }),
 
-description: Joi.string().min(10).max(200).required().trim()
+description: Joi.string().max(200).required().trim()
 .messages({
 'string.base': 'Description must be a string',
 'string.empty': 'Description is required',
@@ -158,7 +158,7 @@ Delivery_price: Joi.number().required()
 'any.required': 'Please enter a Delivery_price',
 }),
 
-description: Joi.string().min(10).max(200).required().trim()
+description: Joi.string().max(200).required().trim()
 .messages({
 'string.base': 'Description must be a string',
 'string.empty': 'Description is required',

@@ -1,11 +1,7 @@
 const Joi = require("joi");
 
 const ingredientCategorySchema = Joi.object({
-  ingredientCategory_name: Joi.string()
-    .min(5)
-    .max(50)
-    .required()
-    .trim()
+  ingredientCategory_name: Joi.string().min(5).max(50).required().trim()
     .messages({
       "string.base": "ingredientCategory_name must be a string",
       "string.empty": "ingredientCategory_name cannot be empty",
@@ -40,11 +36,7 @@ const ingredientCategorySchema = Joi.object({
 });
 
 const updateSchema = Joi.object({
-  ingredientCategory_name: Joi.string()
-    .min(5)
-    .max(50)
-    .required()
-    .trim()
+  ingredientCategory_name: Joi.string().min(5).max(50).required().trim()
     .messages({
       "string.base": "ingredientCategory_name must be a string",
       "string.empty": "ingredientCategory_name cannot be empty",
@@ -54,7 +46,7 @@ const updateSchema = Joi.object({
         "ingredientCategory_name should have at most {#limit} characters",
       "any.required": "ingredientCategory_name is required",
     }),
-  description: Joi.string().min(10).max(100).required().trim().messages({
+  description: Joi.string().max(100).required().trim().messages({
     "string.base": "description must be a string",
     "string.empty": "description cannot be empty",
     "string.min": "description should have at least {#limit} characters",

@@ -9,7 +9,7 @@ const foodCategorySchema = Joi.object({
     "string.max": "Food category name can't exceed {#limit} characters",
     "any.required": "Name is required",
   }),
-  description: Joi.string().required().trim().min(10).max(500).messages({
+  description: Joi.string().required().trim().max(500).messages({
     "string.base": "Description must be a string",
     "string.empty": "Description is required",
     "string.min":
@@ -31,7 +31,7 @@ const updateSchema = Joi.object({
     "string.max": "Food category name can't exceed {#limit} characters",
     "any.required": "Name is required",
   }),
-  description: Joi.string().required().trim().min(10).max(500).messages({
+  description: Joi.string().required().trim().max(500).messages({
     "string.base": "Description must be a string",
     "string.empty": "Description is required",
     "string.min":
