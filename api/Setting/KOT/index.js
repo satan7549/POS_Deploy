@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const kotSchema = Schema({
   kot_number: {
-    type: Number,
+    type: String,
     required: true,
     unique: true,
   },
