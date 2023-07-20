@@ -68,7 +68,7 @@ exports.billingInsert = async (req, res, next) => {
       transactionStatus,
     } = req.body;
 
-    // Validate Billing data
+    // Validate user data
     const { error } = validateBilling(req.body);
 
     // Check Error in Validation
@@ -94,12 +94,8 @@ exports.billingInsert = async (req, res, next) => {
     });
 
     //send the the token through mail
-    // const getToken = newBilling.getBillingPasswordToken();
-    await newBilling.save({ validateBeforeSave: false });
 
-    // const billingPasswordUrl = `${req.protocol}://${req.get(
-    // "host"
-    // )}/api/password/reset/${getToken}`;
+      await newBilling.save({ validateBeforeSave: false });
 
     // Send registration success email
     const mailOptions = {
@@ -112,13 +108,30 @@ exports.billingInsert = async (req, res, next) => {
 
     // console.log(mailOptions)
     // res.status(201).json({
-    res.status(200).json({
-      success: true,
-      newBilling,
-      message: `Email sent to ${newBilling.email_address} successfully`,
-    });
+
+      res.status(200).json({
+        success: true,
+        newBilling,
+        message: `Email sent to ${newBilling.email_address} successfully`,
+      });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: "Something went wrong", error: error.message });
+    } 
+};
+
+// Display List
+exports.showAllBills = async (req, res, next) => {
+  try {
+    const billings = await BillingModel.find({ del_status: "Live" });
+    if (!billings || billings.length === 0) {
+      return res.status(404).json({ message: "billing not found" });
+    }
+    console.log(billings);
+
+    res.status(200).json({ message: "success", billings });
   } catch (error) {
-    // Send Error Response
     res
       .status(500)
       .json({ message: "Something went wrong", error: error.message });
@@ -137,26 +150,7 @@ exports.showBilling = async (req, res, next) => {
 
     res.status(200).json({ message: "success", billing });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Something went wrong", error: error.message });
-  }
-};
-
-// Display List
-exports.showAllBills = async (req, res, next) => {
-  try {
-    const billings = await BillingModel.find({ del_status: "Live" });
-    if (!billings || billings.length === 0) {
-      return res.status(404).json({ message: "billing not found" });
-    }
-    console.log(billings);
-
-    res.status(200).json({ message: "success", billings });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Something went wrong", error: error.message });
+    res.status(500).json({ error });
   }
 };
 
@@ -192,7 +186,7 @@ exports.updateBilling = async (req, res, next) => {
   }
 };
 
-//   // Delete billing
+  // Delete billing
 exports.deleteBilling = async (req, res, next) => {
   try {
     const { id } = req.params;

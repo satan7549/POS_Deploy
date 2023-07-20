@@ -7,15 +7,15 @@ const billingController = require("./billing.controller");
 router.post("/new", billingController.billingInsert);
 
 /* show */
-// router.get("/list", billingController.showAllBills);
+router.get("/list", billingController.showAllBills);
 
 /* edit */
-// router.get("/:id", billingController.showBilling);
+router.get("/:id", billingController.showBilling);
 
 /* update */
-// router.put("/update/:id", billingController.updateBilling);
+router.put("/update/:id", billingController.updateBilling);
 
 /* delete */
-// router.delete("/delete/:id", billingController.deleteBilling);
+router.delete("/delete/:id", billingController.deleteBilling);
 
 module.exports = router;

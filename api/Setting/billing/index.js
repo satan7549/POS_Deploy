@@ -6,7 +6,6 @@ const crypto = require("crypto");
 const Schema = mongoose.Schema;
 
 const billingSchema = Schema({
-
   billing_name: {
     type: String,
     maxlength: [50, "Maximum 50 charcters are permitted"],
@@ -20,6 +19,7 @@ const billingSchema = Schema({
     ref: "User",
     required: [true, "please enter userID"],
   },
+  email_address: { type: String, required: true },
   billingDate: {
     type: Date,
     default: Date.now,
@@ -51,7 +51,6 @@ const billingSchema = Schema({
     },
     default: "Live",
   },
-
 });
 
 billingSchema.pre("save", async function (next) {

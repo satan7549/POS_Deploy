@@ -1,7 +1,6 @@
 const Joi = require("joi");
 
 const billingSchema = Joi.object({
-
   billing_name: Joi.string().max(50).min(5).required().messages({
     "string.max": "Maximum 50 characters are permitted",
     "string.min": "billing_name should have more than 5 characters",
@@ -11,6 +10,8 @@ const billingSchema = Joi.object({
   userID: Joi.string().required().messages({
     "any.required": "Please enter userID",
   }),
+
+  email_address: Joi.string().required(),
 
   billingDate: Joi.date().default(Date.now),
 
@@ -28,13 +29,12 @@ const billingSchema = Joi.object({
     .valid("Pending", "Done", "Failed")
     .default("Done"),
 
-  del_status: Joi.string().valid("Live", "Deleted").default("Live"),
+  del_status: Joi.string().valid("Live", "Deleted").default("Live")
 });
 
 
 
 const updateSchema = Joi.object({
-
   billing_name: Joi.string().max(50).min(5).required().messages({
     "string.max": "Maximum 50 characters are permitted",
     "string.min": "billing_name should have more than 5 characters",
@@ -44,6 +44,8 @@ const updateSchema = Joi.object({
   userID: Joi.string().required().messages({
     "any.required": "Please enter userID",
   }),
+
+  email_address: Joi.string().required(),
 
   billingDate: Joi.date().default(Date.now),
 
@@ -61,7 +63,7 @@ const updateSchema = Joi.object({
     .valid("Pending", "Done", "Failed")
     .default("Done"),
 
-  del_status: Joi.string().valid("Live", "Deleted").default("Live"),
+  del_status: Joi.string().valid("Live", "Deleted").default("Live")
 
 });
 
