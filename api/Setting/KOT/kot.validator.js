@@ -1,7 +1,7 @@
 const Joi = require("joi");
 
 const kotSchema = Joi.object({
-  kot_number: Joi.number().required(),
+  kot_number: Joi.string().required(), // Change the type to string
 
   waiter_name: Joi.string().min(3).max(50).required().messages({
     "string.min": "Name should have more than 3 characters",
