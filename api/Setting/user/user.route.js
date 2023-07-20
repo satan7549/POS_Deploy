@@ -3,9 +3,6 @@ const router = express.Router(); // access the method of route
 const jwt = require("jsonwebtoken");
 const userController = require('./user.controller');
 const {
-    accessControlMiddleware
-} = require("./access.middleware");
-const {
     authorization, isLoggedIn
 } = require("./role.auth");
 
@@ -14,6 +11,9 @@ router.post('/new', userController.userInsert);
 
 // user Login
 router.post('/login', userController.login);
+
+//user logout
+router.get('/logout', userController.logout);
 
 // router.use(isLoggedIn);
 // all users

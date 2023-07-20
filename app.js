@@ -12,6 +12,7 @@ const indexRouter = require("./routes/index");
 // user related route import
 const userRouter = require("./api/Setting/user/user.route");
 const RoleRouter = require("./api/Setting/role/role.route");
+const {isLoggedIn} = require("./api/Setting/user/role.auth");
 
 // Company route import
 const companyRouter = require("./api/Setting/Company/Company.Route");
@@ -70,8 +71,9 @@ app.use(express.static(path.join(__dirname, "public")));
 // Base URL
 app.use("/", indexRouter);
 
-// User base url
+app.use(isLoggedIn);
 
+// User base url
 app.use("/user", userRouter);
 app.use("/role", RoleRouter);
 

@@ -12,6 +12,8 @@ const isLoggedIn = async (req, res, next) => {
     req.cookies.token || req.header("Authorization") ?.replace("Bearer ", "");
 
   if (!token) {
+  // next();
+
     res.status(403).send("login first");
     // return next(new CustomError("login first", 401));
   }
@@ -41,6 +43,8 @@ const authorization = async (req, res, next) => {
     });
   }
 };
+
+
 
 
 module.exports = {
