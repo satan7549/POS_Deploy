@@ -1,23 +1,28 @@
-let mongoose = require('mongoose');
+let mongoose = require("mongoose");
 // const jwt = require("jsonwebtoken")
-let billing = require('./index');
+let billing = require("./index");
 const nodemailer = require("nodemailer");
-const ErrorHander = require("../utils/errorhander")
+const ErrorHander = require("../utils/errorhander");
 // const catchAsyncError = require("../middleware/catchAsyncError")
 // const sendToken = require("../utils/jwtToken");
 // const { sendMail  } = require("../utils/sendEmail");
 // const crypto = require("crypto")
-const { google } = require('googleapis');
-let { validateBilling } = require('./billing.validator');
+const { google } = require("googleapis");
+let { validateBilling } = require("./billing.validator");
 // let BillingModel = require('./index');
 
+const CLIENT_ID =
+  "983972594472-cgl7t5ag7lnbp96eb7pffhevhs1jgu35.apps.googleusercontent.com";
+const CLIENT_SECRET = "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";
+const REDIRECT_URI = "https://developers.google.com/oauthplayground";
+const REFRESH_TOKEN =
+  "1//04cgiBwYTO7F7CgYIARAAGAQSNwF-L9IrgVu67HfoHrSUP3wu_gim4m6gCOWYnrmWOHTDpYyEy_8fKpBTqsX1WLWt498HXxI1zVk";
 
-const CLIENT_ID = '983972594472-cgl7t5ag7lnbp96eb7pffhevhs1jgu35.apps.googleusercontent.com';
-const CLIENT_SECRET = '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';
-const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
-const REFRESH_TOKEN = '1//04cgiBwYTO7F7CgYIARAAGAQSNwF-L9IrgVu67HfoHrSUP3wu_gim4m6gCOWYnrmWOHTDpYyEy_8fKpBTqsX1WLWt498HXxI1zVk';
-
-const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+const oAuth2Client = new google.auth.OAuth2(
+  CLIENT_ID,
+  CLIENT_SECRET,
+  REDIRECT_URI
+);
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
 // Function to send registration success email
@@ -25,10 +30,10 @@ async function sendMail(options) {
   try {
     const accessToken = await oAuth2Client.getAccessToken();
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      service: "gmail",
       auth: {
-        type: 'OAuth2',
-        user: 'survesh.pandit@furation.tech',
+        type: "OAuth2",
+        user: "survesh.pandit@furation.tech",
         clientId: CLIENT_ID,
         clientSecret: CLIENT_SECRET,
         refreshToken: REFRESH_TOKEN,
@@ -37,10 +42,10 @@ async function sendMail(options) {
     });
 
     const mailOptions = {
-      from: 'Suru <survesh.pandit@furation.tech>',
+      from: "Suru <survesh.pandit@furation.tech>",
       to: options.email_address,
       subject: options.subject,
-      text: options.message
+      text: options.message,
     };
     const result = await transporter.sendMail(mailOptions);
 
@@ -52,9 +57,16 @@ async function sendMail(options) {
 
 // Insert new Billing
 exports.billingInsert = async (req, res, next) => {
-
   try {
-    const { billing_name, userID, email_address, billingDate, totalAmount, paymentMethod, transactionStatus } = req.body;
+    const {
+      billing_name,
+      userID,
+      email_address,
+      billingDate,
+      totalAmount,
+      paymentMethod,
+      transactionStatus,
+    } = req.body;
 
     // Validate Billing data
     const { error } = validateBilling(req.body);
@@ -67,64 +79,61 @@ exports.billingInsert = async (req, res, next) => {
     // Check if billing already exists
     const existingBilling = await billing.findOne({ billing_name });
     if (existingBilling) {
-      return res.status(409).json({ error: 'Billing already exists' });
+      return res.status(409).json({ error: "Billing already exists" });
     }
-  
+
     // Insert new Billing
     const newBilling = await billing.create({
-      billing_name, 
-      userID, 
-      email_address, 
-      billingDate, 
-      totalAmount, 
-      paymentMethod, 
-      transactionStatus
+      billing_name,
+      userID,
+      email_address,
+      billingDate,
+      totalAmount,
+      paymentMethod,
+      transactionStatus,
     });
 
     //send the the token through mail
     // const getToken = newBilling.getBillingPasswordToken();
-      await newBilling.save({ validateBeforeSave: false });
+    await newBilling.save({ validateBeforeSave: false });
 
-      // const billingPasswordUrl = `${req.protocol}://${req.get(
-      // "host"
-      // )}/api/password/reset/${getToken}`;
+    // const billingPasswordUrl = `${req.protocol}://${req.get(
+    // "host"
+    // )}/api/password/reset/${getToken}`;
 
     // Send registration success email
     const mailOptions = {
       email_address: newBilling.email_address,
-      subject: 'Registration Successful',
+      subject: "Registration Successful",
       // message: 'Congratulations! Your registration was successful.',
       message: `Your Balance is: ${totalAmount}`,
     };
     const result = await sendMail(mailOptions);
-    
+
     // console.log(mailOptions)
     // res.status(201).json({
-      res.status(200).json({
-        success: true,
-        newBilling,
-        message: `Email sent to ${newBilling.email_address} successfully`,
-      });
+    res.status(200).json({
+      success: true,
+      newBilling,
+      message: `Email sent to ${newBilling.email_address} successfully`,
+    });
   } catch (error) {
     // Send Error Response
     res
       .status(500)
       .json({ message: "Something went wrong", error: error.message });
-
   }
 };
 
-
-
 // Display Single Billing
-// exports.showBilling = async (req, res, next) => {
-//   try {
-//     const id = req.params.id;
-//     const billing = await BillingModel.findOne({ _id: id });
+exports.showBilling = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const billing = await BillingModel.findOne({ _id: id });
 
-//     if (!billing) {
-//       return res.status(404).json({ message: "Billing not found" });
-//     }
+    if (!billing) {
+      return res.status(404).json({ message: "Billing not found" });
+    }
 
     res.status(200).json({ message: "success", billing });
   } catch (error) {
