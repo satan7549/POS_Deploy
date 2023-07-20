@@ -1,18 +1,6 @@
 const Joi = require("joi");
 
 const billingSchema = Joi.object({
-<<<<<<< HEAD
-  billing_name: Joi.string().required(),
-  userID: Joi.string().required(),
-  email_address: Joi.string().required(),
-  billingDate: Joi.date().required(),
-  totalAmount: Joi.number().required(),
-  paymentMethod: Joi.string().required(),
-  transactionStatus: Joi.string().required(),
-  del_status: Joi.string().valid("Live", "Deleted").default("Live"),
-=======
-
->>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
   billing_name: Joi.string().max(50).min(5).required().messages({
     "string.max": "Maximum 50 characters are permitted",
     "string.min": "billing_name should have more than 5 characters",
@@ -22,6 +10,8 @@ const billingSchema = Joi.object({
   userID: Joi.string().required().messages({
     "any.required": "Please enter userID",
   }),
+
+  email_address: Joi.string().required(),
 
   billingDate: Joi.date().default(Date.now),
 
@@ -39,28 +29,12 @@ const billingSchema = Joi.object({
     .valid("Pending", "Done", "Failed")
     .default("Done"),
 
-<<<<<<< HEAD
   del_status: Joi.string().valid("Live", "Deleted").default("Live")
-=======
-  del_status: Joi.string().valid("Live", "Deleted").default("Live"),
->>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
 });
 
 
 
 const updateSchema = Joi.object({
-<<<<<<< HEAD
-  billing_name: Joi.string().required(),
-  userID: Joi.string().required(),
-  email_address: Joi.string().required(),
-  billingDate: Joi.date().required(),
-  totalAmount: Joi.number().required(),
-  paymentMethod: Joi.string().required(),
-  transactionStatus: Joi.string().required(),
-  del_status: Joi.string().valid("Live", "Deleted").default("Live"),
-=======
-
->>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
   billing_name: Joi.string().max(50).min(5).required().messages({
     "string.max": "Maximum 50 characters are permitted",
     "string.min": "billing_name should have more than 5 characters",
@@ -70,6 +44,8 @@ const updateSchema = Joi.object({
   userID: Joi.string().required().messages({
     "any.required": "Please enter userID",
   }),
+
+  email_address: Joi.string().required(),
 
   billingDate: Joi.date().default(Date.now),
 
@@ -87,12 +63,8 @@ const updateSchema = Joi.object({
     .valid("Pending", "Done", "Failed")
     .default("Done"),
 
-<<<<<<< HEAD
   del_status: Joi.string().valid("Live", "Deleted").default("Live")
-=======
-  del_status: Joi.string().valid("Live", "Deleted").default("Live"),
 
->>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
 });
 
 function validateBilling(billingData) {

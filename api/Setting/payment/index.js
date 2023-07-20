@@ -46,8 +46,4 @@ const paymentSchema = Schema({
   },
 });
 
-<<<<<<< HEAD
 module.exports = mongoose.model("Payment", paymentSchema);
-=======
-module.exports = mongoose.model("Payment", paymentSchema);
->>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a

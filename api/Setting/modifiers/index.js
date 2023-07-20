@@ -43,7 +43,6 @@ const modifierSchema = Schema({
     ref: "Company",
     required: [true, "please enter Company_id"],
   },
-<<<<<<< HEAD
   
   foodCategory: {
     type: mongoose.Schema.Types.ObjectId,
@@ -66,9 +65,6 @@ const modifierSchema = Schema({
   //   trim: true,
   //   default: null
   // },
-=======
->>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
-
   total_cost: {
     type: Number,
     required: [true, "Please enter a total_cost"],
