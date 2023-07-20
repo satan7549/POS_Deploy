@@ -105,18 +105,34 @@ exports.deleteCompany = async (req, res) => {
 
 // Retrieve all outlets for a company
 exports.getOutletsForCompany = async (req, res) => {
+  // try {
+  //   const id = req.params.companyId;
+
+  //   console.log(id);
+  //   const company = await CompanyModel.findById(id).populate("outlets");
+  //   if (!company) {
+  //     return res.status(404).json({ error: "Company not found" });
+  //   }
+
+  //   const outlets = company.outlets;
+  //   res.status(200).json({ message: "success", outlets });
+  // } catch (error) {
+  //   res.status(500).json({ error: "Failed to retrieve company outlets" });
+  // }
+
   try {
-    const id = req.params.companyId;
+    const id = req.params.id;
+    const company = await CompanyModel.findById(id)
+      .populate({
+        path: "outlets",
+        match:{del_status:"Live"}
+      })
 
-    const company = await CompanyModel.findById(id).populate("outlets");
-
-    if (!company) {
-      return res.status(404).json({ error: "Company not found" });
-    }
-
-    const outlets = company.outlets;
-    res.status(200).json({ message: "success", outlets });
+    res.status(200).json({ message: "Success", company });
   } catch (error) {
-    res.status(500).json({ error: "Failed to retrieve company outlets" });
+    res.status(500).json({
+      message: "Error fetching company details from the database",
+      error: error.message,
+    });
   }
 };

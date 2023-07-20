@@ -1,3 +1,4 @@
+
 const PaymentModel = require("./index");
 
 const {
@@ -19,13 +20,15 @@ exports.insertPayment = async (req, res, next) => {
 
     res.status(200).json(savedPayment);
   } catch (error) {
+
     res
       .status(500)
       .json({ message: "Something went wrong", error: error.message });
+
   }
 };
 
-//payment list
+
 exports.getPayments = async (req, res, next) => {
   try {
     const payments = await PaymentModel.find();
@@ -37,14 +40,18 @@ exports.getPayments = async (req, res, next) => {
   }
 };
 
+
 // show single payment
+
 exports.getPaymentById = async (req, res, next) => {
   try {
     const id = req.params.id;
     const payment = await PaymentModel.findById({ _id: id });
 
     if (!payment) {
+
       return res.status(404).json({ message: "Payment method not found" });
+
     }
 
     res.status(200).json(payment);
@@ -55,7 +62,9 @@ exports.getPaymentById = async (req, res, next) => {
   }
 };
 
+
 // update payment
+
 exports.updatePayment = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -72,7 +81,9 @@ exports.updatePayment = async (req, res, next) => {
     );
 
     if (!payment) {
+
       return res.status(404).json({ message: "Payment method not found" });
+
     }
 
     res.status(200).json(payment);
@@ -83,6 +94,7 @@ exports.updatePayment = async (req, res, next) => {
   }
 };
 
+
 //delete payment
 exports.deletePayment = async (req, res, next) => {
   try {
@@ -91,12 +103,14 @@ exports.deletePayment = async (req, res, next) => {
 
     if (!payment) {
       return res.status(404).json({ message: "Payment method not found" });
-    }
 
-    res.status(200).json({ id });
+    }
+    res.status(200).json({ message: "Payment deleted successfully" });
   } catch (error) {
+
     res
       .status(500)
       .json({ message: "Something went wrong", error: error.message });
+
   }
 };

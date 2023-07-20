@@ -43,7 +43,7 @@ const modifierSchema = Schema({
     ref: "Company",
     required: [true, "please enter Company_id"],
   },
-  
+
   total_cost: {
     type: Number,
     required: [true, "Please enter a total_cost"],

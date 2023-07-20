@@ -128,3 +128,25 @@ exports.deleteTable = async (req, res, next) => {
       .json({ message: "Something went wrong", error: error.message });
   }
 };
+
+// Find outlet by Table ID
+exports.findModelByTableId = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const table = await TableModel.findById(id)
+      .populate({
+        path: "outlet_id",
+        match:{del_status:"Live"}
+      }).populate({
+        path: "area_id",
+        match:{del_status:"Live"}
+      })
+
+    res.status(200).json({ message: "Success", table });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error fetching table details from the database",
+      error: error.message,
+    });
+  }
+};

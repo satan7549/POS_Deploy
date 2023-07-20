@@ -65,7 +65,9 @@ const updateSchema = Joi.object({
     "any.required": "Please enter a modifier_price",
   }),
 
+
   description: Joi.string().max(100).trim().default(null),
+
 
   company_id: Joi.string().required().messages({
     "any.required": "Please enter Company_id",

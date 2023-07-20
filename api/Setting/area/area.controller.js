@@ -120,3 +120,22 @@ exports.deleteArea = async (req, res, next) => {
       .json({ message: "Something went wrong", error: error.message });
   }
 };
+
+// Find outlet by Area ID
+exports.findOutletByAreaId = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const area = await AreaModel.findById(id)
+      .populate({
+        path: "outlet_id",
+        match:{del_status:"Live"}
+      })
+
+    res.status(200).json({ message: "Success", area });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error fetching area details from the database",
+      error: error.message,
+    });
+  }
+};

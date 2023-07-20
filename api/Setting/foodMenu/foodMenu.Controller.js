@@ -1,6 +1,8 @@
 const { validateFoodMenu, validateUpdate } = require("./foodMenu.Validator");
 const FoodMenuModel = require("./index");
-// const OutletModel = require("../outlet/index");
+const FoodCategoryModel = require("../foodCategory/index");
+const OutletModel = require("../outlet/index");
+const IngredientModel = require("../ingredients/index");
 
 //insert new FoodMenu
 exports.foodMenuInsert = async (req, res, next) => {
@@ -120,3 +122,33 @@ exports.deleteFoodMenu = async (req, res, next) => {
       .json({ message: "Somting went wrong !", error: error.message });
   }
 };
+
+// Find Models by foddMenu ID
+exports.findModelByFoodMenuId = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const foodMenu = await FoodMenuModel.findById(id)
+      .populate({
+        path: "food_category",
+        match:{del_status:"Live"}
+      })
+      .populate({
+        path: "ingredients.ingredient",
+        match:{del_status:"Live"}
+      })
+      .populate({
+        path: "outlet",
+        match:{del_status:"Live"}
+      });
+
+    res.status(200).json({ message: "Success", foodMenu });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error fetching foodMenu details from the database",
+      error: error.message,
+    });
+  }
+};
+
+
+

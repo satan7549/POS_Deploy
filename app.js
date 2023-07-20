@@ -38,6 +38,7 @@ const foodCategory = require("./api/Setting/foodCategory/foodCategory.route");
 const foodMenuRouter = require("./api/Setting/foodMenu/foodMenu.Route");
 const modifierRouter = require("./api/Setting/modifiers/modifier.route");
 const FoodCombo = require("./api/Setting/foodCombos/foodCombo.Route");
+const premadeFoodRouter = require("./api/Setting/preFoodMade/preFoodMade.Route");
 
 //Order related Route Import
 const orederRoutes = require("./api/Setting/order/order.Route");
@@ -45,9 +46,10 @@ const orederRoutes = require("./api/Setting/order/order.Route");
 // KOT Route Import
 const kotRouter = require("./api/Setting/KOT/kot.router");
 
-//Tax related route
+//Payment related route
 const TaxRouter = require("./api/Setting/tax/tax.route");
 const BillingRouter = require("./api/Setting/billing/billing.route");
+const PaymentRouter = require("./api/Setting/payment/payment.route");
 
 //DeliveryPartner route
 const DeliveryPartnerRouter = require("./api/Setting/deliveryPartner/deliveryPartner.route");
@@ -101,6 +103,7 @@ app.use("/setting/foodcategory", foodCategory);
 app.use("/setting/foodmenu", foodMenuRouter);
 app.use("/setting/modifier", modifierRouter);
 app.use("/setting/foodcombo", FoodCombo);
+app.use("/setting/preFoodMade", premadeFoodRouter);
 
 //Order related url
 app.use("/setting/order", orederRoutes);
@@ -109,9 +112,10 @@ app.use("/setting/kot", kotRouter);
 //Kitchen related url
 app.use("/setting/kitchen", kitchenRoute);
 
-//Tax related url
+//Payment related url
 app.use("/setting/tax", TaxRouter);
 app.use("/setting/billing", BillingRouter);
+app.use("/setting/payment", PaymentRouter);
 
 //DeliveryPartner route
 app.use("/setting/deliveryPartner", DeliveryPartnerRouter);
