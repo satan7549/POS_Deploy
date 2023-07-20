@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
 const PaymentModel = require("./index");
 
 const {
@@ -19,12 +23,20 @@ exports.insertPayment = async (req, res, next) => {
 
     res.status(200).json(savedPayment);
   } catch (error) {
+<<<<<<< HEAD
     // console.log(error);
     res.status(500).json({ error: 'Error inserting payment' });
+=======
+
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
+
+>>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
   }
 }; 
 
-//payment list
+
 exports.getPayments = async (req, res, next) => {
   try {
     const payments = await PaymentModel.find();
@@ -36,14 +48,25 @@ exports.getPayments = async (req, res, next) => {
   }
 };
 
+
 // show single payment
+<<<<<<< HEAD
+=======
+
+>>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
 exports.getPaymentById = async (req, res, next) => {
   try {
     const id = req.params.id;
     const payment = await PaymentModel.findById({ _id: id });
 
     if (!payment) {
+<<<<<<< HEAD
       return res.status(404).json({ message: 'Payment method not found' });
+=======
+
+      return res.status(404).json({ message: "Payment method not found" });
+
+>>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
     }
 
     res.status(200).json(payment);
@@ -54,7 +77,13 @@ exports.getPaymentById = async (req, res, next) => {
   }
 };
 
+<<<<<<< HEAD
 // update payment
+=======
+
+// update payment
+
+>>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
 exports.updatePayment = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -71,7 +100,13 @@ exports.updatePayment = async (req, res, next) => {
     );
 
     if (!payment) {
+<<<<<<< HEAD
       return res.status(404).json({ message: 'Payment method not found' });
+=======
+
+      return res.status(404).json({ message: "Payment method not found" });
+
+>>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
     }
 
     res.status(200).json(payment);
@@ -91,11 +126,23 @@ exports.deletePayment = async (req, res, next) => {
 
     if (!payment) {
       return res.status(404).json({ message: "Payment method not found" });
+<<<<<<< HEAD
     }
     res.status(200).json({ message: "Payment deleted successfully" });
   } catch (error) {
     res
       .status(500)
       .json({ message: "Something went wrong", error: error.message });
+=======
+
+    }
+    res.status(200).json({ message: "Payment deleted successfully" });
+  } catch (error) {
+
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
+
+>>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
   }
 };

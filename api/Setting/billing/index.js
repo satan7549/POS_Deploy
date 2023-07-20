@@ -6,6 +6,7 @@ const crypto = require("crypto");
 const Schema = mongoose.Schema;
 
 const billingSchema = Schema({
+<<<<<<< HEAD
   billing_name: { type: String, required: true, },
   userID: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, },
   email_address: { type: String, required: true },
@@ -16,6 +17,9 @@ const billingSchema = Schema({
   del_status: { type: String, enum: { values: ["Live", "Deleted"], message: "Values is not matched", }, default: "Live", },
   billingPasswordToken: String,
   billingPasswordExpires: Date,
+=======
+
+>>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
   billing_name: {
     type: String,
     maxlength: [50, "Maximum 50 charcters are permitted"],
@@ -60,6 +64,10 @@ const billingSchema = Schema({
     },
     default: "Live",
   },
+<<<<<<< HEAD
+=======
+
+>>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
 });
 
 billingSchema.pre("save", async function (next) {

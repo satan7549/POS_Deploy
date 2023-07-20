@@ -47,10 +47,13 @@ async function sendMail(options) {
     return result;
   } catch (error) {
     throw error;
+<<<<<<< HEAD
     // Send Error Response
     res
       .status(500)
       .json({ message: "Something went wrong", error: error.message });
+=======
+>>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
   }
 }
 
@@ -59,11 +62,143 @@ exports.billingInsert = async (req, res, next) => {
 
   try {
     const { billing_name, userID, email_address, billingDate, totalAmount, paymentMethod, transactionStatus } = req.body;
+<<<<<<< HEAD
     // Validate Billing data
     const { error } = validateBilling(req.body);
     if (!billing) {
       return res.status(404).json({ message: "Billing not found" });
     }
+
+    res.status(200).json({ message: "success", billing });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
+  }
+};
+
+// Display List
+exports.showAllBills = async (req, res, next) => {
+  try {
+    const billings = await BillingModel.find({ del_status: "Live" });
+    if (!billings || billings.length === 0) {
+      return res.status(404).json({ message: "billing not found" });
+    }
+    console.log(billings);
+
+    res.status(200).json({ message: "success", billings });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
+  }
+};
+
+// Update billing
+exports.updateBilling = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    // Validation
+    const { error, value } = validateUpdate(req.body);
+=======
+
+    // Validate Billing data
+    const { error } = validateBilling(req.body);
+>>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
+
+    // Check Error in Validation
+    if (error) {
+      return res.status(400).send(error.details[0].message);
+    }
+
+    // Check if billing already exists
+    const existingBilling = await billing.findOne({ billing_name });
+    if (existingBilling) {
+      return res.status(409).json({ error: 'Billing already exists' });
+<<<<<<< HEAD
+      
+    const billing = await BillingModel.findOneAndUpdate({ _id: id }, value, {
+      new: true,
+    });
+
+    if (!billing) {
+      //console.log("Billing not found");
+      return res.status(404).json({ message: "Billing not found" });
+=======
+>>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
+    }
+  
+    // Insert new Billing
+    const newBilling = await billing.create({
+      billing_name, 
+      userID, 
+      email_address, 
+      billingDate, 
+      totalAmount, 
+      paymentMethod, 
+      transactionStatus
+    });
+
+    //send the the token through mail
+    // const getToken = newBilling.getBillingPasswordToken();
+      await newBilling.save({ validateBeforeSave: false });
+
+      // const billingPasswordUrl = `${req.protocol}://${req.get(
+      // "host"
+      // )}/api/password/reset/${getToken}`;
+
+    // Send registration success email
+    const mailOptions = {
+      email_address: newBilling.email_address,
+      subject: 'Registration Successful',
+      // message: 'Congratulations! Your registration was successful.',
+      message: `Your Balance is: ${totalAmount}`,
+    };
+    const result = await sendMail(mailOptions);
+    
+    // console.log(mailOptions)
+    // res.status(201).json({
+      res.status(200).json({
+        success: true,
+        newBilling,
+        message: `Email sent to ${newBilling.email_address} successfully`,
+      });
+<<<<<<< HEAD
+  } }catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error inserting data into the database' });
+
+    // newBilling.billingPasswordToken = undefined;
+    // newBilling.billingPasswordExpires = undefined;
+    // await newBilling.save({ validateBeforeSave: false });
+    
+    // return next(new ErrorHander(error.message, 500));
+    //console.log(error);
+    // Send Error Response
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
+=======
+  } catch (error) {
+    // Send Error Response
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
+
+>>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
+  }
+};
+
+// Display Single Billing
+// exports.showBilling = async (req, res, next) => {
+//   try {
+//     const id = req.params.id;
+//     const billing = await BillingModel.findOne({ _id: id });
+
+//     if (!billing) {
+//       return res.status(404).json({ message: "Billing not found" });
+//     }
 
     res.status(200).json({ message: "success", billing });
   } catch (error) {
@@ -103,11 +238,6 @@ exports.updateBilling = async (req, res, next) => {
       return res.status(400).send(error.details[0].message);
     }
 
-    // Check if billing already exists
-    const existingBilling = await billing.findOne({ billing_name });
-    if (existingBilling) {
-      return res.status(409).json({ error: 'Billing already exists' });
-      
     const billing = await BillingModel.findOneAndUpdate({ _id: id }, value, {
       new: true,
     });
@@ -116,51 +246,9 @@ exports.updateBilling = async (req, res, next) => {
       //console.log("Billing not found");
       return res.status(404).json({ message: "Billing not found" });
     }
-  
-    // Insert new Billing
-    const newBilling = await billing.create({
-      billing_name, 
-      userID, 
-      email_address, 
-      billingDate, 
-      totalAmount, 
-      paymentMethod, 
-      transactionStatus
-    });
 
-    //send the the token through mail
-    // const getToken = newBilling.getBillingPasswordToken();
-      await newBilling.save({ validateBeforeSave: false });
-
-      // const billingPasswordUrl = `${req.protocol}://${req.get(
-      // "host"
-      // )}/api/password/reset/${getToken}`;
-
-    // Send registration success email
-    const mailOptions = {
-      email_address: newBilling.email_address,
-      subject: 'Registration Successful',
-      // message: 'Congratulations! Your registration was successful.',
-      message: `Your Balance is: ${totalAmount}`,
-    };
-    const result = await sendMail(mailOptions);
-    
-    // console.log(mailOptions)
-    // res.status(201).json({
-      res.status(200).json({
-        success: true,
-        newBilling,
-        message: `Email sent to ${newBilling.email_address} successfully`,
-      });
-  } }catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error inserting data into the database' });
-
-    // newBilling.billingPasswordToken = undefined;
-    // newBilling.billingPasswordExpires = undefined;
-    // await newBilling.save({ validateBeforeSave: false });
-    
-    // return next(new ErrorHander(error.message, 500));
+    res.status(200).json({ billing });
+  } catch (error) {
     //console.log(error);
     // Send Error Response
     res
@@ -169,73 +257,8 @@ exports.updateBilling = async (req, res, next) => {
   }
 };
 
-// Display Single Billing
-// exports.showBilling = async (req, res, next) => {
-//   try {
-//     const id = req.params.id;
-//     const billing = await BillingModel.findOne({ _id: id });
-
-//     if (!billing) {
-//       return res.status(404).json({ message: "Billing not found" });
-//     }
-
-//     res.status(200).json({ message: "success", billing });
-//   } catch (error) {
-//     res.status(500).json({ error });
-//   }
-// };
-
-// Display List
-// exports.showAllBills = async (req, res, next) => {
-//   try {
-//     const billings = await BillingModel.find({ del_status: "Live" });
-//     if (!billings || billings.length === 0) {
-//       return res.status(404).json({ message: "billing not found" });
-//     }
-//     console.log(billings);
-
-//     res.status(200).json({ message: "success", billings });
-//   } catch (error) {
-//     res.status(500)
-//     .json({ error });
-//   }
-// };
-
-// Update billing
-// exports.updateBilling = async (req, res, next) => {
-//   try {
-//     const id = req.params.id;
-
-//     // Validation
-//     const { error, value } = validateUpdate(req.body);
-
-//     // Check Error in Validation
-//     if (error) {
-//       return res.status(400).send(error.details[0].message);
-//     }
-
-//     const billing = await BillingModel.findOneAndUpdate(
-//       { _id: id },
-//       value,
-//       {
-//         new: true,
-//       }
-//     );
-
-//     if (!billing) {
-//       console.log("Billing not found");
-//       return res.status(404).json({ message: "Billing not found" });
-//     }
-
-//     res.status(200).json({ billing });
-//   } catch (error) {
-//     console.log(error);
-//     // Send Error Response
-//     res.status(500).json("Error updating Billing");
-//   }
-// };
-
 //   // Delete billing
+<<<<<<< HEAD
 // exports.deleteBilling = async (req, res, next) => {
 //   try {
 //     const { id } = req.params;
@@ -252,6 +275,8 @@ exports.updateBilling = async (req, res, next) => {
 //     res.status(500).json({ error: error.message });
 //   }
 // };
+=======
+>>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
 exports.deleteBilling = async (req, res, next) => {
   try {
     const { id } = req.params;

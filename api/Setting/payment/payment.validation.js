@@ -1,3 +1,4 @@
+
 const Joi = require("joi");
 
 const paymentSchema = Joi.object({
@@ -64,6 +65,10 @@ const updatePaymentSchema = Joi.object({
     .valid("Active", "Inactive")
     .default("Active")
     .required(),
+<<<<<<< HEAD
+=======
+
+>>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
 });
 
 function validatePayment(paymentData) {
@@ -76,5 +81,11 @@ function validateUpdatePayment(updateData) {
 
 module.exports = {
   validatePayment,
+<<<<<<< HEAD
   validateUpdatePayment
+=======
+
+  validateUpdatePayment,
+
+>>>>>>> d3ed7d6b7038cac2a62938c6d35e6d3ae0fc1d4a
 };
