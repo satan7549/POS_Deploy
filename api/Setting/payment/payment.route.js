@@ -1,16 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-const paymentMethodController = require('./payment.controller');
+const paymentController = require('./payment.controller');
 
-router.post('/new', paymentMethodController.insertPaymentMethod);
+router.post('/new', paymentController.insertPayment);
 
-router.get('/list', paymentMethodController.getPaymentMethods);
+router.get('/list', paymentController.getPayments);
 
-router.get('/show/:id', paymentMethodController.getPaymentMethodById);
+router.get('/show/:id', paymentController.getPaymentById);
 
-router.put('/update/:id', paymentMethodController.updatePaymentMethod);
+router.put('/update/:id', paymentController.updatePayment);
 
-router.delete('/delete/:id', paymentMethodController.deletePaymentMethod);
+router.delete('/delete/:id', paymentController.deletePayment);
 
 module.exports = router;

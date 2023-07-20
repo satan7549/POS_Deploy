@@ -182,7 +182,9 @@ exports.deleteUser = async (req, res, next) => {
 //user Login
 exports.login = async (req, res, next) => {
   const { email_address, password } = req.body;
+
 console.log(req.user);
+
   //check for presence of email and password
   if (!email_address || !password) {
     return next(new CustomError("Please provide email and password", 400));
@@ -210,6 +212,7 @@ console.log(req.user);
 
   cookieToken(user, res);
 };
+
 
 exports.logout = async (req, res, next) => {
   res.cookie("token", null, {

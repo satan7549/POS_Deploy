@@ -39,10 +39,9 @@ exports.kitchenInsert = async (req, res, next) => {
 
     res.status(200).json({ message: "Success", kitchen: savedData });
   } catch (error) {
-    res.status(500).json({
-      message: "Error inserting data into the database",
-      error: error.message,
-    });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -111,13 +110,11 @@ exports.updateKitchen = async (req, res, next) => {
         existingFields.push("code");
       }
 
-      return res
-        .status(409)
-        .json({
-          message: `Kitchen with the following field(s) already exists: ${existingFields.join(
-            ", "
-          )}`,
-        });
+      return res.status(409).json({
+        message: `Kitchen with the following field(s) already exists: ${existingFields.join(
+          ", "
+        )}`,
+      });
     }
 
     const kitchen = await KitchenModel.findByIdAndUpdate(id, value, {
@@ -132,7 +129,7 @@ exports.updateKitchen = async (req, res, next) => {
   } catch (error) {
     res
       .status(500)
-      .json({ message: "Error updating kitchen", error: error.message });
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -155,5 +152,28 @@ exports.deleteKitchen = async (req, res, next) => {
     res
       .status(500)
       .json({ message: "Something went wrong", error: error.message });
+  }
+};
+
+// Find Models by Kitchen ID
+exports.findModelByKitchenId = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const kitchen = await KitchenModel.findById(id)
+      .populate({
+        path: "kitchen_area",
+        match:{del_status:"Live"}
+      })
+      .populate({
+        path: "outlet",
+        match:{del_status:"Live"}
+      });
+
+    res.status(200).json({ message: "Success", kitchen });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error fetching kitchen details from the database",
+      error: error.message,
+    });
   }
 };

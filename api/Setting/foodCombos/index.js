@@ -55,8 +55,7 @@ const foodComboSchema = new Schema({
   description: {
     type: String,
     maxlength: [200, "Maximum 200 characters are permitted"],
-    minlength: [10, "Description should have at least 10 characters"],
-    required: [true, "Please enter a description"],
+    default: null,
     trim: true,
   },
   isVeg: {

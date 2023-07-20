@@ -3,9 +3,6 @@ const router = express.Router();
 
 const billingController = require("./billing.controller");
 
-// /* add */
-// router.get('/new', foodMenuController.addfoodMenu);
-
 /* Insert */
 router.post("/new", billingController.billingInsert);
 

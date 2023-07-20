@@ -1,34 +1,81 @@
-const Joi = require('joi');
 
-const paymentMethodSchema = Joi.object({
-  name: Joi.string().required().max(50),
-  description: Joi.string().required().max(50),
-  user_id: Joi.number().required(),
-  company_id: Joi.number().required(),
-  order_by: Joi.number().allow(null),
-  personalinformation: Joi.string().allow(null),
-  del_status: Joi.string().max(10).default('Active')
+const Joi = require("joi");
+
+const paymentSchema = Joi.object({
+  name: Joi.string().max(50).min(5).required().messages({
+    "string.max": "Maximum 50 characters are permitted",
+    "string.min": "name should have more than 5 characters",
+    "any.required": "Please enter name",
+  }),
+
+  description: Joi.string().max(100).required().messages({
+    "string.max": "Maximum 100 characters are permitted",
+    "any.required": "Please enter description",
+  }),
+
+  user_id: Joi.string().required().messages({
+    "any.required": "Please enter user_id",
+  }),
+
+  company_id: Joi.string().required().messages({
+    "any.required": "Please enter company_id",
+  }),
+
+  order_by: Joi.number().default(null),
+
+  email: Joi.string().required().trim().email().messages({
+    "any.required": "Please enter email",
+    "string.email": "Invalid email format",
+  }),
+
+  del_status: Joi.string()
+    .valid("Active", "Inactive")
+    .default("Active")
+    .required(),
 });
 
-const updatePaymentMethodSchema = Joi.object({
-  name: Joi.string().max(50),
-  description: Joi.string().max(50),
-  user_id: Joi.number(),
-  company_id: Joi.number(),
-  order_by: Joi.number().allow(null),
-  personalinformation: Joi.string().allow(null),
-  del_status: Joi.string().max(10)
+const updatePaymentSchema = Joi.object({
+  name: Joi.string().max(50).min(5).required().messages({
+    "string.max": "Maximum 50 characters are permitted",
+    "string.min": "name should have more than 5 characters",
+    "any.required": "Please enter name",
+  }),
+
+  description: Joi.string().max(100).required().messages({
+    "string.max": "Maximum 100 characters are permitted",
+    "any.required": "Please enter description",
+  }),
+
+  user_id: Joi.string().required().messages({
+    "any.required": "Please enter user_id",
+  }),
+
+  company_id: Joi.string().required().messages({
+    "any.required": "Please enter company_id",
+  }),
+
+  order_by: Joi.number().default(null),
+
+  email: Joi.string().required().trim().email().messages({
+    "any.required": "Please enter email",
+    "string.email": "Invalid email format",
+  }),
+
+  del_status: Joi.string()
+    .valid("Active", "Inactive")
+    .default("Active")
+    .required(),
 });
 
-function validatePaymentMethod(paymentMethodData) {
-  return paymentMethodSchema.validate(paymentMethodData);
+function validatePayment(paymentData) {
+  return paymentSchema.validate(paymentData);
 }
 
-function validateUpdatePaymentMethod(updateData) {
-  return updatePaymentMethodSchema.validate(updateData);
+function validateUpdatePayment(updateData) {
+  return updatePaymentSchema.validate(updateData);
 }
 
 module.exports = {
-  validatePaymentMethod,
-  validateUpdatePaymentMethod
+  validatePayment,
+  validateUpdatePayment
 };

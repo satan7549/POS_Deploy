@@ -24,7 +24,12 @@ exports.insertArea = async (req, res, next) => {
     res.status(200).json({ message: "Area inserted", area: savedArea });
   } catch (error) {
     // Send Error Response
-    res.status(500).json({ message: "Error inserting data into database" });
+    res
+      .status(500)
+      .json({
+        message: "Error inserting data into database",
+        error: error.message,
+      });
   }
 };
 
@@ -41,7 +46,9 @@ exports.showAreas = async (req, res, next) => {
 
     res.status(200).json({ message: "success", areas });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -59,7 +66,9 @@ exports.findAreaByID = async (req, res, next) => {
 
     res.status(200).json({ message: "success", area });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -81,9 +90,10 @@ exports.updateArea = async (req, res, next) => {
 
     res.status(200).json({ message: "success", area });
   } catch (error) {
-    console.log(error);
     // Send Error Response
-    res.status(500).json({ message: "Error updating area" });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -105,6 +115,27 @@ exports.deleteArea = async (req, res, next) => {
     res.status(200).json({ message: "Area Deleted successfully" });
   } catch (error) {
     // Send Error Response
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
+  }
+};
+
+// Find outlet by Area ID
+exports.findOutletByAreaId = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const area = await AreaModel.findById(id)
+      .populate({
+        path: "outlet_id",
+        match:{del_status:"Live"}
+      })
+
+    res.status(200).json({ message: "Success", area });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error fetching area details from the database",
+      error: error.message,
+    });
   }
 };

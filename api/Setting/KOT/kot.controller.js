@@ -20,7 +20,9 @@ exports.insertKot = async (req, res, next) => {
     res.status(200).json({ message: "KOT inserted", kot: savedKot });
   } catch (error) {
     // Send Error Response
-    res.status(500).json({ message: "Error inserting data into database" });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -33,7 +35,9 @@ exports.showAllKots = async (req, res, next) => {
     }
     res.status(200).json({ message: "success", kots });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -49,7 +53,9 @@ exports.showSingleKot = async (req, res, next) => {
 
     res.status(200).json({ message: "success", kot });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -77,7 +83,9 @@ exports.updateKot = async (req, res, next) => {
     res.status(200).json({ message: "success", kot });
   } catch (error) {
     // Send Error Response
-    res.status(500).json({ message: "Error updating KOT" });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -99,6 +107,8 @@ exports.deleteKot = async (req, res, next) => {
     res.status(200).json({ message: "KOT deleted successfully" });
   } catch (error) {
     // Send Error Response
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };

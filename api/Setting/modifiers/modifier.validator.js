@@ -1,33 +1,40 @@
 const Joi = require("joi");
 
 const modifierSchema = Joi.object({
-
-  name: Joi.string().min(5).max(50).required().trim().messages({
-    "string.base": "Name must be a string",
-    "string.empty": "Name is required",
-    "string.min": "Name should have at least {#limit} characters",
-    "string.max": "Name can have at most {#limit} characters",
-    "any.required": "Please enter a modifier name",
+  name: Joi.string().max(50).min(5).required().messages({
+    "string.max": "Maximum 50 characters are permitted",
+    "string.min": "name should have more than 5 characters",
+    "any.required": "Please enter modifier_name",
   }),
+
+  ingredients: Joi.array().items(
+    Joi.object({
+      ingredient: Joi.string()
+        .required()
+        .messages({ "any.required": "Please enter ingredient" }),
+
+      quantity: Joi.number().max(10).min(1).required().messages({
+        "number.max": "Maximum 10 characters are permitted",
+        "number.min": "quantity should have more than 1 character",
+        "any.required": "Please enter quantity",
+      }),
+    })
+  ),
 
   price: Joi.number().required().messages({
-    "number.base": "Price must be a number",
-    "number.empty": "Price is required",
-    "any.required": "Please enter a modifier price",
+    "any.required": "Please enter a modifier_price",
   }),
 
-  description: Joi.string().min(10).max(100).required().trim().messages({
-    "string.base": "Description must be a string",
-    "string.empty": "Description is required",
-    "string.min": "Description should have at least {#limit} characters",
-    "string.max": "Description can have at most {#limit} characters",
-    "any.required": "Please enter a modifier description",
-  }),
+  description: Joi.string().max(100).trim().default(null),
 
   company_id: Joi.string().required().messages({
-    "string.base": "Company ID must be a string",
-    "string.empty": "Company ID is required",
-    "any.required": "Please enter a company ID",
+    "any.required": "Please enter Company_id",
+  }),
+
+  foodCategory: Joi.string().required().messages({
+    "string.base": "FoodCategory ID must be a string",
+    "string.empty": "FoodCategory ID is required",
+    "any.required": "FoodCategory enter a company ID",
   }),
 
   // tax_information: Joi.string().min(10).max(100).required().trim().messages({
@@ -45,11 +52,8 @@ const modifierSchema = Joi.object({
   //   "string.max": "Tax string can have at most {#limit} characters",
   //   "any.required": "Please enter a tax string",
   // }),
-
   total_cost: Joi.number().required().messages({
-    "number.base": "Total cost must be a number",
-    "number.empty": "Total cost is required",
-    "any.required": "Please enter a total cost",
+    "any.required": "Please enter a total_cost",
   }),
 
   del_status: Joi.string().valid("Live", "Deleted").default("Live"),
@@ -58,33 +62,44 @@ const modifierSchema = Joi.object({
 
 
 const updateSchema = Joi.object({
-  
-  name: Joi.string().min(5).max(50).required().trim().messages({
-    "string.base": "Name must be a string",
-    "string.empty": "Name is required",
-    "string.min": "Name should have at least {#limit} characters",
-    "string.max": "Name can have at most {#limit} characters",
-    "any.required": "Please enter a modifier name",
+  name: Joi.string().max(50).min(5).required().messages({
+    "string.max": "Maximum 50 characters are permitted",
+    "string.min": "name should have more than 5 characters",
+    "any.required": "Please enter modifier_name",
   }),
+
+  ingredients: Joi.array().items(
+    Joi.object({
+      ingredient: Joi.string()
+        .required()
+        .messages({ "any.required": "Please enter ingredient" }),
+
+      quantity: Joi.number().max(10).min(1).required().messages({
+        "number.max": "Maximum 10 characters are permitted",
+        "number.min": "quantity should have more than 1 character",
+        "any.required": "Please enter quantity",
+      }),
+    })
+  ),
 
   price: Joi.number().required().messages({
-    "number.base": "Price must be a number",
-    "number.empty": "Price is required",
-    "any.required": "Please enter a modifier price",
+    "any.required": "Please enter a modifier_price",
   }),
 
-  description: Joi.string().min(10).max(100).required().trim().messages({
-    "string.base": "Description must be a string",
-    "string.empty": "Description is required",
-    "string.min": "Description should have at least {#limit} characters",
-    "string.max": "Description can have at most {#limit} characters",
-    "any.required": "Please enter a modifier description",
-  }),
+
+  description: Joi.string().max(100).trim().default(null),
+
 
   company_id: Joi.string().required().messages({
     "string.base": "Company ID must be a string",
     "string.empty": "Company ID is required",
     "any.required": "Please enter a company ID",
+  }),
+
+  foodCategory: Joi.string().required().messages({
+    "string.base": "FoodCategory ID must be a string",
+    "string.empty": "FoodCategory ID is required",
+    "any.required": "FoodCategory enter a company ID",
   }),
 
   tax_information: Joi.string().min(10).max(100).required().trim().messages({
@@ -101,12 +116,11 @@ const updateSchema = Joi.object({
     "string.min": "Tax string should have at least {#limit} characters",
     "string.max": "Tax string can have at most {#limit} characters",
     "any.required": "Please enter a tax string",
+    "any.required": "Please enter Company_id",
   }),
 
   total_cost: Joi.number().required().messages({
-    "number.base": "Total cost must be a number",
-    "number.empty": "Total cost is required",
-    "any.required": "Please enter a total cost",
+    "any.required": "Please enter a total_cost",
   }),
 
   del_status: Joi.string().valid("Live", "Deleted").default("Live"),

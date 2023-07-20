@@ -1,22 +1,20 @@
 const mongoose = require("mongoose");
 
 const ingredientUnitSchema = new mongoose.Schema({
-
-  
-ingredientUnit_name: {
+  ingredientUnit_name: {
     type: String,
     maxlength: [50, "Maximum 50 charcters are permitted"],
     minLength: [5, "ingredientUnit_name should have more than 5 character"],
     required: [true, "please enter ingredientUnit_name"],
     trim: true,
-    default: null
+    default: null,
   },
 
   description: {
     type: String,
     maxlength: [200, "Maximum 100 charcters are permitted"],
     trim: true,
-    default: null
+    default: null,
   },
 
   company_id: {
@@ -32,10 +30,9 @@ ingredientUnit_name: {
       message: "Value is not matched",
     },
     default: "Live",
-  }
-
+  },
 });
 
-const IngredientUnit = mongoose.model('IngredientUnit', ingredientUnitSchema);
+const IngredientUnit = mongoose.model("IngredientUnit", ingredientUnitSchema);
 
 module.exports = IngredientUnit;

@@ -1,87 +1,105 @@
-const PaymentMethodModel = require('./index');
+const PaymentModel = require("./index");
 
 const {
-  validatePaymentMethod,
-  validateUpdatePaymentMethod
-} = require('./payment.validation');
+  validatePayment,
+  validateUpdatePayment,
+} = require("./payment.validation");
 
-exports.insertPaymentMethod = async (req, res, next) => {
+//insert payment method
+exports.insertPayment = async (req, res, next) => {
   try {
-    const { error, value } = validatePaymentMethod(req.body);
+    const { error, value } = validatePayment(req.body);
 
     if (error) {
       return res.status(400).json({ error: error.details[0].message });
     }
 
-    const paymentMethod = new PaymentMethodModel(value);
-    const savedPaymentMethod = await paymentMethod.save();
+    const payment = new PaymentModel(value);
+    const savedPayment = await payment.save();
 
-    res.status(200).json(savedPaymentMethod);
+    res.status(200).json(savedPayment);
   } catch (error) {
-    res.status(500).json({ error: 'Error inserting payment method' });
+    // console.log(error);
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 }; 
 
-exports.getPaymentMethods = async (req, res, next) => {
+
+exports.getPayments = async (req, res, next) => {
   try {
-    const paymentMethods = await PaymentMethodModel.find();
-    res.status(200).json(paymentMethods);
+    const payments = await PaymentModel.find();
+    res.status(200).json(payments);
   } catch (error) {
-    res.status(500).json({ error: 'Error getting payment methods' });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
-exports.getPaymentMethodById = async (req, res, next) => {
+
+// show single payment
+exports.getPaymentById = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const paymentMethod = await PaymentMethodModel.findById({ _id: id });
+    const payment = await PaymentModel.findById({ _id: id });
 
-    if (!paymentMethod) {
-      return res.status(404).json({ message: 'Payment method not found' });
+    if (!payment) {
+      return res.status(404).json({ message: "Payment method not found" });
     }
 
-    res.status(200).json(paymentMethod);
+    res.status(200).json(payment);
   } catch (error) {
-    res.status(500).json({ error: 'Error getting payment method by ID' });
+    res
+      .status(500)
+      .json({ emessage: "Something went wrong", error: error.message });
   }
 };
 
-exports.updatePaymentMethod = async (req, res, next) => {
+// update payment
+exports.updatePayment = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const { error, value } = validateUpdatePaymentMethod(req.body);
+    const { error, value } = validateUpdatePayment(req.body);
 
     if (error) {
       return res.status(400).json({ error: error.details[0].message });
     }
 
-    const paymentMethod = await PaymentMethodModel.findByIdAndUpdate(
+    const payment = await PaymentModel.findByIdAndUpdate(
       { _id: id },
       value,
       { new: true }
     );
 
-    if (!paymentMethod) {
+    if (!payment) {
       return res.status(404).json({ message: 'Payment method not found' });
     }
 
-    res.status(200).json(paymentMethod);
+    res.status(200).json(payment);
   } catch (error) {
-    res.status(500).json({ error: 'Error updating payment method' });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
-exports.deletePaymentMethod = async (req, res, next) => {
+
+//delete payment
+exports.deletePayment = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const paymentMethod = await PaymentMethodModel.findByIdAndRemove(id);
+    const payment = await PaymentModel.findByIdAndRemove(id);
 
-    if (!paymentMethod) {
-      return res.status(404).json({ message: 'Payment method not found' });
+    if (!payment) {
+      return res.status(404).json({ message: "Payment method not found" });
     }
-
-    res.status(200).json({ id });
+    res.status(200).json({ message: "Payment deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: 'Error deleting payment method' });
+
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
