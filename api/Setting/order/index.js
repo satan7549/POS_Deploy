@@ -11,8 +11,8 @@ const orderSchema = Schema({
 
   waiter: {
     type: String,
-    maxlength: [50, "Maximum 50 charcters are permitted"],
-    minLength: [3, "waiter name should have more than 3 character"],
+    maxlength: [50, "Maximum 50 characters are permitted"],
+    minLength: [3, "Waiter name should have more than 3 characters"],
     trim: true,
   },
 
@@ -33,7 +33,6 @@ const orderSchema = Schema({
 
   table: { type: mongoose.Schema.Types.ObjectId, ref: "Table" },
 
-
   kot_print: [
     { type: mongoose.Schema.Types.ObjectId, ref: "kot", default: null },
   ],
@@ -51,7 +50,7 @@ const orderSchema = Schema({
     },
     default: "Active",
   },
-
+  
   del_status: {
     type: String,
     enum: {
