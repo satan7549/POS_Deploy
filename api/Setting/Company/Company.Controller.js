@@ -15,7 +15,9 @@ exports.createCompany = async (req, res) => {
     const company = await newCompany.save();
     res.status(201).json({ message: "Company created successfully", company });
   } catch (error) {
-    res.status(500).json({ error: "Failed to create company" });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -30,7 +32,9 @@ exports.getCompanys = async (req, res) => {
 
     res.status(200).json({ message: "success", Company });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -46,7 +50,9 @@ exports.getCompanyById = async (req, res) => {
 
     res.status(200).json({ message: "success", Company });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -69,7 +75,9 @@ exports.updateCompany = async (req, res) => {
     }
     res.status(200).json({ message: "success", company });
   } catch (error) {
-    res.status(500).json({ error: "Failed to update company" });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -89,7 +97,9 @@ exports.deleteCompany = async (req, res) => {
 
     res.json({ message: "Company deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: "Failed to delete company" });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 

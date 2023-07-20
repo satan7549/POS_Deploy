@@ -1,4 +1,4 @@
-const { validateIngredient, validateUpdate,} = require("./ingredient.validator");
+const {validateIngredient,validateUpdate,} = require("./ingredient.validator");
 const IngredientModel = require("./index");
 
 //insert new Ingredient
@@ -29,7 +29,7 @@ exports.ingredientInsert = async (req, res, next) => {
     res.status(200).json({ message: "success", ingredient: savedData });
   } catch (error) {
     // Send Error Response
-    res.status(500).json("Error inserting data into the database");
+    res.status(500).json({message:"Something went wrong",error:error.message});
   }
 };
 
@@ -37,7 +37,11 @@ exports.ingredientInsert = async (req, res, next) => {
 exports.showIngredient = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const ingredient = await IngredientModel.findOne({ _id: id });
+    const ingredient = await IngredientModel.findOne({ _id: id })
+      .populate({ path: "category", match: { del_status: "Live" } })
+      .populate({ path: "PurchaseUnit", match: { del_status: "Live" } })
+      .populate({ path: "ConsumptionUnit", match: { del_status: "Live" } })
+      .exec();
 
     if (!ingredient) {
       return res.status(404).json({ message: "Ingredient not found" });
@@ -45,14 +49,18 @@ exports.showIngredient = async (req, res, next) => {
 
     res.status(200).json({ message: "success", ingredient });
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(500).json({ message:"Something went wrong",error:error.message });
   }
 };
 
 // Display List
 exports.showingredients = async (req, res, next) => {
   try {
-    const ingredient = await IngredientModel.find({ del_status: "Live" });
+    const ingredient = await IngredientModel.find({ del_status: "Live" })
+      .populate({ path: "category", match: { del_status: "Live" } })
+      .populate({ path: "PurchaseUnit", match: { del_status: "Live" } })
+      .populate({ path: "ConsumptionUnit", match: { del_status: "Live" } })
+      .exec();
 
     if (!ingredient || ingredient.length === 0) {
       return res.status(404).json({ message: "ingredient not found" });
@@ -60,7 +68,7 @@ exports.showingredients = async (req, res, next) => {
 
     res.status(200).json({ message: "success", ingredient });
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(500).json({ message:"Something went wrong",error:error.message });
   }
 };
 
@@ -92,7 +100,7 @@ exports.updateIngredient = async (req, res, next) => {
     res.status(200).json({ message: "success", ingredient });
   } catch (error) {
     // Send Error Response
-    res.status(500).json("Error updating table");
+    res.status(500).json({message:"Something went wrong",error:error.message});
   }
 };
 
@@ -110,6 +118,6 @@ exports.deleteIngredient = async (req, res, next) => {
     }
     res.status(200).json({ message: "Ingredient deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message:"Something went wrong",error:error.message });
   }
 };

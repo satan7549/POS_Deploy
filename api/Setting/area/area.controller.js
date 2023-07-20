@@ -8,7 +8,9 @@ exports.insertArea = async (req, res, next) => {
     const validatedData = validateArea(req.body);
 
     // Check area exists or not
-    const areaExists = await AreaModel.findOne({ area_name: validatedData.area_name });
+    const areaExists = await AreaModel.findOne({
+      area_name: validatedData.area_name,
+    });
 
     if (areaExists) {
       return res.status(409).json({ message: "Area Already Exists!" });
@@ -22,14 +24,21 @@ exports.insertArea = async (req, res, next) => {
     res.status(200).json({ message: "Area inserted", area: savedArea });
   } catch (error) {
     // Send Error Response
-    res.status(500).json({ message: "Error inserting data into database" });
+    res
+      .status(500)
+      .json({
+        message: "Error inserting data into database",
+        error: error.message,
+      });
   }
 };
 
 // Display List of Areas
 exports.showAreas = async (req, res, next) => {
   try {
-    const areas = await AreaModel.find({ del_status: "Live" });
+    const areas = await AreaModel.find({ del_status: "Live" })
+      .populate({ path: "tables", match: { del_status: "Live" } })
+      .exec();
 
     if (areas.length === 0) {
       return res.status(404).json({ message: "No Areas found" });
@@ -37,7 +46,9 @@ exports.showAreas = async (req, res, next) => {
 
     res.status(200).json({ message: "success", areas });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -45,7 +56,9 @@ exports.showAreas = async (req, res, next) => {
 exports.findAreaByID = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const area = await AreaModel.findOne({ _id: id });
+    const area = await AreaModel.findOne({ _id: id })
+      .populate({ path: "tables", match: { del_status: "Live" } })
+      .exec();
 
     if (!area) {
       return res.status(404).json({ message: "Area not found" });
@@ -53,7 +66,9 @@ exports.findAreaByID = async (req, res, next) => {
 
     res.status(200).json({ message: "success", area });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -75,9 +90,10 @@ exports.updateArea = async (req, res, next) => {
 
     res.status(200).json({ message: "success", area });
   } catch (error) {
-    console.log(error);
     // Send Error Response
-    res.status(500).json({ message: "Error updating area" });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -99,7 +115,9 @@ exports.deleteArea = async (req, res, next) => {
     res.status(200).json({ message: "Area Deleted successfully" });
   } catch (error) {
     // Send Error Response
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 

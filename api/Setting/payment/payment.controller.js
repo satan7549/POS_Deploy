@@ -1,10 +1,11 @@
-const PaymentModel = require('./index');
+const PaymentModel = require("./index");
 
 const {
   validatePayment,
-  validateUpdatePayment
-} = require('./payment.validation');
+  validateUpdatePayment,
+} = require("./payment.validation");
 
+//insert payment method
 exports.insertPayment = async (req, res, next) => {
   try {
     const { error, value } = validatePayment(req.body);
@@ -23,15 +24,19 @@ exports.insertPayment = async (req, res, next) => {
   }
 }; 
 
+//payment list
 exports.getPayments = async (req, res, next) => {
   try {
     const payments = await PaymentModel.find();
     res.status(200).json(payments);
   } catch (error) {
-    res.status(500).json({ error: 'Error getting payment methods' });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
+// show single payment
 exports.getPaymentById = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -43,10 +48,13 @@ exports.getPaymentById = async (req, res, next) => {
 
     res.status(200).json(payment);
   } catch (error) {
-    res.status(500).json({ error: 'Error getting payment method by ID' });
+    res
+      .status(500)
+      .json({ emessage: "Something went wrong", error: error.message });
   }
 };
 
+// update payment
 exports.updatePayment = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -68,23 +76,26 @@ exports.updatePayment = async (req, res, next) => {
 
     res.status(200).json(payment);
   } catch (error) {
-    res.status(500).json({ error: 'Error updating payment method' });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
+
+//delete payment
 exports.deletePayment = async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const updatedPayment = await PaymentModel.findByIdAndUpdate(
-      id,
-      { del_status: "Deleted" },
-      { new: true }
-    );
-    if (!updatedPayment) {
-      return res.status(404).json({ message: "Payment not found." });
+    const id = req.params.id;
+    const payment = await PaymentModel.findByIdAndRemove(id);
+
+    if (!payment) {
+      return res.status(404).json({ message: "Payment method not found" });
     }
     res.status(200).json({ message: "Payment deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };

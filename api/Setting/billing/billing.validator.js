@@ -8,8 +8,37 @@ const billingSchema = Joi.object({
   totalAmount: Joi.number().required(),
   paymentMethod: Joi.string().required(),
   transactionStatus: Joi.string().required(),
+  del_status: Joi.string().valid("Live", "Deleted").default("Live"),
+  billing_name: Joi.string().max(50).min(5).required().messages({
+    "string.max": "Maximum 50 characters are permitted",
+    "string.min": "billing_name should have more than 5 characters",
+    "any.required": "Please enter billing_name",
+  }),
+
+  userID: Joi.string().required().messages({
+    "any.required": "Please enter userID",
+  }),
+
+  billingDate: Joi.date().default(Date.now),
+
+  totalAmount: Joi.number().required().messages({
+    "any.required": "Please enter totalAmount",
+  }),
+
+  paymentMethod: Joi.string().max(50).min(3).required().messages({
+    "string.max": "Maximum 50 characters are permitted",
+    "string.min": "paymentMethod name should have more than 3 characters",
+    "any.required": "Please enter paymentMethod",
+  }),
+
+  transactionStatus: Joi.string()
+    .valid("Pending", "Done", "Failed")
+    .default("Done"),
+
   del_status: Joi.string().valid("Live", "Deleted").default("Live")
 });
+
+
 
 const updateSchema = Joi.object({
   billing_name: Joi.string().required(),
@@ -19,6 +48,33 @@ const updateSchema = Joi.object({
   totalAmount: Joi.number().required(),
   paymentMethod: Joi.string().required(),
   transactionStatus: Joi.string().required(),
+  del_status: Joi.string().valid("Live", "Deleted").default("Live"),
+  billing_name: Joi.string().max(50).min(5).required().messages({
+    "string.max": "Maximum 50 characters are permitted",
+    "string.min": "billing_name should have more than 5 characters",
+    "any.required": "Please enter billing_name",
+  }),
+
+  userID: Joi.string().required().messages({
+    "any.required": "Please enter userID",
+  }),
+
+  billingDate: Joi.date().default(Date.now),
+
+  totalAmount: Joi.number().required().messages({
+    "any.required": "Please enter totalAmount",
+  }),
+
+  paymentMethod: Joi.string().max(50).min(3).required().messages({
+    "string.max": "Maximum 50 characters are permitted",
+    "string.min": "paymentMethod name should have more than 3 characters",
+    "any.required": "Please enter paymentMethod",
+  }),
+
+  transactionStatus: Joi.string()
+    .valid("Pending", "Done", "Failed")
+    .default("Done"),
+
   del_status: Joi.string().valid("Live", "Deleted").default("Live")
 });
 

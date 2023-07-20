@@ -13,17 +13,17 @@ const foodMenuSchema = Joi.object({
       })
     )
     .required(),
-  Dine_price: Joi.number().required().messages({
+  Dine_price: Joi.number().messages({
     "number.base": "Dine_price must be a number",
     "number.empty": "Dine_price is required",
     "any.required": "Please enter a Dine_price",
   }),
-  Takeaway_price: Joi.number().required().messages({
+  Takeaway_price: Joi.number().messages({
     "number.base": "Takeaway_price must be a number",
     "number.empty": "Takeaway_price is required",
     "any.required": "Please enter a Takeaway_price",
   }),
-  Delivery_price: Joi.number().required().messages({
+  Delivery_price: Joi.number().messages({
     "number.base": "Delivery_price must be a number",
     "number.empty": "Delivery_price is required",
     "any.required": "Please enter a Delivery_price",

@@ -34,7 +34,7 @@ exports.outletInsert = async (req, res, next) => {
     res.status(200).json({ message: "Outlet inserted", outlet: savedOutlet });
   } catch (error) {
     res.status(500).json({
-      message: "Error inserting data into the database",
+      message: "Something went wrong",
       error: error.message,
     });
   }
@@ -52,7 +52,7 @@ exports.showAllOutlets = async (req, res, next) => {
     res.status(200).json({ message: "Success", outlets });
   } catch (error) {
     res.status(500).json({
-      message: "Error fetching outlets from the database",
+      message: "Something went wrong",
       error: error.message,
     });
   }
@@ -62,7 +62,18 @@ exports.showAllOutlets = async (req, res, next) => {
 exports.showSingleOutlet = async (req, res, next) => {
   try {
     const id = req.params.id;
+
     const outlet = await OutletModel.findOne({ _id: id });
+    // .populate({
+    //   path: "area",
+    //   match: { del_status: "Live" },
+    //   populate: {
+    //     path: "tables",
+    //     match: { del_status: "Live" },
+    //     model: "Table",
+    //   },
+    // })
+    // .exec();
 
     if (!outlet) {
       return res.status(404).json({ message: "Outlet not found" });
@@ -71,7 +82,7 @@ exports.showSingleOutlet = async (req, res, next) => {
     res.status(200).json({ message: "Success", outlet });
   } catch (error) {
     res.status(500).json({
-      message: "Error fetching outlet details from the database",
+      message: "Something went wrong",
       error: error.message,
     });
   }
@@ -100,7 +111,7 @@ exports.updateOutlet = async (req, res, next) => {
   } catch (error) {
     res
       .status(500)
-      .json({ message: "Error updating outlet", error: error.message });
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -131,7 +142,7 @@ exports.deleteOutlet = async (req, res, next) => {
   } catch (error) {
     res
       .status(500)
-      .json({ message: "Error deleting outlet", error: error.message });
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -150,7 +161,7 @@ exports.findCompanyByOutletId = async (req, res, next) => {
     res.status(200).json({ message: "Success", company });
   } catch (error) {
     res.status(500).json({
-      message: "Error fetching company details from the database",
+      message: "Something went wrong",
       error: error.message,
     });
   }
