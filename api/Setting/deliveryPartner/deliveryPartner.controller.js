@@ -1,4 +1,7 @@
-const { validateDeliveryPartner, validateUpdate } = require("./deliveryPartner.validator");
+const {
+  validateDeliveryPartner,
+  validateUpdate,
+} = require("./deliveryPartner.validator");
 const DeliveryPartnerModel = require("./index");
 
 //insert new DeliveryPartner
@@ -18,7 +21,9 @@ exports.deliveryPartnerInsert = async (req, res, next) => {
 
     if (deliveryPartnerExists) {
       // Send Response
-      return res.status(409).json({ message: "DeliveryPartner already exists!" });
+      return res
+        .status(409)
+        .json({ message: "DeliveryPartner already exists!" });
     }
 
     // Insert deliveryPartner
@@ -29,7 +34,9 @@ exports.deliveryPartnerInsert = async (req, res, next) => {
     res.status(200).json({ message: "success", deliveryPartner: savedData });
   } catch (error) {
     // Send Error Response
-    res.status(500).json("Error inserting data into the database");
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -45,22 +52,27 @@ exports.showDeliveryPartnerById = async (req, res, next) => {
 
     res.status(200).json({ message: "success", deliveryPartner });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.messager });
   }
 };
 
 // Display List
 exports.showAllDeliveryPartners = async (req, res, next) => {
   try {
-    const deliveryPartners = await DeliveryPartnerModel.find({ del_status: "Live" });
+    const deliveryPartners = await DeliveryPartnerModel.find({
+      del_status: "Live",
+    });
     if (!deliveryPartners || deliveryPartners.length === 0) {
       return res.status(404).json({ message: "DeliveryPartner not found" });
     }
 
     res.status(200).json({ message: "success", deliveryPartners });
   } catch (error) {
-    res.status(500)
-    .json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -94,7 +106,9 @@ exports.updateDeliveryPartner = async (req, res, next) => {
   } catch (error) {
     console.log(error);
     // Send Error Response
-    res.status(500).json("Error updating DeliveryPartner");
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -112,6 +126,8 @@ exports.deleteDeliveryPartner = async (req, res, next) => {
     }
     res.status(200).json({ message: "DeliveryPartner deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };

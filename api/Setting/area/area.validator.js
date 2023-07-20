@@ -14,7 +14,7 @@ const areaSchema = Joi.object({
     "string.min": "Area name should have at least {3} characters",
     "string.max": "Area name should have at most {100} characters",
   }),
-  description: Joi.string().allow("").optional().min(5).max(200).messages({
+  description: Joi.string().allow("").optional().max(200).messages({
     "string.base": "Description should be a string",
     "string.min": "Description should have at least {5} characters",
     "string.max": "Description should have at most {200} characters",

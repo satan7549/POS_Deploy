@@ -14,9 +14,7 @@ const ingredientCategorySchema = new mongoose.Schema({
   description: {
      type: String,
     maxlength: [100, "Maximum 100 charcters are permitted"],
-    minLength: [10, "description should have more than 10 character"],
-    required: [true, "please enter description"],
-    trim: true,
+      trim: true,
     default: null
   },
 

@@ -106,14 +106,11 @@ exports.billingInsert = async (req, res, next) => {
         message: `Email sent to ${newBilling.email_address} successfully`,
       });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error inserting data into the database' });
+    // Send Error Response
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
 
-    // newBilling.billingPasswordToken = undefined;
-    // newBilling.billingPasswordExpires = undefined;
-    // await newBilling.save({ validateBeforeSave: false });
-    
-    // return next(new ErrorHander(error.message, 500));
   }
 };
 
@@ -129,76 +126,79 @@ exports.billingInsert = async (req, res, next) => {
 //       return res.status(404).json({ message: "Billing not found" });
 //     }
 
-//     res.status(200).json({ message: "success", billing });
-//   } catch (error) {
-//     res.status(500).json({ error });
-//   }
-// };
+    res.status(200).json({ message: "success", billing });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
+  }
+};
 
 // Display List
-// exports.showAllBills = async (req, res, next) => {
-//   try {
-//     const billings = await BillingModel.find({ del_status: "Live" });
-//     if (!billings || billings.length === 0) {
-//       return res.status(404).json({ message: "billing not found" });
-//     }
-//     console.log(billings);
+exports.showAllBills = async (req, res, next) => {
+  try {
+    const billings = await BillingModel.find({ del_status: "Live" });
+    if (!billings || billings.length === 0) {
+      return res.status(404).json({ message: "billing not found" });
+    }
+    console.log(billings);
 
-//     res.status(200).json({ message: "success", billings });
-//   } catch (error) {
-//     res.status(500)
-//     .json({ error });
-//   }
-// };
+    res.status(200).json({ message: "success", billings });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
+  }
+};
 
 // Update billing
-// exports.updateBilling = async (req, res, next) => {
-//   try {
-//     const id = req.params.id;
+exports.updateBilling = async (req, res, next) => {
+  try {
+    const id = req.params.id;
 
-//     // Validation
-//     const { error, value } = validateUpdate(req.body);
+    // Validation
+    const { error, value } = validateUpdate(req.body);
 
-//     // Check Error in Validation
-//     if (error) {
-//       return res.status(400).send(error.details[0].message);
-//     }
+    // Check Error in Validation
+    if (error) {
+      return res.status(400).send(error.details[0].message);
+    }
 
-//     const billing = await BillingModel.findOneAndUpdate(
-//       { _id: id },
-//       value,
-//       {
-//         new: true,
-//       }
-//     );
+    const billing = await BillingModel.findOneAndUpdate({ _id: id }, value, {
+      new: true,
+    });
 
-//     if (!billing) {
-//       console.log("Billing not found");
-//       return res.status(404).json({ message: "Billing not found" });
-//     }
+    if (!billing) {
+      //console.log("Billing not found");
+      return res.status(404).json({ message: "Billing not found" });
+    }
 
-//     res.status(200).json({ billing });
-//   } catch (error) {
-//     console.log(error);
-//     // Send Error Response
-//     res.status(500).json("Error updating Billing");
-//   }
-// };
+    res.status(200).json({ billing });
+  } catch (error) {
+    //console.log(error);
+    // Send Error Response
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
+  }
+};
 
 //   // Delete billing
-// exports.deleteBilling = async (req, res, next) => {
-//   try {
-//     const { id } = req.params;
-//     const updatedBilling = await BillingModel.findByIdAndUpdate(
-//       id,
-//       { del_status: "Deleted" },
-//       { new: true }
-//     );
-//     if (!updatedBilling) {
-//       return res.status(404).json({ message: "Billing not found." });
-//     }
-//     res.status(200).json({ message: "Billing deleted successfully" });
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
+exports.deleteBilling = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const updatedBilling = await BillingModel.findByIdAndUpdate(
+      id,
+      { del_status: "Deleted" },
+      { new: true }
+    );
+    if (!updatedBilling) {
+      return res.status(404).json({ message: "Billing not found." });
+    }
+    res.status(200).json({ message: "Billing deleted successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
+  }
+};

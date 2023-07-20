@@ -3,14 +3,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const kotSchema = Schema({
-  //   name: {
-  //     type: String,
-  //     maxlength: [50, "Maximum 50 charcters are permitted"],
-  //     minLength: [5, "name should have more than 5 character"],
-  //     required: [true, "please enter name"],
-  //     trim: true,
-  //   },
-
   kot_number: {
     type: Number,
     required: true,
@@ -19,9 +11,9 @@ const kotSchema = Schema({
 
   waiter_name: {
     type: String,
-    maxlength: [50, "Maximum 50 charcters are permitted"],
-    minLength: [3, "name should have more than 3 character"],
-    required: [true, "please enter waiter name"],
+    maxlength: [50, "Maximum 50 characters are permitted"],
+    minlength: [3, "Name should have more than 3 characters"],
+    required: [true, "Please enter waiter name"],
     trim: true,
     default: null,
   },
@@ -29,7 +21,7 @@ const kotSchema = Schema({
   table: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Table",
-    required: [true, "please enter table"],
+    required: [true, "Please enter table"],
   },
 
   order: {
@@ -43,7 +35,6 @@ const kotSchema = Schema({
       values: ["requested", "cooking", "done"],
       message: "Value is not matched",
     },
-    required: [true, "please enter status"],
     default: "requested",
     trim: true,
   },
@@ -81,7 +72,7 @@ const kotSchema = Schema({
     type: String,
     enum: {
       values: ["Live", "Deleted"],
-      message: "Values is not matched",
+      message: "Values are not matched",
     },
     default: "Live",
   },

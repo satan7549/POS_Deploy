@@ -1,41 +1,71 @@
-const Joi = require('joi');
+
+const Joi = require("joi");
 
 const paymentSchema = Joi.object({
-  payment_name: Joi.string().required().messages({
-    'any.required': 'Please enter the payment method name',
-    'string.empty': 'Please enter the payment method name',
+  name: Joi.string().max(50).min(5).required().messages({
+    "string.max": "Maximum 50 characters are permitted",
+    "string.min": "name should have more than 5 characters",
+    "any.required": "Please enter name",
   }),
-  payment_method: Joi.string().valid('Credit-Card', 'Debit-Card', 'Cash').messages({
-    'any.only': 'Value is not matched',
+
+  description: Joi.string().max(100).required().messages({
+    "string.max": "Maximum 100 characters are permitted",
+    "any.required": "Please enter description",
   }),
-  other_method: Joi.string().valid('Other', 'UPI').messages({
-    'any.only': 'Value is not matched',
+
+  user_id: Joi.string().required().messages({
+    "any.required": "Please enter user_id",
   }),
-  user_id: Joi.string(),
+
   company_id: Joi.string().required().messages({
-    'any.required': 'Please enter company_id',
-    'string.empty': 'Please enter company_id',
+    "any.required": "Please enter company_id",
   }),
-  del_status: Joi.string().required().default('Active'),
+
+  order_by: Joi.number().default(null),
+
+  email: Joi.string().required().trim().email().messages({
+    "any.required": "Please enter email",
+    "string.email": "Invalid email format",
+  }),
+
+  del_status: Joi.string()
+    .valid("Active", "Inactive")
+    .default("Active")
+    .required(),
 });
 
 const updatePaymentSchema = Joi.object({
-  payment_name: Joi.string().required().messages({
-    'any.required': 'Please enter the payment method name',
-    'string.empty': 'Please enter the payment method name',
+  name: Joi.string().max(50).min(5).required().messages({
+    "string.max": "Maximum 50 characters are permitted",
+    "string.min": "name should have more than 5 characters",
+    "any.required": "Please enter name",
   }),
-  payment_method: Joi.string().valid('Credit-Card', 'Debit-Card', 'Cash').messages({
-    'any.only': 'Value is not matched',
+
+  description: Joi.string().max(100).required().messages({
+    "string.max": "Maximum 100 characters are permitted",
+    "any.required": "Please enter description",
   }),
-  other_method: Joi.string().valid('Other', 'UPI').messages({
-    'any.only': 'Value is not matched',
+
+  user_id: Joi.string().required().messages({
+    "any.required": "Please enter user_id",
   }),
-  user_id: Joi.string(),
+
   company_id: Joi.string().required().messages({
-    'any.required': 'Please enter company_id',
-    'string.empty': 'Please enter company_id',
+    "any.required": "Please enter company_id",
   }),
-  del_status: Joi.string().required().default('Active'),
+
+  order_by: Joi.number().default(null),
+
+  email: Joi.string().required().trim().email().messages({
+    "any.required": "Please enter email",
+    "string.email": "Invalid email format",
+  }),
+
+  del_status: Joi.string()
+    .valid("Active", "Inactive")
+    .default("Active")
+    .required(),
+
 });
 
 function validatePayment(paymentData) {
@@ -48,5 +78,7 @@ function validateUpdatePayment(updateData) {
 
 module.exports = {
   validatePayment,
-  validateUpdatePayment
+
+  validateUpdatePayment,
+
 };

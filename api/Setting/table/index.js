@@ -17,9 +17,9 @@ const tableSchema = Schema({
     default: null,
   },
   sit_capacity: {
-    type: String,
-    maxlength: [50, "Maximum 50 charcters are permitted"],
-    minLength: [5, "sit_capacity should have more than 5 character"],
+    type: Number,
+    maxlength: [10, "Maximum 10 charcters are permitted"],
+    minLength: [1, "sit_capacity should have more than 1 character"],
     required: [true, "please enter sit_capacity"],
     trim: true,
     default: null,
@@ -35,8 +35,6 @@ const tableSchema = Schema({
   description: {
     type: String,
     maxlength: [100, "Maximum 100 charcters are permitted"],
-    minLength: [10, "description should have more than 10 character"],
-    required: [true, "please enter description"],
     trim: true,
     default: null,
   },
@@ -44,7 +42,7 @@ const tableSchema = Schema({
   //   type: mongoose.Schema.Types.ObjectId,
   //   ref: "User",
   //   required: [true, "please enter user_id"],
- // },
+  // },
   outlet_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Outlet",

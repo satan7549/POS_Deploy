@@ -29,7 +29,9 @@ exports.roleInsert = async (req, res, next) => {
     res.status(200).json({ message: "success", role: savedData });
   } catch (error) {
     // Send Error Response
-    res.status(500).json("Error inserting data into the database");
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -45,7 +47,9 @@ exports.showRole = async (req, res, next) => {
 
     res.status(200).json({ message: "success", role });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -60,7 +64,9 @@ exports.showRoles = async (req, res, next) => {
 
     res.status(200).json({ message: "success", role });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -77,13 +83,9 @@ exports.updateRole = async (req, res, next) => {
       return res.status(400).send(error.details[0].message);
     }
 
-    const role = await RoleModel.findOneAndUpdate(
-      { _id: id },
-      value,
-      {
-        new: true,
-      }
-    );
+    const role = await RoleModel.findOneAndUpdate({ _id: id }, value, {
+      new: true,
+    });
 
     if (!role) {
       console.log("Role not found");
@@ -94,11 +96,13 @@ exports.updateRole = async (req, res, next) => {
   } catch (error) {
     console.log(error);
     // Send Error Response
-    res.status(500).json("Error updating role");
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
-//   // Delete role
+// Delete role
 exports.deleteRole = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -112,6 +116,8 @@ exports.deleteRole = async (req, res, next) => {
     }
     res.status(200).json({ message: "Role deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };

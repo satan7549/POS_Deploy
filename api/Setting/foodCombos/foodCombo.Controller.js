@@ -1,7 +1,6 @@
 const { validateFoodCombo, validateUpdate } = require("./foodCombo.Validator");
 const FoodComboModel = require("./index");
 
-
 //insert new FoodCombo
 exports.foodComboInsert = async (req, res, next) => {
   try {
@@ -30,7 +29,9 @@ exports.foodComboInsert = async (req, res, next) => {
     res.status(200).json({ message: "success", foodCombo: savedData });
   } catch (error) {
     // Send Error Response
-    res.status(500).json("Error inserting data into the database");
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -46,7 +47,9 @@ exports.showFoodCombo = async (req, res, next) => {
 
     res.status(200).json({ message: "success", foodCombo });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -61,7 +64,9 @@ exports.showAllFoodCombo = async (req, res, next) => {
 
     res.status(200).json({ message: "success", foodCombo });
   } catch (error) {
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -93,7 +98,9 @@ exports.updateFoodCombo = async (req, res, next) => {
     res.status(200).json({ message: "success", foodCombo });
   } catch (error) {
     // Send Error Response
-    res.status(500).json("Error updating Foodcombo");
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
@@ -111,6 +118,8 @@ exports.deleteFoodCombo = async (req, res, next) => {
     }
     res.status(200).json({ message: "Foodcombo deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };

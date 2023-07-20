@@ -46,23 +46,30 @@ const foodMenuSchema = Schema({
 
   Dine_price: {
     type: Number,
-    required: [true, "Please enter a Dine_price"],
   },
 
   Takeaway_price: {
     type: Number,
-    required: [true, "Please enter a Takeaway_price"],
   },
-  Delivery_price: {
-    type: Number,
-    required: [true, "Please enter a Delivery_price"],
-  },
+  Delivery_price: [
+    {
+      deliveryPartnerName: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "DeliveryPartner",
+        required: [true, "please enter DeliveryPartner"],
+      },
+
+      price: {
+        type: Number,
+        minLength: [1, "price should have more than 1 character"],
+        required: [true, "please enter price"],
+      },
+    },
+  ],
 
   description: {
     type: String,
     maxlength: [200, "Maximum 200 charcters are permitted"],
-    minLength: [10, "description should have more than 10 character"],
-    required: [true, "please enter description"],
     trim: true,
     default: null,
   },
@@ -94,7 +101,6 @@ const foodMenuSchema = Schema({
     },
     default: "Live",
   },
- 
 });
 
 module.exports = mongoose.model("FoodMenu", foodMenuSchema);
