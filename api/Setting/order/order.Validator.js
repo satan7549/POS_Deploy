@@ -10,7 +10,7 @@ const orderSchema = Joi.object({
     "string.max": "Maximum 50 characters are permitted",
   }),
 
-  table: Joi.string().required(),
+  table: Joi.string(),
 
   total_order_price: Joi.number().required(),
 
