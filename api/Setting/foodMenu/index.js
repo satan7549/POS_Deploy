@@ -88,6 +88,7 @@ const foodMenuSchema = Schema({
     required: [true, "Please specify if the combo is vegetarian"],
     default: false,
   },
+  
 
   outlet: {
     type: mongoose.Schema.Types.ObjectId,
