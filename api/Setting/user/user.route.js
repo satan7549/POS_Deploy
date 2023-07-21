@@ -25,15 +25,15 @@ router.get('/logout', userController.logout);
 
 // router.use(isLoggedIn);
 // all users
-router.get('/list', isLoggedIn, userController.showUsers);
+router.get('/list', userController.showUsers);
 
 /* show */
-router.get('/show/:id', isLoggedIn, userController.showUser);
+router.get('/show/:id', userController.showUser);
 
 /* update */
-router.put('/update/:id', isLoggedIn, userController.updateUser);
+router.put('/update/:id', userController.updateUser);
 
 /* Delete */
-router.delete('/delete/:id', isLoggedIn, userController.deleteUser);
+router.delete('/delete/:id', userController.deleteUser);
 
 module.exports = router;

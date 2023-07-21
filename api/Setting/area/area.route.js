@@ -6,9 +6,9 @@ const {
     authorization,
     isLoggedIn
 } = require("../../../middleware/userAuth");
-// const {
-//     Permissions
-// } = require("./permissions");
+const {
+    Permissions
+} = require("../user/permissions");
 
 /* Insert */
 router.post("/new", areaController.insertArea);
