@@ -14,7 +14,7 @@ const foodMenuSchema = Schema({
   code: {
     type: String,
     maxlength: [50, "Maximum 50 charcters are permitted"],
-    minLength: [5, "code should have more than 5 character"],
+    minLength: [3, "code should have more than 5 character"],
     required: [true, "please enter code"],
     trim: true,
     default: null,
@@ -37,8 +37,7 @@ const foodMenuSchema = Schema({
 
       quantity: {
         type: Number,
-        maxlength: [10, "Maximum 10 charcters are permitted"],
-        minLength: [1, "quantity should have more than 1 character"],
+        min: [1, "quantity should have more than 1"],
         required: [true, "please enter quantity"],
       },
     },
@@ -46,23 +45,27 @@ const foodMenuSchema = Schema({
 
   Dine_price: {
     type: Number,
+    min: 0,
+    default: 0,
   },
 
   Takeaway_price: {
     type: Number,
+    min: 0,
+    default: 0,
   },
   Delivery_price: [
     {
       deliveryPartnerName: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "DeliveryPartner",
-        required: [true, "please enter DeliveryPartner"],
+        default: null,
       },
 
       price: {
         type: Number,
-        minLength: [1, "price should have more than 1 character"],
-        required: [true, "please enter price"],
+        min: 0,
+        default: 0,
       },
     },
   ],
