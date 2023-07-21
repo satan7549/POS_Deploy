@@ -59,6 +59,9 @@ const userSchema = Schema({
   outlet_code: {
     type: String,
   },
+  // admin_id: {
+  //   type
+  // }
   forgotPasswardToken: String,
   forgotPasswardExpiry: Date,
   createdAt: {
