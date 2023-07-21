@@ -44,14 +44,19 @@ exports.showTable = async (req, res, next) => {
   try {
     const id = req.params.id;
     const table = await TableModel.findOne({ _id: id })
-    .populate({
-      path: "outlet_id",
-      match:{del_status:"Live"}
-    }).populate({
-      path: "area_id",
-      match:{del_status:"Live"}
-    })
-    .exec();
+      .populate({
+        path: "order",
+        match: { del_status: "Live" },
+      })
+      .populate({
+        path: "outlet_id",
+        match: { del_status: "Live" },
+      })
+      .populate({
+        path: "area_id",
+        match: { del_status: "Live" },
+      })
+      .exec();
 
     if (!table) {
       return res.status(404).json({ message: "Table not found" });
@@ -68,14 +73,19 @@ exports.showTable = async (req, res, next) => {
 exports.showTables = async (req, res, next) => {
   try {
     const tables = await TableModel.find({ del_status: "Live" })
-    .populate({
-      path: "outlet_id",
-      match:{del_status:"Live"}
-    }).populate({
-      path: "area_id",
-      match:{del_status:"Live"}
-    })
-    .exec();
+      .populate({
+        path: "order",
+        match: { del_status: "Live" },
+      })
+      .populate({
+        path: "outlet_id",
+        match: { del_status: "Live" },
+      })
+      .populate({
+        path: "area_id",
+        match: { del_status: "Live" },
+      })
+      .exec();
 
     if (!tables || tables.length === 0) {
       return res.status(404).json({ message: "Table not found" });

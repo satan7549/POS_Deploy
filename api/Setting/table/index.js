@@ -44,6 +44,8 @@ const tableSchema = Schema({
     required: [true, "please enter outlet_id"],
   },
 
+  order: { type: mongoose.Schema.Types.ObjectId, ref: "Order", default: null },
+
   del_status: {
     type: String,
     enum: {

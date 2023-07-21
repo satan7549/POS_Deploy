@@ -2,6 +2,18 @@ const express = require("express");
 const router = express.Router();
 
 const billingController = require("./billing.controller");
+const {
+    authorization,
+    isLoggedIn
+} = require("../../../middleware/userAuth");
+const {
+    Permissions
+} = require("../user/permissions");
+
+// authorization(Permissions.permissions.billing.create),
+// authorization(Permissions.permissions.billing.view),
+// authorization(Permissions.permissions.billing.update),
+// authorization(Permissions.permissions.billing.delete),
 
 /* Insert */
 router.post("/new", billingController.billingInsert);

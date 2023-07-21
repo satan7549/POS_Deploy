@@ -3,6 +3,7 @@ const { validateOrder, validateUpdate } = require("./order.Validator");
 const { validateKot } = require("../KOT/kot.validator");
 const OrderModel = require("./index");
 const KotModel = require("../KOT/index");
+const TableModle = require("../table/index");
 const generateKOTNumber = require("../KOT/uniqueKotNumber");
 
 // Function to generate a new order
@@ -15,6 +16,11 @@ const generateOrder = async (orderObjectValue) => {
 const generateKOT = async (kotObjectValue) => {
   const kot = new KotModel(kotObjectValue);
   return await kot.save();
+};
+
+const findTale = async (tableId) => {
+  const table = await TableModle.findOne({ _id: tableId, del_status: "Live" });
+  return table;
 };
 
 // Function to validate the KOT object
@@ -161,7 +167,6 @@ exports.showOrderDetail = async (req, res, next) => {
       .json({ message: "Something went wrong", error: error.message });
   }
 };
-
 
 // Controller function to display a list of orders
 exports.showOrders = async (req, res, next) => {

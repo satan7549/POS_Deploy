@@ -9,10 +9,10 @@ const {
 const {
     Permissions
 } = require("./permissions");
-// authorization(Permissions.permissions.viewUser),
-// authorization(Permissions.permissions.viewUser),
-// authorization(Permissions.permissions.updateUser),
-// authorization(Permissions.permissions.deleteUser),
+// authorization(Permissions.permissions.user.create),
+// authorization(Permissions.permissions.user.view),
+// authorization(Permissions.permissions.user.update),
+// authorization(Permissions.permissions.user.delete),
 
 // add user
 router.post('/new', userController.userInsert);
