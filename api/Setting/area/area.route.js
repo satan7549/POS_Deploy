@@ -6,14 +6,12 @@ const {
     authorization,
     isLoggedIn
 } = require("../../../middleware/userAuth");
-const {
-    Permissions
-} = require("./permissions");
-const {
-    authorization
-} = require("../../../middleware/userAuth");
+// const {
+//     Permissions
+// } = require("./permissions");
+
 /* Insert */
-router.post("/new",authorization(Permissions.permissions.viewUser), areaController.insertArea);
+router.post("/new", areaController.insertArea);
 
 /* show */
 router.get("/list", areaController.showAreas);
