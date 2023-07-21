@@ -84,7 +84,7 @@ app.use("/", indexRouter);
 app.use("/user", userRouter);
 
 // user authentication
-app.use(isLoggedIn);
+// app.use(isLoggedIn);
 
 // Role base url
 app.use("/role", RoleRouter);
