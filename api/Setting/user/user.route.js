@@ -15,10 +15,10 @@ const {
 // authorization(Permissions.permissions.user.delete),
 
 // add user
-router.post('/new',userController.logout, userController.userInsert);
+router.post('/new', userController.userInsert);
 
 // user Login
-router.post('/login',userController.logout, userController.login);
+router.post('/login', userController.login);
 
 //user logout
 router.get('/logout', userController.logout);
