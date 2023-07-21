@@ -9,16 +9,16 @@ const {
 const {
     Permissions
 } = require("./permissions");
-// authorization(Permissions.permissions.user.create),
-// authorization(Permissions.permissions.user.view),
-// authorization(Permissions.permissions.user.update),
-// authorization(Permissions.permissions.user.delete),
+// authorization(Permissions.permissions.viewUser),
+// authorization(Permissions.permissions.viewUser),
+// authorization(Permissions.permissions.updateUser),
+// authorization(Permissions.permissions.deleteUser),
 
 // add user
-router.post('/new',userController.logout, userController.userInsert);
+router.post('/new', userController.userInsert);
 
 // user Login
-router.post('/login',userController.logout, userController.login);
+router.post('/login', userController.login);
 
 //user logout
 router.get('/logout', userController.logout);

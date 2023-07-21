@@ -3,19 +3,6 @@ const router = express.Router();
 
 const ingredientUnitController = require("./ingredientUnit.Controller");
 
-const {
-    authorization,
-    isLoggedIn
-} = require("../../../middleware/userAuth");
-const {
-    Permissions
-} = require("../user/permissions");
-
-    // authorization(Permissions.permissions.ingredientUnit.create),
-    // authorization(Permissions.permissions.ingredientUnit.view),
-    // authorization(Permissions.permissions.ingredientUnit.update),
-    // authorization(Permissions.permissions.ingredientUnit.delete),
-
 /* Insert */
 router.post("/new", ingredientUnitController.ingredientUnitInsert);
 

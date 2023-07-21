@@ -3,19 +3,6 @@ const router = express.Router();
 
 const deliveryPartnerController = require("./deliveryPartner.controller");
 
-const {
-    authorization,
-    isLoggedIn
-} = require("../../../middleware/userAuth");
-const {
-    Permissions
-} = require("../user/permissions");
-
-// authorization(Permissions.permissions.deliveryPartner.create),
-// authorization(Permissions.permissions.deliveryPartner.view),
-// authorization(Permissions.permissions.deliveryPartner.update),
-// authorization(Permissions.permissions.deliveryPartner.delete),
-
 // /* add */
 // router.get('/new', foodMenuController.addfoodMenu);
 

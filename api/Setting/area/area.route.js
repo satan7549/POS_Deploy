@@ -10,11 +10,6 @@ const {
     Permissions
 } = require("../user/permissions");
 
-// authorization(Permissions.permissions.area.create),
-// authorization(Permissions.permissions.area.view),
-// authorization(Permissions.permissions.area.update),
-// authorization(Permissions.permissions.area.delete),
-
 /* Insert */
 router.post("/new", areaController.insertArea);
 

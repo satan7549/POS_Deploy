@@ -3,19 +3,6 @@ const express = require('express');
 const router = express.Router();
 const CompanyController = require('./Company.Controller');
 
-const {
-    authorization,
-    isLoggedIn
-} = require("../../../middleware/userAuth");
-const {
-    Permissions
-} = require("../user/permissions");
-
-// authorization(Permissions.permissions.company.create),
-// authorization(Permissions.permissions.company.view),
-// authorization(Permissions.permissions.company.update),
-// authorization(Permissions.permissions.company.delete),
-
 // Create a new company
 router.post('/new', CompanyController.createCompany);
 

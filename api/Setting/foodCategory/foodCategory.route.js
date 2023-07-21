@@ -3,19 +3,6 @@ const router = express.Router();
 
 const foodCategoryController = require("./foodCategory.controller");
 
-const {
-    authorization,
-    isLoggedIn
-} = require("../../../middleware/userAuth");
-const {
-    Permissions
-} = require("../user/permissions");
-
-// authorization(Permissions.permissions.foodCategory.create),
-// authorization(Permissions.permissions.foodCategory.view),
-// authorization(Permissions.permissions.foodCategory.update),
-// authorization(Permissions.permissions.foodCategory.delete),
-
 /* Insert */
 router.post("/new", foodCategoryController.foodCategoryInsert);
 
