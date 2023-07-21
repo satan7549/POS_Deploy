@@ -13,15 +13,12 @@ router.post("/new", foodMenuController.foodMenuInsert);
 router.get("/list", foodMenuController.showFoodMenus);
 
 /* edit */
-router.get("/:id", foodMenuController.showFoodMenu);
+router.get("/:id", foodMenuController.showFoodMenuById);
 
 /* update */
 router.put("/update/:id", foodMenuController.updateFoodMenu);
 
 /* delete */
 router.delete("/delete/:id", foodMenuController.deleteFoodMenu);
-
-// Find Model for Test
-router.get("/find-model/:id", foodMenuController.findModelByFoodMenuId);
 
 module.exports = router;

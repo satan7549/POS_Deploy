@@ -121,3 +121,28 @@ exports.deleteIngredient = async (req, res, next) => {
     res.status(500).json({ message:"Something went wrong",error:error.message });
   }
 };
+
+// Find outlet by Table ID
+exports.findModelByIngredientId = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const ingredient = await IngredientModel.findById(id)
+      .populate({
+        path: "category",
+        match:{del_status:"Live"}
+      }).populate({
+        path: "PurchaseUnit",
+        match:{del_status:"Live"}
+      }).populate({
+        path: "ConsumptionUnit",
+        match:{del_status:"Live"}
+      })
+
+    res.status(200).json({ message: "Success", ingredient });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error fetching table details from the database",
+      error: error.message,
+    });
+  }
+};

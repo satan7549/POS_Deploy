@@ -20,6 +20,4 @@ router.put("/update/:id", ingredientController.updateIngredient);
 /* delete */
 router.delete("/delete/:id", ingredientController.deleteIngredient);
 
-
-
 module.exports = router;

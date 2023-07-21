@@ -39,7 +39,15 @@ exports.modifierInsert = async (req, res, next) => {
 exports.showModifier = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const modifier = await ModifierModel.findOne({ _id: id });
+    const modifier = await ModifierModel.findOne({ _id: id })
+    .populate({
+      path: "company_id",
+      match:{del_status:"Live"}
+    }).populate({
+      path: "foodCategory",
+      match:{del_status:"Live"}
+    })
+    .exec();
 
     if (!modifier) {
       return res.status(404).json({ message: "Modifier not found" });
@@ -56,7 +64,15 @@ exports.showModifier = async (req, res, next) => {
 // Display List
 exports.showModifiers = async (req, res, next) => {
   try {
-    const modifier = await ModifierModel.find({ del_status: "Live" });
+    const modifier = await ModifierModel.find({ del_status: "Live" })
+    .populate({
+      path: "company_id",
+      match:{del_status:"Live"}
+    }).populate({
+      path: "foodCategory",
+      match:{del_status:"Live"}
+    })
+    .exec();
 
     if (!modifier || modifier.length === 0) {
       return res.status(404).json({ message: "modifier not found" });
@@ -117,27 +133,5 @@ exports.deleteModifier = async (req, res, next) => {
     res
       .status(500)
       .json({ message: "Something went wrong", error: error.message });
-  }
-};
-
-// Find Models by Kitchen ID
-exports.findModelByModifierId = async (req, res, next) => {
-  try {
-    const id = req.params.id;
-    const modifier = await ModifierModel.findById(id)
-      .populate({
-        path: "company_id",
-        match:{del_status:"Live"}
-      }).populate({
-        path: "foodCategory",
-        match:{del_status:"Live"}
-      })
-
-    res.status(200).json({ message: "Success", modifier });
-  } catch (error) {
-    res.status(500).json({
-      message: "Error fetching modifier details from the database",
-      error: error.message,
-    });
   }
 };
