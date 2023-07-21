@@ -3,8 +3,16 @@ const router = express.Router(); // access the method of route
 const jwt = require("jsonwebtoken");
 const userController = require('./user.controller');
 const {
-    authorization, isLoggedIn
-} = require("./role.auth");
+    authorization,
+    isLoggedIn
+} = require("../../../middleware/userAuth");
+const {
+    Permissions
+} = require("./permissions");
+// authorization(Permissions.permissions.viewUser),
+// authorization(Permissions.permissions.viewUser),
+// authorization(Permissions.permissions.updateUser),
+// authorization(Permissions.permissions.deleteUser),
 
 // add user
 router.post('/new', userController.userInsert);
@@ -17,15 +25,15 @@ router.get('/logout', userController.logout);
 
 // router.use(isLoggedIn);
 // all users
-router.get('/list', authorization, userController.showUsers);
+router.get('/list', isLoggedIn, userController.showUsers);
 
 /* show */
-router.get('/show/:id', authorization, userController.showUser);
+router.get('/show/:id', isLoggedIn, userController.showUser);
 
 /* update */
-router.put('/update/:id', authorization, userController.updateUser);
+router.put('/update/:id', isLoggedIn, userController.updateUser);
 
 /* Delete */
-router.delete('/delete/:id', authorization, userController.deleteUser);
+router.delete('/delete/:id', isLoggedIn, userController.deleteUser);
 
 module.exports = router;

@@ -2,9 +2,18 @@ const express = require("express");
 const router = express.Router();
 
 const areaController = require("./area.controller");
-
+const {
+    authorization,
+    isLoggedIn
+} = require("../../../middleware/userAuth");
+const {
+    Permissions
+} = require("./permissions");
+const {
+    authorization
+} = require("../../../middleware/userAuth");
 /* Insert */
-router.post("/new", areaController.insertArea);
+router.post("/new",authorization(Permissions.permissions.viewUser), areaController.insertArea);
 
 /* show */
 router.get("/list", areaController.showAreas);
