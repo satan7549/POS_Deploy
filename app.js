@@ -12,7 +12,9 @@ const indexRouter = require("./routes/index");
 // user related route import
 const userRouter = require("./api/Setting/user/user.route");
 const RoleRouter = require("./api/Setting/role/role.route");
-const {isLoggedIn} = require("./api/Setting/user/role.auth");
+const {
+  isLoggedIn
+} = require("./middleware/userAuth");
 
 // Company route import
 const companyRouter = require("./api/Setting/Company/Company.Route");
@@ -69,17 +71,22 @@ app.set("view engine", "jade");
 
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // Base URL
 app.use("/", indexRouter);
 
-app.use(isLoggedIn);
-
 // User base url
 app.use("/user", userRouter);
+
+// user authentication
+// app.use(isLoggedIn);
+
+// Role base url
 app.use("/role", RoleRouter);
 
 
@@ -150,6 +157,3 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
-
-
-
