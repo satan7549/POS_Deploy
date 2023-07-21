@@ -10,12 +10,15 @@ router.post("/new", orderController.orderInsert);
 router.get("/list", orderController.showOrders);
 
 /* edit */
-router.get("/:id", orderController.showOrder);
+router.get("/:id", orderController.showOrderDetail);
 
 /* update */
 router.put("/update/:id", orderController.updateOrder);
 
+/*get order by table id */
+router.get("/table/:id", orderController.getOrderByTableId);
+
 /* delete */
 router.delete("/delete/:id", orderController.deleteOrder);
 
-module.exports = router; 
+module.exports = router;
