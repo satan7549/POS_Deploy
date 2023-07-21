@@ -44,8 +44,14 @@ exports.showTable = async (req, res, next) => {
   try {
     const id = req.params.id;
     const table = await TableModel.findOne({ _id: id })
-      .populate({ path: "area_id", match: { del_status: "Live" } })
-      .exec();
+    .populate({
+      path: "outlet_id",
+      match:{del_status:"Live"}
+    }).populate({
+      path: "area_id",
+      match:{del_status:"Live"}
+    })
+    .exec();
 
     if (!table) {
       return res.status(404).json({ message: "Table not found" });
@@ -62,8 +68,14 @@ exports.showTable = async (req, res, next) => {
 exports.showTables = async (req, res, next) => {
   try {
     const tables = await TableModel.find({ del_status: "Live" })
-      .populate({ path: "area_id", match: { del_status: "Live" } })
-      .exec();
+    .populate({
+      path: "outlet_id",
+      match:{del_status:"Live"}
+    }).populate({
+      path: "area_id",
+      match:{del_status:"Live"}
+    })
+    .exec();
 
     if (!tables || tables.length === 0) {
       return res.status(404).json({ message: "Table not found" });
@@ -126,27 +138,5 @@ exports.deleteTable = async (req, res, next) => {
     res
       .status(500)
       .json({ message: "Something went wrong", error: error.message });
-  }
-};
-
-// Find outlet by Table ID
-exports.findModelByTableId = async (req, res, next) => {
-  try {
-    const id = req.params.id;
-    const table = await TableModel.findById(id)
-      .populate({
-        path: "outlet_id",
-        match:{del_status:"Live"}
-      }).populate({
-        path: "area_id",
-        match:{del_status:"Live"}
-      })
-
-    res.status(200).json({ message: "Success", table });
-  } catch (error) {
-    res.status(500).json({
-      message: "Error fetching table details from the database",
-      error: error.message,
-    });
   }
 };

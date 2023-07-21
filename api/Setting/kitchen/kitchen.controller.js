@@ -49,7 +49,16 @@ exports.kitchenInsert = async (req, res, next) => {
 exports.showKitchen = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const kitchen = await KitchenModel.findById(id);
+    const kitchen = await KitchenModel.findOne({ _id: id })
+    .populate({
+      path: "kitchen_area",
+      match:{del_status:"Live"}
+    })
+    .populate({
+      path: "outlet",
+      match:{del_status:"Live"}
+    })
+    .exec();
 
     if (!kitchen) {
       return res.status(404).json({ message: "Kitchen not found" });
@@ -66,7 +75,16 @@ exports.showKitchen = async (req, res, next) => {
 // Display List
 exports.showAllKitchens = async (req, res, next) => {
   try {
-    const kitchens = await KitchenModel.find({ del_status: "Live" });
+    const kitchens = await KitchenModel.find({ del_status: "Live" })
+    .populate({
+      path: "kitchen_area",
+      match:{del_status:"Live"}
+    })
+    .populate({
+      path: "outlet",
+      match:{del_status:"Live"}
+    })
+    .exec();
 
     if (!kitchens || kitchens.length === 0) {
       return res.status(404).json({ message: "No kitchens found" });
@@ -152,28 +170,5 @@ exports.deleteKitchen = async (req, res, next) => {
     res
       .status(500)
       .json({ message: "Something went wrong", error: error.message });
-  }
-};
-
-// Find Models by Kitchen ID
-exports.findModelByKitchenId = async (req, res, next) => {
-  try {
-    const id = req.params.id;
-    const kitchen = await KitchenModel.findById(id)
-      .populate({
-        path: "kitchen_area",
-        match:{del_status:"Live"}
-      })
-      .populate({
-        path: "outlet",
-        match:{del_status:"Live"}
-      });
-
-    res.status(200).json({ message: "Success", kitchen });
-  } catch (error) {
-    res.status(500).json({
-      message: "Error fetching kitchen details from the database",
-      error: error.message,
-    });
   }
 };
