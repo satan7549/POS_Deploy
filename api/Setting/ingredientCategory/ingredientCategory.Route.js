@@ -3,6 +3,19 @@ const router = express.Router();
 
 const ingredientCategoryController = require("./ingredientCategory.Controller");
 
+const {
+    authorization,
+    isLoggedIn
+} = require("../../../middleware/userAuth");
+const {
+    Permissions
+} = require("../user/permissions");
+
+    // authorization(Permissions.permissions.ingredientCategory.create),
+    // authorization(Permissions.permissions.ingredientCategory.view),
+    // authorization(Permissions.permissions.ingredientCategory.update),
+    // authorization(Permissions.permissions.ingredientCategory.delete),
+
 /* Insert */
 router.post("/new", ingredientCategoryController.ingredientCategoryInsert);
 

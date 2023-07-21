@@ -3,8 +3,21 @@ const router = express.Router();
 
 const kitchenController = require("./kitchen.controller");
 
-/* Insert */
-router.post("/new", kitchenController.kitchenInsert);
+const {
+    authorization,
+    isLoggedIn
+} = require("../../../middleware/userAuth");
+const {
+    Permissions
+} = require("../user/permissions");
+
+    // authorization(Permissions.permissions.kitchen.create),
+    // authorization(Permissions.permissions.kitchen.view),
+    // authorization(Permissions.permissions.kitchen.update),
+    // authorization(Permissions.permissions.kitchen.delete),
+
+    /* Insert */
+    router.post("/new", kitchenController.kitchenInsert);
 
 /* show */
 router.get("/list", kitchenController.showAllKitchens);

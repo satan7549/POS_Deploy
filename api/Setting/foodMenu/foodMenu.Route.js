@@ -3,6 +3,19 @@ const router = express.Router();
 
 const foodMenuController = require("./foodMenu.Controller");
 
+const {
+    authorization,
+    isLoggedIn
+} = require("../../../middleware/userAuth");
+const {
+    Permissions
+} = require("../user/permissions");
+
+    // authorization(Permissions.permissions.foodMenu.create),
+    // authorization(Permissions.permissions.foodMenu.view),
+    // authorization(Permissions.permissions.foodMenu.update),
+    // authorization(Permissions.permissions.foodMenu.delete),
+
 // /* add */
 // router.get('/new', foodMenuController.addfoodMenu);
 
