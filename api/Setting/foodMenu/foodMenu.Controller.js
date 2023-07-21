@@ -1,8 +1,5 @@
 const { validateFoodMenu, validateUpdate } = require("./foodMenu.Validator");
 const FoodMenuModel = require("./index");
-const FoodCategoryModel = require("../foodCategory/index");
-const OutletModel = require("../outlet/index");
-const IngredientModel = require("../ingredients/index");
 
 //insert new FoodMenu
 exports.foodMenuInsert = async (req, res, next) => {
