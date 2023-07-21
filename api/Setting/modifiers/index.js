@@ -11,6 +11,15 @@ const modifierSchema = Schema({
     trim: true,
     default: null,
   },
+  code: {
+    type: String,
+    maxlength: [50, "Maximum 50 charcters are permitted"],
+    minLength: [3, "code should have more than 5 character"],
+    required: [true, "please enter code"],
+    trim: true,
+    default: null,
+    unique: true,
+  },
   ingredients: [
     {
       ingredient: {
