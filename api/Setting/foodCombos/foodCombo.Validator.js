@@ -56,12 +56,14 @@ Takeaway_price: Joi.number().required()
 'number.empty': 'Takeaway_price is required',
 'any.required': 'Please enter a Takeaway_price',
 }),
-Delivery_price: Joi.number().required()
-.messages({
-'number.base': 'Delivery_price must be a number',
-'number.empty': 'Delivery_price is required',
-'any.required': 'Please enter a Delivery_price',
-}),
+Delivery_price: Joi.array()
+.items(
+  Joi.object({
+    deliveryPartnerName: Joi.string().required(),
+    price: Joi.number().min(0).required(),
+  })
+)
+.required(),
 
 description: Joi.string().max(200).required().trim()
 .messages({
@@ -151,12 +153,14 @@ Takeaway_price: Joi.number().required()
 'number.empty': 'Takeaway_price is required',
 'any.required': 'Please enter a Takeaway_price',
 }),
-Delivery_price: Joi.number().required()
-.messages({
-'number.base': 'Delivery_price must be a number',
-'number.empty': 'Delivery_price is required',
-'any.required': 'Please enter a Delivery_price',
-}),
+Delivery_price: Joi.array()
+.items(
+  Joi.object({
+    deliveryPartnerName: Joi.string().required(),
+    price: Joi.number().min(0).required(),
+  })
+)
+.required(),
 
 description: Joi.string().max(200).required().trim()
 .messages({

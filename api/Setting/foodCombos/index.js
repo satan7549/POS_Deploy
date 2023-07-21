@@ -48,10 +48,21 @@ const foodComboSchema = new Schema({
     type: Number,
     required: [true, "Please enter a Takeaway_price"],
   },
-  Delivery_price: {
-    type: Number,
-    required: [true, "Please enter a Delivery_price"],
-  },
+  Delivery_price: [
+    {
+      deliveryPartnerName: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "DeliveryPartner",
+        default: null,
+      },
+
+      price: {
+        type: Number,
+        min: 0,
+        default: 0,
+      },
+    },
+  ],
   description: {
     type: String,
     maxlength: [200, "Maximum 200 characters are permitted"],
