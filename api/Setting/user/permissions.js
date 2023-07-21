@@ -1,9 +1,15 @@
 class Permissions {
     static permissions = {
-        editAdmin: 100,
-        deleteAdmin: 101,
-        createUser: 102,
-        deleteUser: 103
+        createUser: 100,
+        updateAdmin: 101,
+        viewAdmin: 102,
+        deleteUser: 103,
+        viewKichen: 104,
+        editKichen: 105,
+        updateKichen: 106,
+        deleteKichen: 107,
+        
+
         // Add more permissions here
     };
 
