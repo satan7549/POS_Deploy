@@ -5,6 +5,7 @@ const cookieToken = require("../../../utils/cookieToken");
 const CustomError = require("../../../utils/customError");
 const OutletModel = require("../outlet/index");
 
+const jwt = require("jsonwebtoken");
 //insert new User
 exports.userInsert = async (req, res, next) => {
   try {
@@ -182,6 +183,8 @@ exports.deleteUser = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   const { email_address, password } = req.body;
 
+console.log(req.user);
+
   //check for presence of email and password
   if (!email_address || !password) {
     return next(new CustomError("Please provide email and password", 400));
@@ -208,4 +211,15 @@ exports.login = async (req, res, next) => {
   }
 
   cookieToken(user, res);
+};
+
+
+exports.logout = async (req, res, next) => {
+  res.cookie("token", null, {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+  });
+  res.status(200).json({
+    message: "Logout success",
+  });
 };
