@@ -1,8 +1,5 @@
 const { validateFoodMenu, validateUpdate } = require("./foodMenu.Validator");
 const FoodMenuModel = require("./index");
-const FoodCategoryModel = require("../foodCategory/index");
-const OutletModel = require("../outlet/index");
-const IngredientModel = require("../ingredients/index");
 
 //insert new FoodMenu
 exports.foodMenuInsert = async (req, res, next) => {
@@ -39,10 +36,22 @@ exports.foodMenuInsert = async (req, res, next) => {
 };
 
 // Display Single FoodMenu
-exports.showFoodMenu = async (req, res, next) => {
+exports.showFoodMenuById = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const foodMenu = await FoodMenuModel.findOne({ _id: id });
+    const foodMenu = await FoodMenuModel.findById(id)
+      .populate({
+        path: "food_category",
+        match:{del_status:"Live"}
+      })
+      .populate({
+        path: "ingredients.ingredient",
+        match:{del_status:"Live"}
+      })
+      .populate({
+        path: "outlet",
+        match:{del_status:"Live"}
+      });
 
     if (!foodMenu) {
       return res.status(404).json({ message: "FoodMenu not found" });
@@ -59,7 +68,11 @@ exports.showFoodMenu = async (req, res, next) => {
 // Display List
 exports.showFoodMenus = async (req, res, next) => {
   try {
-    const foodMenu = await FoodMenuModel.find({ del_status: "Live" });
+    const foodMenu = await FoodMenuModel.find({ del_status: "Live" })
+    .populate({ path: "food_category", match:{del_status:"Live"} })
+    .populate({ path: "ingredients.ingredient", match:{del_status:"Live"} })
+    .populate({ path: "outlet", match:{del_status:"Live"} })
+    .exec();
 
     if (!foodMenu || foodMenu.length === 0) {
       return res.status(404).json({ message: "foodMenu not found" });
@@ -123,32 +136,6 @@ exports.deleteFoodMenu = async (req, res, next) => {
   }
 };
 
-// Find Models by foddMenu ID
-exports.findModelByFoodMenuId = async (req, res, next) => {
-  try {
-    const id = req.params.id;
-    const foodMenu = await FoodMenuModel.findById(id)
-      .populate({
-        path: "food_category",
-        match:{del_status:"Live"}
-      })
-      .populate({
-        path: "ingredients.ingredient",
-        match:{del_status:"Live"}
-      })
-      .populate({
-        path: "outlet",
-        match:{del_status:"Live"}
-      });
-
-    res.status(200).json({ message: "Success", foodMenu });
-  } catch (error) {
-    res.status(500).json({
-      message: "Error fetching foodMenu details from the database",
-      error: error.message,
-    });
-  }
-};
 
 
 

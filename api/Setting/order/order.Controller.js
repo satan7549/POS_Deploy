@@ -5,7 +5,6 @@ const OrderModel = require("./index");
 const KotModel = require("../KOT/index");
 const generateKOTNumber = require("../KOT/uniqueKotNumber");
 
-
 // Function to generate a new order
 const generateOrder = async (orderObjectValue) => {
   const orderModel = new OrderModel(orderObjectValue);
@@ -143,12 +142,12 @@ exports.orderInsert = async (req, res, next) => {
 };
 
 // Controller function to display a single order
-exports.showOrder = async (req, res, next) => {
+exports.showOrderDetail = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const order = await OrderModel.findOne({ _id: id });
+    const order = await OrderModel.findOne({ _id: id, del_status: "Live" });
 
-    // If the order with the specified ID is not found, send a 404 response
+    // If the order with the specified ID and del_status "Live" is not found, send a 404 response
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
     }
@@ -157,9 +156,12 @@ exports.showOrder = async (req, res, next) => {
     res.status(200).json({ message: "success", order });
   } catch (error) {
     // Send Error Response if any error occurs during the process
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
+
 
 // Controller function to display a list of orders
 exports.showOrders = async (req, res, next) => {
@@ -175,7 +177,9 @@ exports.showOrders = async (req, res, next) => {
     res.status(200).json({ message: "success", order });
   } catch (error) {
     // Send Error Response if any error occurs during the process
-    res.status(500).json({ error });
+    res
+      .status(500)
+      .json({ message: "Somthing went wrong", error: error.message });
   }
 };
 
@@ -206,7 +210,29 @@ exports.updateOrder = async (req, res, next) => {
     res.status(200).json({ message: "success", order });
   } catch (error) {
     // Send Error Response if any error occurs during the process
-    res.status(500).json("Error updating order");
+    res
+      .status(500)
+      .json({ message: "Error updating order", error: error.message });
+  }
+};
+
+//Controller function for getting running order from table id
+exports.getOrderByTableId = async (req, res, next) => {
+  try {
+    const tableID = req.params.id;
+    const orderExists = await OrderModel.findOne({
+      table: tableID,
+      del_status: "Live",
+    });
+    if (!orderExists) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    res.status(200).json({ message: "success", order: orderExists });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Somthing went wrong", error: error.message });
   }
 };
 
@@ -231,6 +257,8 @@ exports.deleteOrder = async (req, res, next) => {
     res.status(200).json({ message: "Order deleted successfully" });
   } catch (error) {
     // Send Error Response if any error occurs during the process
-    res.status(500).json({ error: error.message });
+    res
+      .status(500)
+      .json({ message: "Somthing went wrong", error: error.message });
   }
 };

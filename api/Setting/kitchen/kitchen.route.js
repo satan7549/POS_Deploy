@@ -35,3 +35,4 @@ router.delete("/delete/:id", kitchenController.deleteKitchen);
 router.get("/find-model/:id", kitchenController.findModelByKitchenId);
 
 module.exports = router;
+

@@ -12,12 +12,17 @@ exports.insertKot = async (req, res, next) => {
       return res.status(400).send(error.details[0].message);
     }
 
-    // Insert KOT
-    const kot = new KotModel(value);
-    const savedKot = await kot.save();
+    // // Insert KOT
+    // const kot = new KotModel(value);
+    // const savedKot = await kot.save();
 
     // Send Response
-    res.status(200).json({ message: "KOT inserted", kot: savedKot });
+    res
+      .status(200)
+      .json({
+        message: "KOT inserted",
+        kot: "Direct not working its auto generate automatically througn order route",
+      });
   } catch (error) {
     // Send Error Response
     res
