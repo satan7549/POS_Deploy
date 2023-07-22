@@ -178,9 +178,11 @@ exports.showOrders = async (req, res, next) => {
   try {
     const order = await OrderModel.find({ del_status: "Live" }).populate({
       path: "kot_print",
+      match: { del_status: "Live" },
       model: "Kot",
       populate: {
         path: "items.food_item",
+        match: { del_status: "Live" },
         model: "FoodMenu",
       }, // Replace "kot" with the name of the model that the `kot_print` field references
     });
