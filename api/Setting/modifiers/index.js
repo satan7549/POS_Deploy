@@ -45,11 +45,7 @@ const modifierSchema = Schema({
     required: [true, "please enter Company_id"],
   },
   
-  foodCategory: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "FoodCategory",
-    required: [true, "please enter FoodCategory"],
-  },
+  
   // tax_information: {
   //   type: String,
   //   maxlength: [100, "Maximum 100 charcters are permitted"],
