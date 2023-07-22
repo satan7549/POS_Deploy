@@ -18,11 +18,6 @@ const generateKOT = async (kotObjectValue) => {
   return await kot.save();
 };
 
-const findTale = async (tableId) => {
-  const table = await TableModle.findOne({ _id: tableId, del_status: "Live" });
-  return table;
-};
-
 // Function to validate the KOT object
 const validateKOTObject = (kotObject) => {
   return validateKot(kotObject);
@@ -127,6 +122,14 @@ exports.orderInsert = async (req, res, next) => {
 
       // Generate a new KOT and save it
       const savedKot = await generateKOT(kotObjectValidationResult.value);
+
+      //=======new changes for save order in table ========//
+      //find Table by id
+      const Table = await TableModle.findOne({ _id: savedKot.table });
+      console.log("====> Table in order route")
+      // order id insert in table
+      Table.order = savedOrder._id;
+      await Table.save();
 
       // Update the order with KOT information
       savedOrder.kot_print.push(savedKot._id);
