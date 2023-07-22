@@ -24,12 +24,10 @@ exports.insertArea = async (req, res, next) => {
     res.status(200).json({ message: "Area inserted", area: savedArea });
   } catch (error) {
     // Send Error Response
-    res
-      .status(500)
-      .json({
-        message: "Error inserting data into database",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Error inserting data into database",
+      error: error.message,
+    });
   }
 };
 
@@ -37,9 +35,17 @@ exports.insertArea = async (req, res, next) => {
 exports.showAreas = async (req, res, next) => {
   try {
     const areas = await AreaModel.find({ del_status: "Live" })
-    .populate({ path: "tables", match: { del_status: "Live" } })
-    .populate({ path: "outlet_id",  match:{del_status:"Live"}  })
-    .exec();
+      .populate({
+        path: "tables",
+        match: { del_status: "Live" },
+        populate: {
+          path: "order",
+          select: "order_status",
+          match: { del_status: "Live" },
+        },
+      })
+      .populate({ path: "outlet_id", match: { del_status: "Live" } })
+      .exec();
 
     if (areas.length === 0) {
       return res.status(404).json({ message: "No Areas found" });
@@ -58,8 +64,16 @@ exports.findAreaByID = async (req, res, next) => {
   try {
     const id = req.params.id;
     const area = await AreaModel.findOne({ _id: id })
-      .populate({ path: "tables", match: { del_status: "Live" } })
-      .populate({ path: "outlet_id",  match:{del_status:"Live"}  })
+      .populate({
+        path: "tables",
+        match: { del_status: "Live" },
+        populate: {
+          path: "order",
+          select: "order_status",
+          match: { del_status: "Live" },
+        },
+      })
+      .populate({ path: "outlet_id", match: { del_status: "Live" } })
       .exec();
 
     if (!area) {
