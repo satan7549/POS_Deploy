@@ -25,16 +25,22 @@ const validateKOTObject = (kotObject) => {
 
 // Controller function to handle order insertion
 exports.orderInsert = async (req, res, next) => {
+  // Destructure the required properties from the request body
+  const {
+    persons,
+    waiter,
+    table,
+    items,
+    customer_comment_for_all_food,
+    total_order_price,
+  } = req.body;
   try {
-    // Destructure the required properties from the request body
-    const {
-      persons,
-      waiter,
-      table,
-      items,
-      customer_comment_for_all_food,
-      total_order_price,
-    } = req.body;
+    //find Table by id
+    const Table = await TableModle.findOne({ _id: table });
+
+    if (!Table) {
+      return res.satats(404).json({ message: "Table is not found" });
+    }
 
     // Validate the order object before proceeding
     const orderObject = {
@@ -123,18 +129,17 @@ exports.orderInsert = async (req, res, next) => {
       // Generate a new KOT and save it
       const savedKot = await generateKOT(kotObjectValidationResult.value);
 
-      //=======new changes for save order in table ========//
-      //find Table by id
-      const Table = await TableModle.findOne({ _id: savedKot.table });
-      console.log("====> Table in order route")
-      // order id insert in table
-      Table.order = savedOrder._id;
-      await Table.save();
-
       // Update the order with KOT information
       savedOrder.kot_print.push(savedKot._id);
+      // Updateing the order status
       savedOrder.order_status = "Running";
-      await savedOrder.save();
+      const updatedOrder = await savedOrder.save();
+
+      //=======new changes for save order in table ========//
+      // //find Table by id
+      // order id insert in table
+      Table.order = updatedOrder._id;
+      await Table.save();
 
       // Send Response
       res
