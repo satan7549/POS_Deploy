@@ -12,7 +12,7 @@ const foodComboJoiSchema = Joi.object({
 'any.required': 'Please enter a name',
 }),
 
-code: Joi.string().min(5).max(50).required().trim()
+code: Joi.string().min(3).max(50).required().trim()
 .messages({
 'string.base': 'Code must be a string',
 'string.empty': 'Code is required',
@@ -109,7 +109,7 @@ const updateJoiSchema = Joi.object({
 'any.required': 'Please enter a name',
 }),
 
-code: Joi.string().min(5).max(50).required().trim()
+code: Joi.string().min(3).max(50).required().trim()
 .messages({
 'string.base': 'Code must be a string',
 'string.empty': 'Code is required',
