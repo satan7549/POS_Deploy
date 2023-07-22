@@ -16,7 +16,6 @@ const preMadeFoodSchema = Schema({
       minLength: [3, "code should have more than 3 character"],
       required: [true, "please enter code"],
       trim: true,
-      default: null,
       unique: true,
     },
   category: { type: String, maxlength: [50, "Maximum 50 charcters are permitted"], minLength: [5, "waiter name should have more than 3 character"], required: [true, "please enter description"], trim: true, },
