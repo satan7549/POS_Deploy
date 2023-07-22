@@ -12,7 +12,7 @@ const foodComboJoiSchema = Joi.object({
 'any.required': 'Please enter a name',
 }),
 
-code: Joi.string().min(5).max(50).required().trim()
+code: Joi.string().min(3).max(50).required().trim()
 .messages({
 'string.base': 'Code must be a string',
 'string.empty': 'Code is required',
@@ -56,12 +56,14 @@ Takeaway_price: Joi.number().required()
 'number.empty': 'Takeaway_price is required',
 'any.required': 'Please enter a Takeaway_price',
 }),
-Delivery_price: Joi.number().required()
-.messages({
-'number.base': 'Delivery_price must be a number',
-'number.empty': 'Delivery_price is required',
-'any.required': 'Please enter a Delivery_price',
-}),
+Delivery_price: Joi.array()
+.items(
+  Joi.object({
+    deliveryPartnerName: Joi.string().required(),
+    price: Joi.number().min(0).required(),
+  })
+)
+.required(),
 
 description: Joi.string().max(200).required().trim()
 .messages({
@@ -107,7 +109,7 @@ const updateJoiSchema = Joi.object({
 'any.required': 'Please enter a name',
 }),
 
-code: Joi.string().min(5).max(50).required().trim()
+code: Joi.string().min(3).max(50).required().trim()
 .messages({
 'string.base': 'Code must be a string',
 'string.empty': 'Code is required',
@@ -151,12 +153,14 @@ Takeaway_price: Joi.number().required()
 'number.empty': 'Takeaway_price is required',
 'any.required': 'Please enter a Takeaway_price',
 }),
-Delivery_price: Joi.number().required()
-.messages({
-'number.base': 'Delivery_price must be a number',
-'number.empty': 'Delivery_price is required',
-'any.required': 'Please enter a Delivery_price',
-}),
+Delivery_price: Joi.array()
+.items(
+  Joi.object({
+    deliveryPartnerName: Joi.string().required(),
+    price: Joi.number().min(0).required(),
+  })
+)
+.required(),
 
 description: Joi.string().max(200).required().trim()
 .messages({

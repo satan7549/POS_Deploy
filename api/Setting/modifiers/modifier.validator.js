@@ -6,7 +6,6 @@ const modifierSchema = Joi.object({
     "string.min": "name should have more than 5 characters",
     "any.required": "Please enter modifier_name",
   }),
-  code: Joi.string().max(50).required().trim(),
   ingredients: Joi.array().items(
     Joi.object({
       ingredient: Joi.string()
@@ -31,11 +30,7 @@ const modifierSchema = Joi.object({
     "any.required": "Please enter Company_id",
   }),
 
-  foodCategory: Joi.string().required().messages({
-    "string.base": "FoodCategory ID must be a string",
-    "string.empty": "FoodCategory ID is required",
-    "any.required": "FoodCategory enter a company ID",
-  }),
+ 
 
   // tax_information: Joi.string().min(10).max(100).required().trim().messages({
   //   "string.base": "Tax information must be a string",
@@ -67,7 +62,6 @@ const updateSchema = Joi.object({
     "string.min": "name should have more than 5 characters",
     "any.required": "Please enter modifier_name",
   }),
-  code: Joi.string().max(50).required().trim(),
   ingredients: Joi.array().items(
     Joi.object({
       ingredient: Joi.string()
@@ -96,11 +90,7 @@ const updateSchema = Joi.object({
     "any.required": "Please enter a company ID",
   }),
 
-  foodCategory: Joi.string().required().messages({
-    "string.base": "FoodCategory ID must be a string",
-    "string.empty": "FoodCategory ID is required",
-    "any.required": "FoodCategory enter a company ID",
-  }),
+ 
 
   tax_information: Joi.string().min(10).max(100).required().trim().messages({
     "string.base": "Tax information must be a string",
