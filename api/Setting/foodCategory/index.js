@@ -24,6 +24,10 @@ const foodCategorySchema = Schema({
     type: Date,
     default: Date.now,
   },
+  kitchen:[{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "kitchen",
+    }],
   del_status: {
     type: String,
     enum: {

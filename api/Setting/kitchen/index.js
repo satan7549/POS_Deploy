@@ -31,6 +31,12 @@ const kitchenSchema = Schema({
     required: [true, "please enter Outlet"],
   },
 
+  foodCategory: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "FoodCategory",
+    required: [true, "please enter FoodCategory"],
+  },
+
   del_status: {
     type: String,
     enum: {

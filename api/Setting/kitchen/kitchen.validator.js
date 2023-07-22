@@ -16,6 +16,12 @@ const kitchenJoiSchema = Joi.object({
     "string.base": "Kitchen area should be a string",
     "string.empty": "Kitchen area is required",
     "any.required": "Kitchen area is required",
+  }), 
+  foodCategory: Joi
+  .string().required().messages({
+    'string.base': 'FoodCategory ID must be a string',
+    'string.empty': 'FoodCategory ID cannot be empty',
+    'any.required': 'Please enter FoodCategory',
   }),
   outlet: Joi.string().required().messages({
     "string.base": "Outlet should be a string",
