@@ -25,16 +25,22 @@ const validateKOTObject = (kotObject) => {
 
 // Controller function to handle order insertion
 exports.orderInsert = async (req, res, next) => {
+  // Destructure the required properties from the request body
+  const {
+    persons,
+    waiter,
+    table,
+    items,
+    customer_comment_for_all_food,
+    total_order_price,
+  } = req.body;
   try {
-    // Destructure the required properties from the request body
-    const {
-      persons,
-      waiter,
-      table,
-      items,
-      customer_comment_for_all_food,
-      total_order_price,
-    } = req.body;
+    //find Table by id
+    const Table = await TableModle.findOne({ _id: table });
+
+    if (!Table) {
+      return res.satats(404).json({ message: "Table is not found" });
+    }
 
     // Validate the order object before proceeding
     const orderObject = {
@@ -91,7 +97,6 @@ exports.orderInsert = async (req, res, next) => {
       // Send Response
       res.status(200).json({
         message: "success",
-        orderExist: existingOrder,
         newkot: savedKot,
       });
     } else {
@@ -123,23 +128,20 @@ exports.orderInsert = async (req, res, next) => {
       // Generate a new KOT and save it
       const savedKot = await generateKOT(kotObjectValidationResult.value);
 
-      //=======new changes for save order in table ========//
-      //find Table by id
-      const Table = await TableModle.findOne({ _id: savedKot.table });
-      console.log("====> Table in order route")
-      // order id insert in table
-      Table.order = savedOrder._id;
-      await Table.save();
-
       // Update the order with KOT information
       savedOrder.kot_print.push(savedKot._id);
+      // Updateing the order status
       savedOrder.order_status = "Running";
-      await savedOrder.save();
+      const updatedOrder = await savedOrder.save();
+
+      //=======new changes for save order in table ========//
+      // //find Table by id
+      // order id insert in table
+      Table.order = updatedOrder._id;
+      await Table.save();
 
       // Send Response
-      res
-        .status(200)
-        .json({ message: "success", order: savedOrder, kot: savedKot });
+      res.status(200).json({ message: "success", order: savedOrder });
     }
   } catch (error) {
     // Send Error Response if any error occurs during the process
@@ -174,7 +176,16 @@ exports.showOrderDetail = async (req, res, next) => {
 // Controller function to display a list of orders
 exports.showOrders = async (req, res, next) => {
   try {
-    const order = await OrderModel.find({ del_status: "Live" });
+    const order = await OrderModel.find({ del_status: "Live" }).populate({
+      path: "kot_print",
+      match: { del_status: "Live" },
+      model: "Kot",
+      populate: {
+        path: "items.food_item",
+        match: { del_status: "Live" },
+        model: "FoodMenu",
+      }, // Replace "kot" with the name of the model that the `kot_print` field references
+    });
 
     // If no orders are found or the returned array is empty, send a 404 response
     if (!order || order.length === 0) {
@@ -187,7 +198,7 @@ exports.showOrders = async (req, res, next) => {
     // Send Error Response if any error occurs during the process
     res
       .status(500)
-      .json({ message: "Somthing went wrong", error: error.message });
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
 
