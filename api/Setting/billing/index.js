@@ -9,7 +9,7 @@ const billingSchema = Schema({
   billing_name: {
     type: String,
     maxlength: [50, "Maximum 50 charcters are permitted"],
-    minLength: [5, "billing_name should have more than 5 character"],
+    minLength: [3, "billing_name should have more than 3 character"],
     required: [true, "please enter billing_name"],
     trim: true,
     default: null,
@@ -19,7 +19,11 @@ const billingSchema = Schema({
     ref: "User",
     required: [true, "please enter userID"],
   },
-  email_address: { type: String, required: true },
+  email_address: {
+     type: String,
+      required: true,
+      unique: true,
+     },
   billingDate: {
     type: Date,
     default: Date.now,
