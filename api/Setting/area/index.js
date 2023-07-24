@@ -22,12 +22,10 @@ const areasSchema = Schema({
     default: null,
     trim: true,
   },
-  tables: [
-    {
+  tables:[{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Table",
-    },
-  ],
+    }],
   del_status: {
     type: String,
     enum: {

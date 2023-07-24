@@ -55,6 +55,10 @@ exports.showKitchen = async (req, res, next) => {
       match:{del_status:"Live"}
     })
     .populate({
+      path: "foodCategory",
+      match: { del_status: "Live" }
+    })
+    .populate({
       path: "outlet",
       match:{del_status:"Live"}
     })
@@ -78,6 +82,10 @@ exports.showAllKitchens = async (req, res, next) => {
     const kitchens = await KitchenModel.find({ del_status: "Live" })
     .populate({
       path: "kitchen_area",
+      match:{del_status:"Live"}
+    })
+    .populate({
+      path: "foodCategory",
       match:{del_status:"Live"}
     })
     .populate({

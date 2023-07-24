@@ -17,7 +17,14 @@ const billingSchema = Schema({
   userID: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: [true, "please enter userID"],
+    default: null
+    // required: [true, "please enter userID"],
+  },
+  orderId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Order",
+    default: null
+    // required: [true, "please enter OrderID"],
   },
   email_address: {
      type: String,

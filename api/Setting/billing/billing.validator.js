@@ -7,17 +7,15 @@ const billingSchema = Joi.object({
     "any.required": "Please enter billing_name",
   }),
 
-  userID: Joi.string().required().messages({
-    "any.required": "Please enter userID",
-  }),
+  userID: Joi.string().allow(null),
 
-  email_address: Joi.string().required(),
+  orderId: Joi.string().allow(null),
+  
+  email_address: Joi.string(),
 
   billingDate: Joi.date().default(Date.now),
 
-  totalAmount: Joi.number().required().messages({
-    "any.required": "Please enter totalAmount",
-  }),
+  totalAmount: Joi.number().allow(null),
 
   paymentMethod: Joi.string().max(50).min(3).required().messages({
     "string.max": "Maximum 50 characters are permitted",
@@ -41,11 +39,11 @@ const updateSchema = Joi.object({
     "any.required": "Please enter billing_name",
   }),
 
-  userID: Joi.string().required().messages({
-    "any.required": "Please enter userID",
-  }),
+  userID: Joi.string().allow(null),
 
-  email_address: Joi.string().required(),
+  orderId: Joi.string().allow(null),
+
+  email_address: Joi.string().allow(null),
 
   billingDate: Joi.date().default(Date.now),
 
