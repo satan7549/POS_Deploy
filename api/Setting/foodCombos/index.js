@@ -6,7 +6,7 @@ const foodComboSchema = new Schema({
   name: {
     type: String,
     maxlength: [50, "Maximum 50 characters are permitted"],
-    minlength: [5, "Name should have at least 5 characters"],
+    minlength: [3, "Name should have at least 3 characters"],
     required: [true, "Please enter a name"],
     trim: true,
     unique: true,
@@ -14,7 +14,7 @@ const foodComboSchema = new Schema({
   code: {
     type: String,
     maxlength: [50, "Maximum 50 characters are permitted"],
-    minlength: [3, "Code should have at least 3 characters"],
+    minlength: [1, "Code should have at least 1 characters"],
     required: [true, "Please enter a code"],
     trim: true,
     unique: true,
