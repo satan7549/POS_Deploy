@@ -3,7 +3,7 @@ const Joi = require("joi");
 const foodComboJoiSchema = Joi.object({
 
 
- name: Joi.string().min(5).max(50).required().trim()
+ name: Joi.string().min(3).max(50).required().trim()
 .messages({
 'string.base': 'Name must be a string',
 'string.empty': 'Name is required',
@@ -12,7 +12,7 @@ const foodComboJoiSchema = Joi.object({
 'any.required': 'Please enter a name',
 }),
 
-code: Joi.string().min(3).max(50).required().trim()
+code: Joi.string().min(1).max(50).required().trim()
 .messages({
 'string.base': 'Code must be a string',
 'string.empty': 'Code is required',
@@ -100,7 +100,7 @@ del_status: Joi.string().valid('Live', 'Deleted').default('Live'),
 
 const updateJoiSchema = Joi.object({
 
-   name: Joi.string().min(5).max(50).required().trim()
+   name: Joi.string().min(3).max(50).required().trim()
 .messages({
 'string.base': 'Name must be a string',
 'string.empty': 'Name is required',
@@ -109,7 +109,7 @@ const updateJoiSchema = Joi.object({
 'any.required': 'Please enter a name',
 }),
 
-code: Joi.string().min(3).max(50).required().trim()
+code: Joi.string().min(1).max(50).required().trim()
 .messages({
 'string.base': 'Code must be a string',
 'string.empty': 'Code is required',
