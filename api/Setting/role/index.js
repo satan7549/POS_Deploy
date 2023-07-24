@@ -6,7 +6,7 @@ const roleSchema = new Schema({
   role_name: {
     type: String,
     maxlength: [50, "Maximum 50 charcters are permitted"],
-    minLength: [5, "role_name should have more than 5 character"],
+    minLength: [3, "role_name should have more than 3 character"],
     required: [true, "please enter role_name"],
     trim: true,
   },
@@ -19,7 +19,7 @@ const roleSchema = new Schema({
   whoCreate: {
     type: String,
     maxlength: [50, "Maximum 50 charcters are permitted"],
-    minLength: [5, "whoCreate should have more than 5 character"],
+    minLength: [3, "whoCreate should have more than 3 character"],
   },
   company_id: {
     type: String,
