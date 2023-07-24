@@ -134,6 +134,7 @@ exports.showUser = async (req, res, next) => {
 exports.showUsers = async (req, res) => {
   try {
     const user = await userModel.find();
+    console.log(user);
     if (!user || user.length === 0) {
       console.log("User not found");
       return res.status(404).json({

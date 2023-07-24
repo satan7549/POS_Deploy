@@ -35,18 +35,16 @@ exports.insertArea = async (req, res, next) => {
 exports.showAreas = async (req, res, next) => {
   try {
     const areas = await AreaModel.find({ del_status: "Live" })
-      // .populate({
-      //   path: "tables",
-      //   match: { del_status: "Live" },
-      //   populate: {
-      //     path: "order",
-      //     select: "order_status",
-      //     match: { del_status: "Live" },
-      //   },
-      // })
-      
-      .populate({ path: "tables", match: { del_status: "Live" }, })
-      .populate({ path: "outlet_id", match: { del_status: "Live" }, })
+      .populate({
+        path: "tables",
+        match: { del_status: "Live" },
+        populate: {
+          path: "order",
+          select: "order_status",
+          match: { del_status: "Live" },
+        },
+      })
+      .populate({ path: "outlet_id", match: { del_status: "Live" } })
       .exec();
 
     if (areas.length === 0) {
@@ -66,9 +64,17 @@ exports.findAreaByID = async (req, res, next) => {
   try {
     const id = req.params.id;
     const area = await AreaModel.findOne({ _id: id })
-    .populate({ path: "tables", match: { del_status: "Live" }, })
-    .populate({ path: "outlet_id", match: { del_status: "Live" }, })
-    .exec();
+      .populate({
+        path: "tables",
+        match: { del_status: "Live" },
+        populate: {
+          path: "order",
+          select: "order_status",
+          match: { del_status: "Live" },
+        },
+      })
+      .populate({ path: "outlet_id", match: { del_status: "Live" } })
+      .exec();
 
     if (!area) {
       return res.status(404).json({ message: "Area not found" });

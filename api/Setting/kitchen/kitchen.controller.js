@@ -56,7 +56,7 @@ exports.showKitchen = async (req, res, next) => {
     })
     .populate({
       path: "foodCategory",
-      match:{del_status:"Live"}
+      match: { del_status: "Live" }
     })
     .populate({
       path: "outlet",

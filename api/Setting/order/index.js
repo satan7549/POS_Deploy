@@ -33,6 +33,8 @@ const orderSchema = Schema({
 
   table: { type: mongoose.Schema.Types.ObjectId, ref: "Table" },
 
+  billing: { type: mongoose.Schema.Types.ObjectId, ref: "Billing" },
+
   kot_print: [
     { type: mongoose.Schema.Types.ObjectId, ref: "kot", default: null },
   ],

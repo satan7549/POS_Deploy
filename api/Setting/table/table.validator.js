@@ -4,9 +4,9 @@ let Joi = require("joi");
 let tableSchema = Joi.object({
 
   area_id: Joi.string().required(),
-    name: Joi.string().min(5).max(50).required(),
+    name: Joi.string().min(3).max(50).required(),
     sit_capacity: Joi.number().min(1).max(10).required(),
-    position: Joi.string().min(5).max(50).required(),
+    position: Joi.string().min(3).max(50).required(),
     description: Joi.string().max(100).default(null),
     //user_id: Joi.string().required(),
     outlet_id: Joi.string().required(),
@@ -17,9 +17,9 @@ let tableSchema = Joi.object({
 let updateSchema = Joi.object({
 
   area_id: Joi.string().required(),
-    name: Joi.string().min(5).max(50).required(),
+    name: Joi.string().min(3).max(50).required(),
     sit_capacity: Joi.number().min(1).max(10).required(),
-    position: Joi.string().min(5).max(50).required(),
+    position: Joi.string().min(3).max(50).required(),
     description: Joi.string().max(100).default(null),
     //user_id: Joi.string().required(),
     outlet_id: Joi.string().required(),

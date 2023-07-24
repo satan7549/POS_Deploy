@@ -1,9 +1,9 @@
 const Joi = require("joi");
 
 const taxSchema = Joi.object({
-  tax_name: Joi.string().max(50).min(5).required().messages({
+  tax_name: Joi.string().max(50).min(3).required().messages({
     "string.max": "Maximum 50 characters are permitted",
-    "string.min": "tax_name should have more than 5 characters",
+    "string.min": "tax_name should have more than 3 characters",
     "any.required": "Please enter tax_name",
   }),
 
@@ -25,9 +25,9 @@ const taxSchema = Joi.object({
 });
 
 const updateSchema = Joi.object({
-  tax_name: Joi.string().max(50).min(5).required().messages({
+  tax_name: Joi.string().max(50).min(3).required().messages({
     "string.max": "Maximum 50 characters are permitted",
-    "string.min": "tax_name should have more than 5 characters",
+    "string.min": "tax_name should have more than 3 characters",
     "any.required": "Please enter tax_name",
   }),
 
