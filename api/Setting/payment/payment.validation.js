@@ -2,7 +2,7 @@
 const Joi = require("joi");
 
 const paymentSchema = Joi.object({
-  name: Joi.string().max(50).min(5).required().messages({
+  name: Joi.string().max(50).min(3).required().messages({
     "string.max": "Maximum 50 characters are permitted",
     "string.min": "name should have more than 5 characters",
     "any.required": "Please enter name",
@@ -35,7 +35,7 @@ const paymentSchema = Joi.object({
 });
 
 const updatePaymentSchema = Joi.object({
-  name: Joi.string().max(50).min(5).required().messages({
+  name: Joi.string().max(50).min(3).required().messages({
     "string.max": "Maximum 50 characters are permitted",
     "string.min": "name should have more than 5 characters",
     "any.required": "Please enter name",

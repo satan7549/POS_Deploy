@@ -1,10 +1,10 @@
 const Joi = require("joi");
 
 const ingredientSchema = Joi.object({
-  name: Joi.string().min(5).max(50).required().trim().messages({
+  name: Joi.string().min(3).max(50).required().trim().messages({
     "string.base": "Name must be a string",
     "string.empty": "Name is required",
-    "string.min": "Name should have at least {5} characters",
+    "string.min": "Name should have at least {3} characters",
     "string.max": "Name can have at most {50} characters",
     "any.required": "Name is required",
   }),
@@ -53,7 +53,7 @@ const ingredientSchema = Joi.object({
 
 
 const updateSchema = Joi.object({
-  name: Joi.string().min(5).max(50).required().trim().messages({
+  name: Joi.string().min(3).max(50).required().trim().messages({
     "string.base": "Name must be a string",
     "string.empty": "Name is required",
     "string.min": "Name should have at least {#limit} characters",

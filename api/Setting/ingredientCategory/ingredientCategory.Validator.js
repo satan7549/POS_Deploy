@@ -1,7 +1,7 @@
 const Joi = require("joi");
 
 const ingredientCategorySchema = Joi.object({
-  ingredientCategory_name: Joi.string().min(5).max(50).required().trim()
+  ingredientCategory_name: Joi.string().min(3).max(50).required().trim()
     .messages({
       "string.base": "ingredientCategory_name must be a string",
       "string.empty": "ingredientCategory_name cannot be empty",
@@ -36,7 +36,7 @@ const ingredientCategorySchema = Joi.object({
 });
 
 const updateSchema = Joi.object({
-  ingredientCategory_name: Joi.string().min(5).max(50).required().trim()
+  ingredientCategory_name: Joi.string().min(3).max(50).required().trim()
     .messages({
       "string.base": "ingredientCategory_name must be a string",
       "string.empty": "ingredientCategory_name cannot be empty",

@@ -6,7 +6,7 @@ const foodMenuSchema = Schema({
   name: {
     type: String,
     maxlength: [50, "Maximum 50 charcters are permitted"],
-    minLength: [5, "name should have more than 5 character"],
+    minLength: [3, "name should have more than 3 character"],
     required: [true, "please enter name"],
     trim: true,
     default: null,
@@ -14,7 +14,7 @@ const foodMenuSchema = Schema({
   code: {
     type: String,
     maxlength: [50, "Maximum 50 charcters are permitted"],
-    minLength: [3, "code should have more than 3 character"],
+    minLength: [1, "code should have more than 1 character"],
     required: [true, "please enter code"],
     trim: true,
     default: null,

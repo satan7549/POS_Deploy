@@ -3,10 +3,10 @@ const Joi = require("joi");
 
 const ingredientUnitSchema = Joi.object({
 
-  ingredientUnit_name: Joi.string().max(50).min(5).required()
+  ingredientUnit_name: Joi.string().max(50).min(3).required()
     .messages({
       'string.max': 'Maximum 50 characters are permitted',
-      'string.min': 'ingredientUnit_name should have more than 5 characters',
+      'string.min': 'ingredientUnit_name should have more than 3 characters',
       'any.required': 'Please enter ingredientUnit_name',
     }),
   description: Joi.string().max(200).required()
@@ -24,10 +24,10 @@ const ingredientUnitSchema = Joi.object({
 
 
 const updateSchema = Joi.object({
-  ingredientUnit_name: Joi.string().max(50).min(5).required()
+  ingredientUnit_name: Joi.string().max(50).min(3).required()
     .messages({
       'string.max': 'Maximum 50 characters are permitted',
-      'string.min': 'ingredientUnit_name should have more than 5 characters',
+      'string.min': 'ingredientUnit_name should have more than 3 characters',
       'any.required': 'Please enter ingredientUnit_name',
     }),
   description: Joi.string().max(200).required()

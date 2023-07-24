@@ -26,7 +26,11 @@ const billingSchema = Schema({
     default: null
     // required: [true, "please enter OrderID"],
   },
-  email_address: { type: String },
+  email_address: {
+     type: String,
+      required: true,
+      unique: true,
+     },
   billingDate: {
     type: Date,
     default: Date.now,

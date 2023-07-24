@@ -35,7 +35,7 @@ const billingSchema = Joi.object({
 const updateSchema = Joi.object({
   billing_name: Joi.string().max(50).min(3).required().messages({
     "string.max": "Maximum 50 characters are permitted",
-    "string.min": "billing_name should have more than 5 characters",
+    "string.min": "billing_name should have more than 3 characters",
     "any.required": "Please enter billing_name",
   }),
 

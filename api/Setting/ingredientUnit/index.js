@@ -4,7 +4,7 @@ const ingredientUnitSchema = new mongoose.Schema({
   ingredientUnit_name: {
     type: String,
     maxlength: [50, "Maximum 50 charcters are permitted"],
-    minLength: [5, "ingredientUnit_name should have more than 5 character"],
+    minLength: [3, "ingredientUnit_name should have more than 3 character"],
     required: [true, "please enter ingredientUnit_name"],
     trim: true,
     default: null,

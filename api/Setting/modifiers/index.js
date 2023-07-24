@@ -6,7 +6,7 @@ const modifierSchema = Schema({
   name: {
     type: String,
     maxlength: [50, "Maximum 50 charcters are permitted"],
-    minLength: [5, "name should have more than 5 character"],
+    minLength: [3, "name should have more than 3 character"],
     required: [true, "please enter modifier_name"],
     trim: true,
     default: null,
