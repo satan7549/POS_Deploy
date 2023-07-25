@@ -23,8 +23,7 @@ const billingSchema = Schema({
   orderId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Order",
-    default: null
-    // required: [true, "please enter OrderID"],
+    required: [true, "please enter OrderID"],
   },
   email_address: {
      type: String,
@@ -52,7 +51,7 @@ const billingSchema = Schema({
       values: ["Pending", "Done", "Failed"],
       message: "Values is not matched",
     },
-    default: "Done",
+    default: "Pending",
   },
   del_status: {
     type: String,
