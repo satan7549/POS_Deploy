@@ -9,8 +9,8 @@ const billingSchema = Joi.object({
 
   userID: Joi.string().allow(null),
 
-  orderId: Joi.string().allow(null),
-  
+  orderId: Joi.string().required(),
+
   email_address: Joi.string(),
 
   billingDate: Joi.date().default(Date.now),
@@ -25,12 +25,10 @@ const billingSchema = Joi.object({
 
   transactionStatus: Joi.string()
     .valid("Pending", "Done", "Failed")
-    .default("Done"),
+    .default("Pending"),
 
-  del_status: Joi.string().valid("Live", "Deleted").default("Live")
+  del_status: Joi.string().valid("Live", "Deleted").default("Live"),
 });
-
-
 
 const updateSchema = Joi.object({
   billing_name: Joi.string().max(50).min(3).required().messages({
@@ -61,8 +59,7 @@ const updateSchema = Joi.object({
     .valid("Pending", "Done", "Failed")
     .default("Done"),
 
-  del_status: Joi.string().valid("Live", "Deleted").default("Live")
-
+  del_status: Joi.string().valid("Live", "Deleted").default("Live"),
 });
 
 function validateBilling(billingData) {
