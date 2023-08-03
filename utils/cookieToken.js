@@ -6,7 +6,7 @@ const cookieToken = async (user, res) => {
     sameSite: "Lax",
     secure: false,
   };
-  user.password = undefined;
+  // user.password = undefined;
   res.setHeader("Authorization", `Bearer ${token}`);
   res.status(200).cookie("token", token, options).json({
     message: "success",
