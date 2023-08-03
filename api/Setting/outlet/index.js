@@ -18,7 +18,7 @@ const outletSchema = Schema({
   outlet_code: {
     type: String,
     maxlength: [50, "Maximum 50 characters are permitted"],
-    minLength: [5, "outlet_code should have more than 5 characters"],
+    minLength: [1, "outlet_code should have more than 1 characters"],
     required: [true, "Please enter outlet_code"],
     trim: true,
     default: null,
@@ -27,7 +27,7 @@ const outletSchema = Schema({
   address: {
     type: String,
     maxlength: [200, "Maximum 200 characters are permitted"],
-    minLength: [10, "address should have more than 10 characters"],
+    minLength: [5, "address should have more than 5 characters"],
     required: [true, "Please enter address"],
     trim: true,
     default: null,

@@ -1,21 +1,20 @@
 const Joi = require("joi");
 
 const roleSchema = Joi.object({
-    role_name: Joi.string().max(50).min(5).required()
+    role_name: Joi.string().max(50).min(3).required()
       .messages({
         'string.max': 'Maximum 50 characters are permitted',
-        'string.min': 'role_name should have more than 5 characters',
+        'string.min': 'role_name should have more than 3 characters',
         'any.required': 'Please enter role_name',
       }),
   
     description: Joi.string().max(200).required()
       .messages({
         'string.max': 'Maximum 200 characters are permitted',
-        'string.min': 'RoleDescription should have more than 10 characters',
         'any.required': 'Please enter RoleDescription',
       }),
   
-    whoCreate: Joi.string().max(50).min(5)
+    whoCreate: Joi.string().max(50).min(3)
       .messages({
         'string.max': 'Maximum 50 characters are permitted',
         'string.min': 'whoCreate should have more than 5 characters',
@@ -35,7 +34,7 @@ const roleSchema = Joi.object({
 
 const updateSchema = Joi.object({
   
-    role_name: Joi.string().max(50).min(5).required()
+    role_name: Joi.string().max(50).min(3).required()
     .messages({
       'string.max': 'Maximum 50 characters are permitted',
       'string.min': 'role_name should have more than 5 characters',
@@ -49,7 +48,7 @@ const updateSchema = Joi.object({
       'any.required': 'Please enter RoleDescription',
     }),
 
-  whoCreate: Joi.string().max(50).min(5)
+  whoCreate: Joi.string().max(50).min(3)
     .messages({
       'string.max': 'Maximum 50 characters are permitted',
       'string.min': 'whoCreate should have more than 5 characters',

@@ -1,8 +1,8 @@
 const Joi = require("joi");
 
 const deliveryPartnerSchema = Joi.object({
-  DeliveryPartner_name: Joi.string().min(5).max(50).required().trim().messages({
-    "string.min": "DeliveryPartner_name should have more than 5 characters",
+  DeliveryPartner_name: Joi.string().min(3).max(50).required().trim().messages({
+    "string.min": "DeliveryPartner_name should have more than 3 characters",
     "string.max": "Maximum 50 characters are permitted",
     "any.required": "Please enter DeliveryPartner_name",
   }),
@@ -26,8 +26,8 @@ const deliveryPartnerSchema = Joi.object({
 });
 
 const updateSchema = Joi.object({
-  DeliveryPartner_name: Joi.string().min(5).max(50).required().trim().messages({
-    "string.min": "DeliveryPartner_name should have more than 5 characters",
+  DeliveryPartner_name: Joi.string().min(3).max(50).required().trim().messages({
+    "string.min": "DeliveryPartner_name should have more than 3 characters",
     "string.max": "Maximum 50 characters are permitted",
     "any.required": "Please enter DeliveryPartner_name",
   }),

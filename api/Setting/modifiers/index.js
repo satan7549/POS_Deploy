@@ -6,20 +6,12 @@ const modifierSchema = Schema({
   name: {
     type: String,
     maxlength: [50, "Maximum 50 charcters are permitted"],
-    minLength: [5, "name should have more than 5 character"],
+    minLength: [3, "name should have more than 3 character"],
     required: [true, "please enter modifier_name"],
     trim: true,
     default: null,
   },
-  code: {
-    type: String,
-    maxlength: [50, "Maximum 50 charcters are permitted"],
-    minLength: [3, "code should have more than 5 character"],
-    required: [true, "please enter code"],
-    trim: true,
-    default: null,
-    unique: true,
-  },
+ 
   ingredients: [
     {
       ingredient: {
@@ -53,11 +45,7 @@ const modifierSchema = Schema({
     required: [true, "please enter Company_id"],
   },
   
-  foodCategory: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "FoodCategory",
-    required: [true, "please enter FoodCategory"],
-  },
+  
   // tax_information: {
   //   type: String,
   //   maxlength: [100, "Maximum 100 charcters are permitted"],

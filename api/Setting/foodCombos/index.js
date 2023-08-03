@@ -6,7 +6,7 @@ const foodComboSchema = new Schema({
   name: {
     type: String,
     maxlength: [50, "Maximum 50 characters are permitted"],
-    minlength: [5, "Name should have at least 5 characters"],
+    minlength: [3, "Name should have at least 3 characters"],
     required: [true, "Please enter a name"],
     trim: true,
     unique: true,
@@ -14,7 +14,7 @@ const foodComboSchema = new Schema({
   code: {
     type: String,
     maxlength: [50, "Maximum 50 characters are permitted"],
-    minlength: [5, "Code should have at least 5 characters"],
+    minlength: [1, "Code should have at least 1 characters"],
     required: [true, "Please enter a code"],
     trim: true,
     unique: true,
@@ -48,10 +48,21 @@ const foodComboSchema = new Schema({
     type: Number,
     required: [true, "Please enter a Takeaway_price"],
   },
-  Delivery_price: {
-    type: Number,
-    required: [true, "Please enter a Delivery_price"],
-  },
+  Delivery_price: [
+    {
+      deliveryPartnerName: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "DeliveryPartner",
+        default: null,
+      },
+
+      price: {
+        type: Number,
+        min: 0,
+        default: 0,
+      },
+    },
+  ],
   description: {
     type: String,
     maxlength: [200, "Maximum 200 characters are permitted"],

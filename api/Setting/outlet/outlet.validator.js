@@ -12,14 +12,14 @@ const outletSchemaValidator = Joi.object({
     "string.max": `Outlet name should have at most {#limit} characters`,
     "any.required": `Outlet name is required`,
   }),
-  outlet_code: Joi.string().min(5).max(50).required().messages({
+  outlet_code: Joi.string().min(1).max(50).required().messages({
     "string.base": `Outlet code should be a string`,
     "string.empty": `Outlet code is required`,
     "string.min": `Outlet code should have at least {#limit} characters`,
     "string.max": `Outlet code should have at most {#limit} characters`,
     "any.required": `Outlet code is required`,
   }),
-  address: Joi.string().min(10).max(200).required().messages({
+  address: Joi.string().min(5).max(200).required().messages({
     "string.base": `Address should be a string`,
     "string.empty": `Address is required`,
     "string.min": `Address should have at least {#limit} characters`,
@@ -38,7 +38,7 @@ const outletSchemaValidator = Joi.object({
       "number.max": `Phone number should have at most {#limit} digits`,
       "any.required": `Phone number is required`,
     }),
-  email: Joi.string().email().min(5).max(30).required().messages({
+  email: Joi.string().email().min(3).max(30).required().messages({
     "string.base": `Email should be a string`,
     "string.empty": `Email is required`,
     "string.email": `Please enter a valid email`,

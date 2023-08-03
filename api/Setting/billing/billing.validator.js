@@ -1,23 +1,21 @@
 const Joi = require("joi");
 
 const billingSchema = Joi.object({
-  billing_name: Joi.string().max(50).min(5).required().messages({
+  billing_name: Joi.string().max(50).min(3).required().messages({
     "string.max": "Maximum 50 characters are permitted",
-    "string.min": "billing_name should have more than 5 characters",
+    "string.min": "billing_name should have more than 3 characters",
     "any.required": "Please enter billing_name",
   }),
 
-  userID: Joi.string().required().messages({
-    "any.required": "Please enter userID",
-  }),
+  userID: Joi.string().allow(null),
 
-  email_address: Joi.string().required(),
+  orderId: Joi.string().required(),
+
+  email_address: Joi.string(),
 
   billingDate: Joi.date().default(Date.now),
 
-  totalAmount: Joi.number().required().messages({
-    "any.required": "Please enter totalAmount",
-  }),
+  totalAmount: Joi.number().allow(null),
 
   paymentMethod: Joi.string().max(50).min(3).required().messages({
     "string.max": "Maximum 50 characters are permitted",
@@ -27,25 +25,23 @@ const billingSchema = Joi.object({
 
   transactionStatus: Joi.string()
     .valid("Pending", "Done", "Failed")
-    .default("Done"),
+    .default("Pending"),
 
-  del_status: Joi.string().valid("Live", "Deleted").default("Live")
+  del_status: Joi.string().valid("Live", "Deleted").default("Live"),
 });
 
-
-
 const updateSchema = Joi.object({
-  billing_name: Joi.string().max(50).min(5).required().messages({
+  billing_name: Joi.string().max(50).min(3).required().messages({
     "string.max": "Maximum 50 characters are permitted",
-    "string.min": "billing_name should have more than 5 characters",
+    "string.min": "billing_name should have more than 3 characters",
     "any.required": "Please enter billing_name",
   }),
 
-  userID: Joi.string().required().messages({
-    "any.required": "Please enter userID",
-  }),
+  userID: Joi.string().allow(null),
 
-  email_address: Joi.string().required(),
+  orderId: Joi.string().allow(null),
+
+  email_address: Joi.string().allow(null),
 
   billingDate: Joi.date().default(Date.now),
 
@@ -63,8 +59,7 @@ const updateSchema = Joi.object({
     .valid("Pending", "Done", "Failed")
     .default("Done"),
 
-  del_status: Joi.string().valid("Live", "Deleted").default("Live")
-
+  del_status: Joi.string().valid("Live", "Deleted").default("Live"),
 });
 
 function validateBilling(billingData) {
