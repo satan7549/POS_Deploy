@@ -9,42 +9,7 @@ const jwt = require("jsonwebtoken");
 //insert new User
 exports.userInsert = async (req, res, next) => {
   try {
-    // Validation
-    // const {
-    //   error,
-    //   value
-    // } = validateUser(req.body);
-
-    // Check Error in Validation
-    // if (error) {
-    //   return res.status(400).send(error.details[0].message);
-    // }
-
-    // const companyExists = await companyModel.findOne({
-    //   _id: value.company_id
-    // });
-
-    // if (!companyExists) {
-    //   // Send Error Response
-    //   return res.status(404).json({
-    //     message: "Company not found!"
-    //   });
-    // }
-
-    // const userExists = await UserModel.findOne({
-    //   email: value.email,
-    // });
-
-    // if (userExists) {
-    //   // Send Error Response
-    //   return res.status(409).json({
-    //     message: "User already Exists!"
-    //   });
-    // }
-
-    // Insert user
-    // Find the associated outlet by ID
-
+  
     const outlet = await OutletModel.find({
       outlet_code: req.body.outlet_code, //values
     });
