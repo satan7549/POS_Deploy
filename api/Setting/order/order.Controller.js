@@ -156,7 +156,16 @@ exports.orderInsert = async (req, res, next) => {
 exports.showOrderDetail = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const order = await OrderModel.findOne({ _id: id, del_status: "Live" });
+    const order = await OrderModel.findOne({ _id: id, del_status: "Live" }).populate({
+      path: "kot_print",
+      match: { del_status: "Live" },
+      model: "Kot",
+      populate: {
+        path: "items.food_item",
+        match: { del_status: "Live" },
+        model: "FoodMenu",
+      }, // Replace "kot" with the name of the model that the `kot_print` field references
+    });
 
     // If the order with the specified ID and del_status "Live" is not found, send a 404 response
     if (!order) {
